@@ -1,0 +1,81 @@
+string	string	number	number	number	string	string	string	string	number	number	number	any
+名称	使用方式	使用距离	使用范围	品级	类型	icon	model	基础属性	间隔	可被丢弃	价格	代码（双击）
+name	使用方式	使用距离	使用范围	品级	类型	icon	model	基础属性	间隔	可被丢弃	价格	code
+"""Item1"""	"""无目标"""	100	100	0	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item2"""	"""无目标"""	100	100	0	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item3"""	"""无目标"""	100	100	0	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item4"""	"""无目标"""	100	100	0	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item5"""	"""无目标"""	100	100	0	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item6"""	"""无目标"""	100	100	1	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item7"""	"""无目标"""	100	100	1	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item8"""	"""无目标"""	100	100	1	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item9"""	"""无目标"""	100	100	1	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item10"""	"""无目标"""	100	100	1	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item11"""	"""无目标"""	100	100	2	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item12"""	"""无目标"""	100	100	2	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item13"""	"""无目标"""	100	100	2	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item14"""	"""无目标"""	100	100	2	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item15"""	"""无目标"""	100	100	2	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item16"""	"""无目标"""	100	100	3	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item17"""	"""无目标"""	100	100	3	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item18"""	"""无目标"""	100	100	3	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item19"""	"""无目标"""	100	100	3	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item20"""	"""无目标"""	100	100	3	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item21"""	"""无目标"""	100	100	4	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item22"""	"""无目标"""	100	100	4	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item23"""	"""无目标"""	100	100	4	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item24"""	"""无目标"""	100	100	4	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item25"""	"""无目标"""	100	100	4	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item26"""	"""无目标"""	100	100	5	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item27"""	"""无目标"""	100	100	5	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item28"""	"""无目标"""	100	100	5	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item29"""	"""无目标"""	100	100	5	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item30"""	"""无目标"""	100	100	5	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item31"""	"""无目标"""	100	100	5	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+"""Item32"""	"""无目标"""	100	100	5	"""消耗品"""	"""ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp"""	"""Units\\Human\\Phoenix\\PhoenixEgg.mdl"""	""""""	0	0	0	
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												

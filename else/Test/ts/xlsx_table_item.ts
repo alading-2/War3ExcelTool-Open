@@ -1,0 +1,479 @@
+// This file is auto-generated from Excel data
+
+export const xlsx_inte_keys_table_item = [
+"name","使用方式","使用距离","使用范围","品级","类型","icon","model","基础属性","间隔","可被丢弃","价格"
+];
+
+export interface xlsx_inte_table_item {
+    [key: string]: {
+    "name"?: string;
+        "使用方式"?: string;
+        "使用距离"?: number;
+        "使用范围"?: number;
+        "品级"?: number;
+        "类型"?: string;
+        "icon"?: string;
+        "model"?: string;
+        "基础属性"?: string;
+        "间隔"?: number;
+        "可被丢弃"?: number;
+        "价格"?: number;
+    }
+}
+
+export const xlsx_data_table_item: xlsx_inte_table_item = {
+    "Item1":{
+        "name": "Item1",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 0,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item2":{
+        "name": "Item2",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 0,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item3":{
+        "name": "Item3",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 0,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item4":{
+        "name": "Item4",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 0,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item5":{
+        "name": "Item5",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 0,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item6":{
+        "name": "Item6",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 1,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item7":{
+        "name": "Item7",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 1,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item8":{
+        "name": "Item8",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 1,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item9":{
+        "name": "Item9",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 1,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item10":{
+        "name": "Item10",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 1,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item11":{
+        "name": "Item11",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 2,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item12":{
+        "name": "Item12",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 2,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item13":{
+        "name": "Item13",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 2,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item14":{
+        "name": "Item14",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 2,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item15":{
+        "name": "Item15",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 2,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item16":{
+        "name": "Item16",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 3,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item17":{
+        "name": "Item17",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 3,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item18":{
+        "name": "Item18",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 3,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item19":{
+        "name": "Item19",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 3,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item20":{
+        "name": "Item20",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 3,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item21":{
+        "name": "Item21",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 4,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item22":{
+        "name": "Item22",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 4,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item23":{
+        "name": "Item23",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 4,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item24":{
+        "name": "Item24",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 4,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item25":{
+        "name": "Item25",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 4,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item26":{
+        "name": "Item26",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 5,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item27":{
+        "name": "Item27",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 5,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item28":{
+        "name": "Item28",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 5,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item29":{
+        "name": "Item29",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 5,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item30":{
+        "name": "Item30",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 5,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item31":{
+        "name": "Item31",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 5,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    },
+    "Item32":{
+        "name": "Item32",
+        "使用方式": "无目标",
+        "使用距离": 100,
+        "使用范围": 100,
+        "品级": 5,
+        "类型": "消耗品",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNHelmutPurple.blp",
+        "model": "Units\\Human\\Phoenix\\PhoenixEgg.mdl",
+        "基础属性": "",
+        "间隔": 0,
+        "可被丢弃": 0,
+        "价格": 0
+    }
+};
+
+export class xlsx_table_item {
+    static Start() {
+        const data=xlsx_data_table_item;
+    }
+}
