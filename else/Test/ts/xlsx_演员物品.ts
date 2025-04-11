@@ -27,7 +27,6 @@ export const xlsx_data_演员物品: xlsx_inte_演员物品 = {
     "杀主刀":{
         "id": "杀主刀",
         "class": "基础",
-        "passive": true,
         "name": "|cffff0000${id}",
         "describe": "增加10点力量",
         "icon": "ReplaceableTextures\CommandButtons\BTNFrost.blp"
@@ -35,7 +34,6 @@ export const xlsx_data_演员物品: xlsx_inte_演员物品 = {
     "属性丹":{
         "id": "属性丹",
         "class": "基础",
-        "passive": false,
         "name": "|cffff0001${id}",
         "describe": "点击使用后获得10点全属性",
         "icon": "ReplaceableTextures\CommandButtons\BTNFrost.blp"
