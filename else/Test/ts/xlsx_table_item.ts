@@ -1,23 +1,21 @@
-// This file is auto-generated from Excel data
-
 export const xlsx_inte_keys_table_item = [
 "name","使用方式","使用距离","使用范围","品级","类型","icon","model","基础属性","间隔","可被丢弃","价格"
 ];
 
 export interface xlsx_inte_table_item {
     [key: string]: {
-    "name"?: string;
-        "使用方式"?: string;
-        "使用距离"?: number;
-        "使用范围"?: number;
-        "品级"?: number;
-        "类型"?: string;
-        "icon"?: string;
-        "model"?: string;
-        "基础属性"?: string;
-        "间隔"?: number;
-        "可被丢弃"?: number;
-        "价格"?: number;
+        "name"?: string;    // 名称
+        "使用方式"?: string;    // 使用方式
+        "使用距离"?: number;    // 使用距离
+        "使用范围"?: number;    // 使用范围
+        "品级"?: number;    // 品级
+        "类型"?: string;    // 类型
+        "icon"?: string;    // icon
+        "model"?: string;    // model
+        "基础属性"?: string;    // 基础属性
+        "间隔"?: number;    // 间隔
+        "可被丢弃"?: number;    // 可被丢弃
+        "价格"?: number;    // 价格
     }
 }
 
@@ -469,7 +467,7 @@ export const xlsx_data_table_item: xlsx_inte_table_item = {
         "间隔": 0,
         "可被丢弃": 0,
         "价格": 0
-    }
+    },
 };
 
 export class xlsx_table_item {

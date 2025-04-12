@@ -1,5 +1,3 @@
-// This file is auto-generated from Excel data
-
 import ActorTypeUtil from "@/ActorTypeUtil";
 
 export const xlsx_inte_keys_演员技能 = [
@@ -8,24 +6,25 @@ export const xlsx_inte_keys_演员技能 = [
 
 export interface xlsx_inte_演员技能 {
     [key: string]: {
-    "id"?: string;
-        "class"?: string;
-        "index"?: number;
-        "name"?: string;
-        "describe"?: string;
-        "stateFormula"?: any;
-        "attribute"?: any;
-        "targetType"?: string;
-        "passive"?: boolean;
-        "icon"?: string;
-        "model"?: string;
-        "range"?: number;
-        "area"?: number;
-        "manaCost"?: number;
-        "hotKey"?: string;
-        "maxCd"?: number;
-        "x"?: number;
-        "y"?: number;
+        "id"?: string;    // 自定义id
+
+        "class"?: string;    // 类别
+        "index"?: number;    // 序号
+        "name"?: string;    // 名字
+        "describe"?: string;    // 提示说明
+        "stateFormula"?: any;    // 数值公式
+        "attribute"?: any;    // 属性附加
+        "targetType"?: string;    // 目标类型(无目标/点/单位/单位或点)
+        "passive"?: boolean;    // 是否被动技能
+        "icon"?: string;    // 图标
+        "model"?: string;    // 模型
+        "range"?: number;    // 施放范围
+        "area"?: number;    // 影响区域
+        "manaCost"?: number;    // 魔法消耗
+        "hotKey"?: string;    // 快捷键
+        "maxCd"?: number;    // 冷却
+        "x"?: number;    // 按钮x
+        "y"?: number;    // 按钮y
     }
 }
 
@@ -39,8 +38,8 @@ export const xlsx_data_演员技能: xlsx_inte_演员技能 = {
         "stateFormula": {'str': 1},
         "targetType": "点",
         "passive": false,
-        "icon": "ReplaceableTextures\CommandButtons\BTNStormBolt.blp",
-        "model": "Abilities\Spells\Human\StormBolt\StormBoltMissile.mdl",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNStormBolt.blp",
+        "model": "Abilities\\Spells\\Human\\StormBolt\\StormBoltMissile.mdl",
         "range": 1000,
         "area": 500,
         "manaCost": 0,
@@ -48,16 +47,16 @@ export const xlsx_data_演员技能: xlsx_inte_演员技能 = {
         "maxCd": 0,
         "x": 0,
         "y": 2
-    }
+    },
 };
 
 export class xlsx_演员技能 {
     static Start() {
         const data=xlsx_data_演员技能;
-        for (let datum of data) {
-        if (datum.id) {
-        ActorTypeUtil.registerActorType(datum as any);
-        }
-        }
+            for (let datum of data) {
+                if (datum.id) {
+                    ActorTypeUtil.registerActorType(datum as any);
+                }
+            }
     }
 }

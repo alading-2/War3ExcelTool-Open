@@ -8,8 +8,11 @@
             "name": "Python_Pandas_Test",
             "type": "debugpy",
             "request": "launch",
-            "program": "else\\PythonTest\\pd_test.py",
-            // "program": "else\\PythonTest\\test1.py",
+            // pd_test.py
+            // "program": "else\\PythonTest\\pd_test.py",
+            // test1.py
+            "program": "else\\PythonTest\\test1.py",
+            // main.py
             // "program": "src\\main.py",
             "console": "integratedTerminal"
         }

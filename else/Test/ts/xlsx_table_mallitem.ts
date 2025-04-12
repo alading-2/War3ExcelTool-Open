@@ -1,21 +1,19 @@
-// This file is auto-generated from Excel data
-
 export const xlsx_inte_keys_table_mallitem = [
 "物品名称","品级","道具类型","消耗类型","地图变量","会员特权","道具说明","是否拥有","拥有数量","价格"
 ];
 
 export interface xlsx_inte_table_mallitem {
     [key: string]: {
-    "物品名称"?: string;
-        "品级"?: string;
-        "道具类型"?: string;
-        "消耗类型"?: number;
-        "地图变量"?: string;
-        "会员特权"?: number;
-        "道具说明"?: string;
-        "是否拥有"?: boolean;
-        "拥有数量"?: number;
-        "价格"?: number;
+        "物品名称"?: string;    // 物品名称
+        "品级"?: string;    // 品级
+        "道具类型"?: string;    // 道具类型
+        "消耗类型"?: number;    // 消耗类型
+        "地图变量"?: string;    // 地图变量
+        "会员特权"?: number;    // 会员特权
+        "道具说明"?: string;    // 道具说明
+        "是否拥有"?: boolean;    // 是否拥有
+        "拥有数量"?: number;    // 拥有数量
+        "价格"?: number;    // 价格
     }
 }
 
@@ -631,7 +629,7 @@ export const xlsx_data_table_mallitem: xlsx_inte_table_mallitem = {
         "是否拥有": false,
         "拥有数量": 1,
         "价格": 600
-    }
+    },
 };
 
 export class xlsx_table_mallitem {

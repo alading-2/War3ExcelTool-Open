@@ -1,34 +1,32 @@
-// This file is auto-generated from Excel data
-
 export const xlsx_inte_keys_table_unit = [
 "名字","类别","等级","基础生命值","攻击力","防御","cool1","spd","属性","acquire","rangeN1","movetp","moveHeight","file","modelScale","RGBA","弹道模型","弹道大小","弹道速度","collision","血条高度","unitSound","scale"
 ];
 
 export interface xlsx_inte_table_unit {
     [key: string]: {
-    "名字"?: string;
-        "类别"?: string;
-        "等级"?: number;
-        "基础生命值"?: number;
-        "攻击力"?: number;
-        "防御"?: number;
-        "cool1"?: number;
-        "spd"?: number;
-        "属性"?: any;
-        "acquire"?: number;
-        "rangeN1"?: number;
-        "movetp"?: string;
-        "moveHeight"?: number;
-        "file"?: string;
-        "modelScale"?: number;
-        "RGBA"?: any;
-        "弹道模型"?: string;
-        "弹道大小"?: number;
-        "弹道速度"?: number;
-        "collision"?: number;
-        "血条高度"?: number;
-        "unitSound"?: any;
-        "scale"?: number;
+        "名字"?: string;    // 名字
+        "类别"?: string;    // 类别
+        "等级"?: number;    // 等级
+        "基础生命值"?: number;    // 基础生命值
+        "攻击力"?: number;    // 攻击力
+        "防御"?: number;    // 防御
+        "cool1"?: number;    // 基础攻速
+        "spd"?: number;    // 基础移速
+        "属性"?: any;    // 属性
+        "acquire"?: number;    // 主动攻击范围
+        "rangeN1"?: number;    // 攻击距离
+        "movetp"?: string;    // 移动类型
+        "moveHeight"?: number;    // 飞行高度
+        "file"?: string;    // 模型
+        "modelScale"?: number;    // 模型尺寸
+        "RGBA"?: any;    // RGBA
+        "弹道模型"?: string;    // 弹道模型
+        "弹道大小"?: number;    // 弹道大小
+        "弹道速度"?: number;    // 弹道速度
+        "collision"?: number;    // 碰撞体积
+        "血条高度"?: number;    // 血条高度
+        "unitSound"?: any;    // 声音
+        "scale"?: number;    // 选择缩放
     }
 }
 
@@ -148,7 +146,7 @@ export const xlsx_data_table_unit: xlsx_inte_table_unit = {
         "collision": 16,
         "血条高度": 150,
         "scale": 1
-    }
+    },
 };
 
 export class xlsx_table_unit {
