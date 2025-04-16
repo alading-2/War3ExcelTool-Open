@@ -1,0 +1,71 @@
+//TODO没搞好
+{
+    "version": "2.0.0",
+    "presentation": {
+        "echo": true, // 显示命令  
+        "reveal": "always", // 显示输出面板  
+        "focus": false, // 不自动聚焦输出面板  
+        "panel": "new", // 共享输出面板  
+        "showReuseMessage": true, // 显示重用消息  
+        "clear": false // 不清除之前的输出  
+    },
+    "tasks": [
+        {
+            "label": "运行 main.py",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "src/main.py",
+                "-i",
+                "else/Test/excel", // 统一使用正斜杠避免转义问题
+                "-o",
+                "else/Test", // 含空格路径必须用双引号包裹
+                "--log-level",
+                "INFO"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "测试exe",
+            "type": "shell",
+            "command": "E:\\Vscode_Code\\Python\\ExcelToTypescript\\package\\War3ExcelTool\\War3ExcelTool.exe",
+            "args": [
+                "-i",
+                "else/Test/excel", // 统一使用正斜杠避免转义问题
+                "-o",
+                "else/Test", // 含空格路径必须用双引号包裹
+                "--log-level",
+                "INFO"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+            }
+        },
+        {
+            "label": "打包",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "build.py",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+            }
+        },
+    ]
+}

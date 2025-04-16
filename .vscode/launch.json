@@ -1,20 +1,23 @@
 {
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python_Pandas_Test",
+            "name": "调试",
             "type": "debugpy",
             "request": "launch",
-            // pd_test.py
-            // "program": "else\\PythonTest\\pd_test.py",
-            // test1.py
-            "program": "else\\PythonTest\\test1.py",
-            // main.py
-            // "program": "src\\main.py",
-            "console": "integratedTerminal"
+            // "program": "${file}",
+            "program": "src/main.py",
+            "args": [
+                "-i",
+                "else/Test/excel", // 统一使用正斜杠避免转义问题
+                "-o",
+                "else/Test", // 含空格路径必须用双引号包裹
+                "--log-level",
+                "INFO"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}", // 设置工作目录为项目根目录
+            "stopOnEntry": true,
         }
     ]
 }
