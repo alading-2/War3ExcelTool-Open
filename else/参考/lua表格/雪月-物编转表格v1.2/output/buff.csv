@@ -1,0 +1,5 @@
+id,_parent,Buffubertip,Bufftip,Buffart,TargetArt,
+"B000","BHab","该单位在受到攻击时会做出致命的反击","斧王：反击螺旋","ReplaceableTextures\CommandButtons\BTNStaffOfSanctuary.blp",#,
+"B001","BHwe",#,"召唤物","ReplaceableTextures\CommandButtons\BTNAnimateDead.blp",,
+"B003","BHab","半人马酋长能迅速回敬任何攻击他的敌人","半人马酋长：反击","ReplaceableTextures\PassiveButtons\PASBTNThorns.blp",#,
+"B002","BHab","大幅提升山岭巨人的体型和攻击力，但是攻击速度降低了","小小：长大！","ReplaceableTextures\CommandButtons\xiaoxiaoR.blp",#,

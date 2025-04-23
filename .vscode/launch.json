@@ -9,15 +9,16 @@
             "program": "src/main.py",
             "args": [
                 "-i",
-                "else/Test/excel", // 统一使用正斜杠避免转义问题
+                "else/Test/input", // 统一使用正斜杠避免转义问题
                 "-o",
                 "else/Test", // 含空格路径必须用双引号包裹
-                "--log-level",
-                "INFO"
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}", // 设置工作目录为项目根目录
-            "stopOnEntry": true,
+            // "stopOnEntry": true,
+            "presentation": {
+                "clear": true // 不清除之前的输出  
+            },
         }
     ]
 }

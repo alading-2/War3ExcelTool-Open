@@ -1,0 +1,50 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# 代码结构指南
+
+## 目录结构
+
+War3Excel工具的代码组织如下：
+
+- `src/` - 源代码目录
+  - `core/` - 核心功能模块
+  - `ui/` - 用户界面模块
+  - `utils/` - 工具和辅助功能
+  - `tests/` - 测试代码
+  - `main.py` - 程序入口点
+
+## 核心模块 (src/core/)
+
+核心模块包含数据处理和代码生成的主要逻辑：
+
+- [src/core/excel_parser.py](mdc:src/core/excel_parser.py) - 负责解析Excel文件
+- [src/core/ts_generator.py](mdc:src/core/ts_generator.py) - 生成TypeScript代码
+- [src/core/lua_generator.py](mdc:src/core/lua_generator.py) - 生成Lua代码
+- [src/core/ini_generator.py](mdc:src/core/ini_generator.py) - 生成INI文件
+- [src/core/ini_parser.py](mdc:src/core/ini_parser.py) - 解析INI文件
+- [src/core/w3x_parser.py](mdc:src/core/w3x_parser.py) - 解析魔兽争霸地图文件
+- [src/core/processor.py](mdc:src/core/processor.py) - 协调各个组件的处理流程
+- [src/core/data_handler.py](mdc:src/core/data_handler.py) - 数据处理逻辑
+- [src/core/pretreatment.py](mdc:src/core/pretreatment.py) - 数据预处理
+- [src/core/excel_writer.py](mdc:src/core/excel_writer.py) - 将数据写入Excel文件
+
+## UI模块 (src/ui/)
+
+UI模块包含所有用户界面相关代码：
+
+- [src/ui/main_window.py](mdc:src/ui/main_window.py) - 主界面窗口
+- [src/ui/config_dialog.py](mdc:src/ui/config_dialog.py) - 配置对话框
+- [src/ui/progress_dialog.py](mdc:src/ui/progress_dialog.py) - 进度显示对话框
+
+## 工具模块 (src/utils/)
+
+工具模块包含各种辅助函数和工具类：
+
+- [src/utils/config_manager.py](mdc:src/utils/config_manager.py) - 配置管理
+- [src/utils/excel_utils.py](mdc:src/utils/excel_utils.py) - Excel相关工具函数
+- [src/utils/file_utils.py](mdc:src/utils/file_utils.py) - 文件操作工具
+- [src/utils/logger.py](mdc:src/utils/logger.py) - 日志系统
+

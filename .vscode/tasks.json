@@ -11,17 +11,15 @@
     },
     "tasks": [
         {
-            "label": "运行 main.py",
+            "label": "运行 main(命令行模式)",
             "type": "shell",
             "command": "python",
             "args": [
                 "src/main.py",
                 "-i",
-                "else/Test/excel", // 统一使用正斜杠避免转义问题
+                "else/Test/input", // 统一使用正斜杠避免转义问题
                 "-o",
                 "else/Test", // 含空格路径必须用双引号包裹
-                "--log-level",
-                "INFO"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -33,6 +31,21 @@
             }
         },
         {
+            "label": "运行 main(GUI模式)",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "src/main.py",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+            }
+        },
+        {
             "label": "测试exe",
             "type": "shell",
             "command": "E:\\Vscode_Code\\Python\\ExcelToTypescript\\package\\War3ExcelTool\\War3ExcelTool.exe",
@@ -41,8 +54,6 @@
                 "else/Test/excel", // 统一使用正斜杠避免转义问题
                 "-o",
                 "else/Test", // 含空格路径必须用双引号包裹
-                "--log-level",
-                "INFO"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

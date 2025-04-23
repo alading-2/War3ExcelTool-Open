@@ -1,0 +1,5 @@
+id,_parent,abilList,droppable,Description,Art,pickRandom,stockRegen,Ubertip,sellable,Name,cooldownID,goldcost,Tip,pawnable,Hotkey,stockStart,class,usable,
+"I001","rde1",#,"0",#,"ReplaceableTextures\CommandButtons\BTNCrystalBall.blp","0","0",#,"0","选择英雄",#,"0","|cffffcc00[选择英雄]|r","0","","","","",
+"I003","rde1",#,"0",#,,"0","0",#,"0","|cffffff00不知道为什么要放这个东西|r",#,"0",#,"0",#,"","","",
+"I002","tret","A01A",,,,,"0",,,,#,"0",,,,"0","Permanent","",
+"I000","gcel","A00D",,"全图瞬移","ReplaceableTextures\CommandButtons\BTNBlink.blp","0",,"全图瞬移",,"test",,,"全图瞬移",,,,,"1",
