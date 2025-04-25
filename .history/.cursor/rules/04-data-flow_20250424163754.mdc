@@ -1,0 +1,48 @@
+---
+description: 项目
+globs: 
+alwaysApply: false
+---
+# 数据处理流程
+
+## Excel 到代码的转换流程
+
+War3Excel工具的核心处理流程：
+
+1. 输入Excel文件通过[excel_parser.py](mdc:src/core/excel_parser.py)解析
+2. 解析后的数据经过[data_handler.py](mdc:src/core/data_handler.py)进行处理
+3. 处理后的数据根据配置传递给不同的生成器：
+   - [ts_generator.py](mdc:src/core/ts_generator.py) - 生成TypeScript
+   - [lua_generator.py](mdc:src/core/lua_generator.py) - 生成Lua
+   - [ini_generator.py](mdc:src/core/ini_generator.py) - 生成INI
+
+## INI 到 Excel 的转换流程
+
+1. INI文件通过[ini_parser.py](mdc:src/core/ini_parser.py)解析
+2. 数据通过[data_handler.py](mdc:src/core/data_handler.py)进行处理
+3. 处理后的数据通过[excel_writer.py](mdc:src/core/excel_writer.py)写入Excel文件
+
+## W3X 地图文件解析流程
+
+1. W3X文件通过[w3x_parser.py](mdc:src/core/w3x_parser.py)解析
+2. 使用w3x2lni工具提取地图数据
+3. 提取的数据进入上述Excel到代码的处理流程
+
+## 数据预处理
+
+所有数据在进入主处理流程前，都会通过[pretreatment.py](mdc:src/core/pretreatment.py)进行预处理，包括：
+
+- 数据清洗
+- 类型推断
+- 格式规范化
+- 特殊字符处理
+
+## 核心数据流协调
+
+整个数据流程由[processor.py](mdc:src/core/processor.py)协调和管理，它负责：
+
+- 确定处理逻辑
+- 调用相应的解析器和生成器
+- 处理异常和错误
+- 生成处理报告
+

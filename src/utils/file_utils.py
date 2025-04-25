@@ -22,7 +22,9 @@ class FileUtils:
     def find_files(
         input_dir: str,
         recursive: bool = False,
-        extension: Tuple = ("*.xls", "*.xlsx")
+        # 仅包含pandas.read_excel官方文档支持的Excel文件格式
+        extension: Tuple = ("*.xls", "*.xlsx", "*.xlsm", "*.xlsb", "*.odf",
+                            "*.ods", "*.odt")
     ) -> List[str]:
         """
         在指定目录中查找指定类型的文件，比如("*.xls", "*.xlsx","*.ini",)
@@ -45,7 +47,7 @@ class FileUtils:
         # 记录日志，表示开始在指定目录中查找Excel文件
         logger.info(f"在目录 {input_dir} 中查找Excel文件，递归={recursive}")
 
-        # 匹配.xls和.xlsx文件
+        # 匹配("*.xls", "*.xlsx", "*.xlsm", "*.xlsb", "*.odf","*.ods", "*.odt")
         # 递归：'input_dir\\**\\*.xls', 'input_dir\\**\\*.xlsx'
         # 不递归：'input_dir\\*.xls', 'input_dir\\*.xlsx'
         patterns = [

@@ -22,6 +22,7 @@ alwaysApply: true
 - 自动生成GUI控件时，必须根据参数类型和分组自动选择合适的控件类型和布局，提升界面体验。
 - 严格遵循"用户未指定不主动添加命令行参数"的规则，避免参数膨胀和界面混乱。
 - 在涉及参数类型转换、控件生成等细节时，必须查阅PyQt等官方文档，避免凭经验操作导致Bug。
+- 新增参数要更新所有关联的地方，包括config_manager.py,src\config.cfg和resource\resource\config.cfg两个配置文件末尾
 > 以上规则为实际开发过程中AI在GUI参数管理方面犯过的典型错误总结，后续开发者应引以为戒，严格遵循。
 
 # 通用规则
@@ -39,22 +40,7 @@ alwaysApply: true
 - 项目总结阶段要**反思流程、更新文档、优化性能**，并持续完善README。
 - 始终以[Python官方文档](mdc:https:/docs.python.org)为权威参考。
 
-# 本项目规则
-- 用户说名要添加参数时，如果没指明要添加命令行参数，就不要自行添加命令行参数，参数分功能参数和辅助参数，
-功能参数要添加到主界面
-辅助参数添加到文件→高级设置，也就是config_dialog.py里面
-功能参数：
-"convert_to_ts": False,  # 是否执行 Excel -> TS 转换
-"convert_to_lua": False,  # 是否执行 Excel -> Lua 转换
-"convert_to_ini": False,  # 是否执行 Excel -> Ini 转换
-"convert_ini_to_excel": False,  # 是否执行 Ini -> Excel 转换
-"baize_frame": True,  # 白泽框架
-"parse_w3x": False,  # 是否解析w3x
-辅助参数：
-"recursive": True,  # 是否递归处理输入目录
-"log_level": "INFO",  # 日志级别
-"sort_by_alpha": False,  # 生成表格是否按字母排序
-"font_size": 14,  # 字体大小
+
 
 
 > 以上规则均为实际开发和AI协作过程中总结的经验，强烈建议后续AI遵循。

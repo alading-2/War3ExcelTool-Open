@@ -1,16 +1,23 @@
+"""
+测试编辑器中英文映射生成
+用metadata.ini和WorldEditStrings.txt生成editor_info_map.ini
+"""
+
 from src.core.ini.ini_parser import IniParser, War3IniParser
 from src.utils.logger import setup_logger
 
 logger = setup_logger("WARNING")
 logger.info("测试")
 
-path1 = r"else\Test\编辑器物编选项中英文映射文件\WorldEditStrings_筛选过.txt"
+path1 = r"else\Test\编辑器物编选项中英文映射文件\WorldEditStrings_筛选过.ini"
 path2 = r"else\Test\编辑器物编选项中英文映射文件\metadata_筛选.ini"
 
 # 编辑器中英文映射生成测试
-War3IniParser.iseditor_info_test = True
-dict1, comment1 = War3IniParser.parse_ini(path1)
-dict2, comment2 = War3IniParser.parse_ini(path2)
+war3_ini_parser = War3IniParser(is_section_no_repetition=True)
+result_dict = war3_ini_parser.parse_file(path1)
+dict1, comment1 = result_dict["data"], result_dict["comment"]
+result_dict = war3_ini_parser.parse_file(path2)
+dict2, comment2 = result_dict["data"], result_dict["comment"]
 # 中英文映射字典
 map_dict = {}
 # 中文注释映射

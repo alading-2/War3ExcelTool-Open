@@ -113,21 +113,17 @@ class MainWindow(QMainWindow):
     应用程序主窗口类。
     负责创建和管理用户界面元素，处理用户交互，
     启动后台转换任务，并显示进度和日志信息。
+    同时负责与ConfigManager进行参数同步，
+    保证界面控件与配置文件、核心逻辑参数一致。
     """
 
     def __init__(self):
-        ""
         """
-        
-        参数：
-            config_path (str): 配置文件的路径。
-        
         初始化主窗口。
-        - 调用父类构造函数。
-        - 初始化配置管理器。
+        - 初始化ConfigManager，负责参数的加载与保存。
         - 设置窗口标题和最小尺寸。
-        - 调用方法初始化UI布局和菜单。
-        - 加载之前保存的配置到UI控件。
+        - 初始化UI布局和菜单。
+        - 从配置文件加载上次保存的参数到UI控件。
         """
         super().__init__()
 
@@ -158,6 +154,7 @@ class MainWindow(QMainWindow):
         - 创建并配置日志显示区域(QTextEdit)。
         - 将所有UI组件添加到主布局中。
         - 初始化状态栏。
+        - 绑定控件事件，实现参数变更时与ConfigManager同步。
         """
         # 创建中央部件，所有其他控件都将放置在它上面
         central_widget = QWidget()
@@ -204,15 +201,23 @@ class MainWindow(QMainWindow):
         options_layout = QGridLayout()
         options_group.setLayout(options_layout)
         # 自动生成功能参数QCheckBox
+        # 创建一个字典用于存储所有功能选项的复选框控件
         self.feature_checkboxes = {}
+        # 获取所有类别为"feature"的参数键名列表
         feature_keys = ConfigManager.get_params_by_category("feature")
+        # 遍历所有功能参数，为每个参数创建对应的复选框
         for idx, key in enumerate(feature_keys):
+            # 获取参数的元信息（包含标签、描述等）
             meta = ConfigManager.get_param_meta(key)
+            # 创建复选框，使用元信息中的label作为显示文本，如果没有则使用键名
             checkbox = QCheckBox(meta.get("label", key))
+            # 将创建的复选框存入字典，以参数键名为索引
             self.feature_checkboxes[key] = checkbox
+            # 计算复选框在网格布局中的位置（每行放置2个复选框）
             row, col = divmod(idx, 2)
+            # 将复选框添加到选项布局中
             options_layout.addWidget(checkbox, row, col)
-            # 绑定stateChanged信号，点击即保存
+            # 绑定stateChanged信号，当复选框状态变化时自动保存配置
             checkbox.stateChanged.connect(
                 functools.partial(self.on_feature_checkbox_changed, key))
 
@@ -286,9 +291,8 @@ class MainWindow(QMainWindow):
 
     def browse_input_dir(self):
         """
-        打开文件对话框让用户选择输入目录。
-        - 使用 QFileDialog.getExistingDirectory 获取目录路径。
-        - 如果用户选择了目录，则更新输入目录编辑框的文本，并记录日志。
+        响应"浏览输入目录"按钮，弹出目录选择对话框。
+        - 用户选择目录后，设置到输入目录控件，并同步到ConfigManager。
         """
         # 获取当前输入框中的文本作为默认路径
         current_dir = self.input_dir_edit.text()
@@ -302,12 +306,12 @@ class MainWindow(QMainWindow):
         if directory:
             self.input_dir_edit.setText(directory)  # 更新输入框文本
             self.log_message(f"设置输入目录: {directory}")  # 记录日志
+            self.config_manager.set("input_path", directory)
 
     def browse_output_dir(self):
         """
-        打开文件对话框让用户选择输出目录。
-        - 使用 QFileDialog.getExistingDirectory 获取目录路径。
-        - 如果用户选择了目录，则更新输出目录编辑框的文本，并记录日志。
+        响应"浏览输出目录"按钮，弹出目录选择对话框。
+        - 用户选择目录后，设置到输出目录控件，并同步到ConfigManager。
         """
         # 获取当前输出框中的文本作为默认路径
         current_dir = self.output_dir_edit.text()
@@ -321,6 +325,7 @@ class MainWindow(QMainWindow):
         if directory:
             self.output_dir_edit.setText(directory)  # 更新输出框文本
             self.log_message(f"设置输出目录: {directory}")  # 记录日志
+            self.config_manager.set("output_path", directory)
 
     def start_conversion(self):
         """
@@ -498,10 +503,9 @@ class MainWindow(QMainWindow):
 
     def show_config_dialog(self):
         """
-        显示高级配置对话框。
-        - 创建 ConfigDialog 实例。
-        - 以模态方式显示对话框 (exec_)。
-        - 如果用户点击了 "确定" (返回 QDialog.Accepted)，则刷新主界面参数控件。
+        打开高级设置对话框（ConfigDialog），用于管理辅助参数。
+        - 打开前先将ConfigManager中的参数同步到ConfigDialog。
+        - 关闭后将ConfigDialog中的参数同步回ConfigManager，并保存。
         """
         dialog = ConfigDialog(self)
         if dialog.exec_() == QDialog.Accepted:
@@ -523,38 +527,33 @@ class MainWindow(QMainWindow):
 
     def load_config(self):
         """
-        从配置中加载设置到UI控件
+        从ConfigManager加载参数配置，并同步到界面控件。
+        - 读取ConfigManager中的参数值，设置到对应的输入/输出目录等控件。
+        - 保证界面初始状态与配置文件一致。
+        - 若有自动生成的参数控件，也应在此处同步初始值。
         """
-        current_config = self.config_manager.get_all()
-        # 输入/输出路径
-        if "input_path" in current_config:
-            self.input_dir_edit.setText(current_config["input_path"])
-        if "output_path" in current_config:
-            self.output_dir_edit.setText(current_config["output_path"])
+        config = self.config_manager.get_all()
+        self.input_dir_edit.setText(config.get("input_path", ""))
+        self.output_dir_edit.setText(config.get("output_path", ""))
         # 自动加载功能参数QCheckBox
         for key, checkbox in self.feature_checkboxes.items():
             checkbox.setChecked(
-                current_config.get(
+                config.get(
                     key,
                     ConfigManager.get_param_meta(key).get("default", False)))
 
     def save_config(self):
         """
-        将UI控件的设置保存到配置中
+        将界面控件的参数值写回ConfigManager，并保存到配置文件。
+        - 读取输入/输出目录等控件的当前值，写入ConfigManager。
+        - 若有自动生成的参数控件，也应同步其当前值。
+        - 调用ConfigManager.save_config()将所有参数持久化。
         """
-        current_config = self.config_manager.get_all()
-        config = current_config.copy()
-        # 输入/输出路径
-        input_path = self.input_dir_edit.text().strip()
-        output_path = self.output_dir_edit.text().strip()
-        if input_path:
-            config["input_path"] = input_path
-        if output_path:
-            config["output_path"] = output_path
+        self.config_manager.set("input_path", self.input_dir_edit.text())
+        self.config_manager.set("output_path", self.output_dir_edit.text())
         # 自动保存功能参数QCheckBox
         for key, checkbox in self.feature_checkboxes.items():
-            config[key] = checkbox.isChecked()
-        self.config_manager.set_all(config)
+            self.config_manager.set(key, checkbox.isChecked())
         self.config_manager.save_config()
 
     def closeEvent(self, event):

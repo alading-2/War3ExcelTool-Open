@@ -1,4 +1,4 @@
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, field
 import json
 import yaml
 from typing import Dict, Any, Optional
@@ -10,7 +10,7 @@ class ProjectInfo:
     name: str = "War3ExcelTool"
     version: str = "v1.0.0"
     author: str = "阿拉丁"
-    description: str = "功能：Excel转ts、lua、ini，ini转excel。"
+    description: str = "功能：Excel转ts/lua/ini，解析w3x，ini转excel。"
 
     mode: str = ""  # 运行模式，只能是gui或cli
     # main.py路径
@@ -18,7 +18,12 @@ class ProjectInfo:
     main_base_dir: str = ""  # 目录
     config_path: str = ""  # 与main.py相同目录的config文件目录
 
-    # 可以根据需要添加更多字段
+    #在dataclass中，不能直接用{}作为字典的默认值。正确做法是用field(default_factory=dict)。
+    dict_editor_info_map: Dict[str,
+                               str] = field(default_factory=dict)  # 编辑器选项中英文映射
+
+    # 编辑器选项顺序，unit,item,ability,buff,destructable,upgrade,doodad选项的排序
+    dict_editor_info_order: Dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         """将项目信息转换为字典格式"""

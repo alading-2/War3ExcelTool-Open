@@ -14,9 +14,10 @@ OBJECT_TYPE_MAPPING = {
     'unit': ['单位', 'unit'],
     'item': ['物品', 'item'],
     'ability': ['技能', 'ability'],
-    'buff': ['buff'],
+    'buff': ['魔法效果', 'buff'],
     'destructable': ['可破坏物', 'destructable'],
-    'upgrade': ['科技', 'upgrade']
+    'upgrade': ['科技', 'upgrade'],
+    'doodad': ['装饰物', 'doodad']
 }
 
 
@@ -31,10 +32,11 @@ class War3IniParser:
     - 支持多行字符串 [=[...]=]
     - 忽略以 -- 开头的注释行
     """
-    # 是否编辑器中英文映射生成测试
-    iseditor_info_test: bool = False
 
-    def __init__(self):
+    # section不重复，若重复后面自动加_
+    # is_section_no_repetition: bool = False
+
+    def __init__(self, *a, **b):
         """初始化解析器，编译正则表达式模式"""
         # 节点模式 [Section]
         self.section_pattern = re.compile(r'^\s*\[([^\]]+)\]\s*$')
@@ -52,8 +54,12 @@ class War3IniParser:
         # 数组结束模式 }
         self.array_end_pattern = re.compile(r'}\s*$')
         self.logger = logging.getLogger(__name__)
+        # 重复的section是否后面加_使其不重复
+        if b:
+            self.is_section_no_repetition = b.get("is_section_no_repetition",
+                                                  False)
 
-    def parse_file(self, file_path: str) -> Dict[str, Dict[str, Any]]:
+    def parse_file(self, file_path: str) -> Dict[str, Any]:
         """
         解析War3 INI文件并返回解析结果
         
@@ -74,9 +80,7 @@ class War3IniParser:
 
         return self.parse_string(content)
 
-    def parse_string(
-            self,
-            content: str) -> Tuple[Dict[str, Dict[str, Any]], Dict[str, str]]:
+    def parse_string(self, content: str) -> Dict[str, Any]:
         """
         解析War3 INI字符串内容
         
@@ -86,13 +90,19 @@ class War3IniParser:
         Returns:
             解析后的数据结构，格式为 {section: {key: value, ...}, ...}
         """
+        # 输出结果集合
+        allresult_dict = {}
+
         # 初始化数据字典
         result = {}
         # 注释字典
         comment_dict = {}
+        current_comment = None  #当前注释
+        # 顺序字典，记录section内键的顺序
+        order_dict = {}
+        current_order_list = []
 
         # 初始化状态变量
-        current_comment = None  #当前注释
         current_section = None  # 当前正在处理的节点名称
         current_key = None  # 当前正在处理的键名
         in_multiline = False  # 是否正在处理多行字符串
@@ -162,15 +172,16 @@ class War3IniParser:
                 current_section = section_match.group(1)
                 if current_section in result:
                     self.logger.warning(f"发现重复Section: {current_section}，已跳过")
-                    if War3IniParser.iseditor_info_test:
+                    if self.is_section_no_repetition:
                         # 编辑器中英文映射生成测试，重复Section后面加_，直到不重复
                         while current_section in result:
                             current_section = current_section + "_"
-                        result[current_section] = {}
                     else:
                         current_section = None
-                else:
+                if current_section:
                     result[current_section] = {}
+                    order_dict[current_section] = []
+                    current_order_list = []
                 i += 1
                 continue
 
@@ -232,13 +243,21 @@ class War3IniParser:
                     current_comment = None
                 # 添加到结果字典
                 result[current_section][current_key] = current_value
+                # 顺序字典
+                if current_key not in current_order_list:
+                    current_order_list.append(current_key)
+                    order_dict[current_section] = current_order_list
                 i += 1
                 continue
 
             # 未匹配到任何模式，继续下一行
             i += 1
+        allresult_dict["content"] = content[:]  #文件字符串
+        allresult_dict["data"] = result  #数据
+        allresult_dict["comment"] = comment_dict  #注释
+        allresult_dict["order"] = order_dict  #顺序
 
-        return result, comment_dict
+        return allresult_dict
 
     @staticmethod
     def to_string(data: Dict[str, Dict[str, Any]]) -> str:
@@ -264,7 +283,7 @@ class War3IniParser:
         return "\n".join(lines)
 
     @staticmethod
-    def parse_ini(file_path: str) -> Dict[str, Dict[str, Any]]:
+    def parse_ini(file_path: str) -> Dict[str, Any]:
         """
         解析War3 INI文件的便捷函数
         

@@ -1,7 +1,8 @@
 # src/core/processor.py
 
-from ast import Dict
 import os
+
+from src.utils.project_info import ProjectInfo
 from .excel.excel_parser import ExcelParser
 from .ts.ts_generator import TSGenerator
 # 当其他生成器/解析器创建时导入它们
@@ -10,13 +11,10 @@ from .ini.ini_generator import IniGenerator  # Ini生成器
 from .ini.ini_parser import IniParser, War3IniParser, OBJECT_TYPE_MAPPING  # Ini解析器
 
 from .excel.excel_writer import ExcelWriter  # Excel写入器
-import configparser
 from ..utils.file_utils import FileUtils
 import logging
 from typing import Dict, Any, List
 from src.utils.config_manager import ConfigManager
-
-from src.core.ts import ts_generator  # 导入新的配置管理类
 
 logger = logging.getLogger(__name__)
 
@@ -55,6 +53,19 @@ def process_files():
         return
     logger.info(f"找到 {len(excel_files)} 个 Excel 文件。")
 
+    # 先读取editor_info_map.ini
+    path_editor_info_map = r"resource\resource\editor_info_map.ini"
+    result_dict = War3IniParser.parse_ini(path_editor_info_map)
+    dict_map = result_dict["data"]
+    dict_editor_info_map = {}
+    for key, value in dict_map.items():
+        if isinstance(value, dict):
+            # 将每个section下的所有键值对整合到dict_editor_info_map中
+            dict_editor_info_map.update(value)
+    # 编辑器选项中英文映射初始化，存储在ProjectInfo.dict_editor_info_map
+    ProjectInfo.dict_editor_info_map = dict_editor_info_map
+    # 编辑器选项顺序初始化，存储在ProjectInfo.dict_editor_info_order
+    ProjectInfo.dict_editor_info_order = result_dict["order"]
     # 存储w3x文件解析路径
     w3x_parse_paths = []
 
@@ -269,9 +280,8 @@ def process_files():
                         # parsed_ini_data = Ini_Parser.parse_ini(ini_file)
                         # Ini_Parser.read_file(ini_file)
                         # parsed_ini_data = Ini_Parser.data()
-                        parsed_ini_data, dict_commom = War3IniParser.parse_ini(
-                            ini_file)
-
+                        result_dict = War3IniParser.parse_ini(ini_file)
+                        parsed_ini_data = result_dict["data"]
                         if not parsed_ini_data:
                             logger.warning(f"未从 {ini_file} 解析到数据，跳过。")
                             results["skipped"] += 1  # 增加跳过计数

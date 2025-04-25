@@ -8,6 +8,8 @@ from src.core.ini.ini_parser import War3IniParser
 from src.utils.config_manager import ConfigManager
 import logging
 from src.utils.excel_utils import ensure_excel_file_closed, format_excel_workbook
+from src.utils.project_info import ProjectInfo
+from src.core.ini.ini_parser import OBJECT_TYPE_MAPPING
 
 
 class ExcelWriter:
@@ -23,14 +25,10 @@ class ExcelWriter:
         # 设置模板文件路径
         self.template_path = template_path
         # 定义工作表映射关系，用于将内部类型名映射到Excel中的sheet名
-        self.sheet_mapping = {
-            'unit': '单位',
-            'item': '物品',
-            'ability': '技能',
-            'buff': '魔法效果',
-            'destructable': '可破坏物',
-            'upgrade': '科技'
-        }
+        sheet_mapping = {}
+        for key, value in OBJECT_TYPE_MAPPING.items():
+            sheet_mapping[key] = value[0]
+        self.sheet_mapping = sheet_mapping
         # 初始化日志记录器
         self.logger = logging.getLogger(__name__)
 
@@ -55,6 +53,9 @@ class ExcelWriter:
         try:
             sort_by_alpha = self.config_manager.get(
                 "sort_by_alpha")  # 是否按字母顺序排序
+            remove_empty_columns = self.config_manager.get(
+                "remove_empty_columns")  # 是否删除全是空值的列
+
             # 确保输出目录存在
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
@@ -110,12 +111,22 @@ class ExcelWriter:
                     keys.extend(
                         [key for key in all_section_keys if key not in keys])
 
-                    # 如果需要按字母顺序排序
                     all_keys = keys
+                    # 按照编辑器选项排序
+                    editor_info_order_list = ProjectInfo.dict_editor_info_order.get(
+                        type_name)
+                    i = 0
+                    for key in editor_info_order_list:
+                        if key in all_keys:
+                            all_keys.remove(key)
+                        all_keys.insert(i, key)
+                        i += 1
+                    # 如果需要按字母顺序排序
                     if sort_by_alpha:
                         # 将列名转换为有序列表并确保'id'列在最前
                         all_keys = sorted(all_keys)
                     # 将id列和_parent列移到最前面
+
                     if 'id' in all_keys:
                         all_keys.remove('id')
                         all_keys.insert(0, 'id')
@@ -123,26 +134,24 @@ class ExcelWriter:
                         all_keys.remove('_parent')
                         all_keys.insert(1, '_parent')
 
-                    path = r"resource\resource\editor_info_map.ini"
-                    dict_comment, dict1 = War3IniParser.parse_ini(path)
-                    dict_comment = dict_comment.get("editor_info_map")
+                    # 获取编辑器选项中英文映射
+                    dict_editor_info_map = ProjectInfo.dict_editor_info_map
 
                     # 准备数据行
                     rows_data = []
                     # 注释行
                     list_comment = []
                     for key in all_keys:
-                        key_lower = key.lower()
-                        if key_lower in dict_comment:
+                        if key in dict_editor_info_map:
                             # 有直接的中文注释或者匹配
-                            list_comment.append(dict_comment[key_lower])
+                            list_comment.append(dict_editor_info_map[key])
                         else:
                             is_part = False
-                            for comment_key in dict_comment.keys():
+                            for comment_key in dict_editor_info_map.keys():
                                 # 部分匹配
-                                if comment_key in key_lower:
+                                if comment_key in key:
                                     list_comment.append(
-                                        dict_comment[comment_key])
+                                        dict_editor_info_map[comment_key])
                                     is_part = True
                                     break
                             # 不匹配：直接添加
@@ -174,20 +183,21 @@ class ExcelWriter:
                     df = pd.DataFrame(rows_data)
                     df.columns = all_keys
                     #
-                    # 删除全是空值的列
-                    # 自定义函数判断是否为空
-                    # 检查每一列是否有非空值（跳过前两行，因为这是注释行和键值行）
-                    cols_to_keep = [
-                        col for col in df.columns if any(
-                            ExcelTable.custom_notna(x) for x in df[col][2:])
-                    ]
-
-                    # 确保'id'列被保留
-                    if 'id' not in cols_to_keep and 'id' in df.columns:
-                        cols_to_keep.insert(0, 'id')
-
-                    # 只保留有非空值的列
-                    df = df[cols_to_keep]
+                    # 根据配置决定是否删除全是空值的列
+                    if remove_empty_columns:
+                        # 删除全是空值的列
+                        # 自定义函数判断是否为空
+                        # 检查每一列是否有非空值（跳过前两行，因为这是注释行和键值行）
+                        cols_to_keep = [
+                            col for col in df.columns if any(
+                                ExcelTable.custom_notna(x)
+                                for x in df[col][2:])
+                        ]
+                        # 确保'id'列被保留
+                        if 'id' not in cols_to_keep and 'id' in df.columns:
+                            cols_to_keep.insert(0, 'id')
+                        # 只保留有非空值的列
+                        df = df[cols_to_keep]
 
                     # 将数据写入Excel，index=False不显示行索引，header=False
                     df.to_excel(writer,
