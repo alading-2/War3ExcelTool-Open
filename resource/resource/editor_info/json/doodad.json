@@ -1,0 +1,177 @@
+{
+    "animInFog": {
+        "name": "animInFog",
+        "type": "int",
+        "comment": "迷雾中显示动画"
+    },
+    "canPlaceRandScale": {
+        "name": "canPlaceRandScale",
+        "type": "int",
+        "comment": "可以放置随机比例"
+    },
+    "category": {
+        "name": "category",
+        "type": "string",
+        "comment": "类别"
+    },
+    "defScale": {
+        "name": "defScale",
+        "type": "float",
+        "comment": "默认比例"
+    },
+    "file": {
+        "name": "file",
+        "type": "string",
+        "comment": "模型文件"
+    },
+    "fixedRot": {
+        "name": "fixedRot",
+        "type": "float",
+        "comment": "固定角度"
+    },
+    "floats": {
+        "name": "floats",
+        "type": "int",
+        "comment": "漂浮"
+    },
+    "ignoreModelClick": {
+        "name": "ignoreModelClick",
+        "type": "int",
+        "comment": "忽略模型点击"
+    },
+    "maxPitch": {
+        "name": "maxPitch",
+        "type": "float",
+        "comment": "X轴最大旋转角度(度数)"
+    },
+    "maxRoll": {
+        "name": "maxRoll",
+        "type": "float",
+        "comment": "Y轴最大旋转角度(度数)"
+    },
+    "maxScale": {
+        "name": "maxScale",
+        "type": "float",
+        "comment": "最大比例"
+    },
+    "minScale": {
+        "name": "minScale",
+        "type": "float",
+        "comment": "最小比例"
+    },
+    "MMBlue": {
+        "name": "MMBlue",
+        "type": "int",
+        "comment": "小地图颜色(蓝)"
+    },
+    "MMGreen": {
+        "name": "MMGreen",
+        "type": "int",
+        "comment": "小地图颜色(绿)"
+    },
+    "MMRed": {
+        "name": "MMRed",
+        "type": "int",
+        "comment": "小地图颜色(红)"
+    },
+    "Name": {
+        "name": "Name",
+        "type": "string",
+        "comment": "名字"
+    },
+    "numVar": {
+        "name": "numVar",
+        "type": "int",
+        "comment": "样式总数"
+    },
+    "onCliffs": {
+        "name": "onCliffs",
+        "type": "int",
+        "comment": "悬崖上可放置"
+    },
+    "onWater": {
+        "name": "onWater",
+        "type": "int",
+        "comment": "水面可放置"
+    },
+    "pathTex": {
+        "name": "pathTex",
+        "type": "string",
+        "comment": "路径纹理"
+    },
+    "selSize": {
+        "name": "selSize",
+        "type": "float",
+        "comment": "选择圈大小"
+    },
+    "shadow": {
+        "name": "shadow",
+        "type": "int",
+        "comment": "有阴影"
+    },
+    "showInFog": {
+        "name": "showInFog",
+        "type": "int",
+        "comment": "迷雾中显示"
+    },
+    "showInMM": {
+        "name": "showInMM",
+        "type": "int",
+        "comment": "小地图-显示"
+    },
+    "soundLoop": {
+        "name": "soundLoop",
+        "type": "string",
+        "comment": "循环声音"
+    },
+    "tilesets": {
+        "name": "tilesets",
+        "type": "string",
+        "comment": "地形设置"
+    },
+    "tilesetSpecific": {
+        "name": "tilesetSpecific",
+        "type": "int",
+        "comment": "有地形指定数据"
+    },
+    "useClickHelper": {
+        "name": "useClickHelper",
+        "type": "int",
+        "comment": "使用点击帮助"
+    },
+    "useMMColor": {
+        "name": "useMMColor",
+        "type": "int",
+        "comment": "小地图-使用自定义颜色"
+    },
+    "UserList": {
+        "name": "UserList",
+        "type": "int",
+        "comment": "加入用户指定列表"
+    },
+    "vertB": {
+        "name": "vertB",
+        "type": "int",
+        "comment": "颜色值(蓝)"
+    },
+    "vertG": {
+        "name": "vertG",
+        "type": "int",
+        "comment": "颜色值(绿)"
+    },
+    "vertR": {
+        "name": "vertR",
+        "type": "int",
+        "comment": "颜色值(红)"
+    },
+    "visRadius": {
+        "name": "visRadius",
+        "type": "float",
+        "comment": "可见范围"
+    },
+    "walkable": {
+        "name": "walkable",
+        "type": "int",
+        "comment": "可通行"
+    }
+}

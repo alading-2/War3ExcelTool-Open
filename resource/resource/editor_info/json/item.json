@@ -1,0 +1,162 @@
+{
+    "Description": {
+        "name": "Description",
+        "type": "string",
+        "comment": "说明"
+    },
+    "abilList": {
+        "name": "abilList",
+        "type": "string",
+        "comment": "技能"
+    },
+    "armor": {
+        "name": "armor",
+        "type": "string",
+        "comment": "装甲类型"
+    },
+    "Art": {
+        "name": "Art",
+        "type": "string",
+        "comment": "界面图标"
+    },
+    "class": {
+        "name": "class",
+        "type": "string",
+        "comment": "物品分类"
+    },
+    "colorB": {
+        "name": "colorB",
+        "type": "int",
+        "comment": "颜色值(蓝)"
+    },
+    "colorG": {
+        "name": "colorG",
+        "type": "int",
+        "comment": "颜色值(绿)"
+    },
+    "colorR": {
+        "name": "colorR",
+        "type": "int",
+        "comment": "颜色值(红)"
+    },
+    "cooldownID": {
+        "name": "cooldownID",
+        "type": "string",
+        "comment": "CD间隔组"
+    },
+    "drop": {
+        "name": "drop",
+        "type": "int",
+        "comment": "持有者死亡时掉落"
+    },
+    "droppable": {
+        "name": "droppable",
+        "type": "int",
+        "comment": "可以丢弃"
+    },
+    "file": {
+        "name": "file",
+        "type": "string",
+        "comment": "使用模型"
+    },
+    "goldcost": {
+        "name": "goldcost",
+        "type": "int",
+        "comment": "黄金消耗"
+    },
+    "HP": {
+        "name": "HP",
+        "type": "int",
+        "comment": "生命值"
+    },
+    "ignoreCD": {
+        "name": "ignoreCD",
+        "type": "int",
+        "comment": "无视CD间隔"
+    },
+    "Level": {
+        "name": "Level",
+        "type": "int",
+        "comment": "等级"
+    },
+    "lumbercost": {
+        "name": "lumbercost",
+        "type": "int",
+        "comment": "木材消耗"
+    },
+    "morph": {
+        "name": "morph",
+        "type": "int",
+        "comment": "有效的物品转换目标"
+    },
+    "oldLevel": {
+        "name": "oldLevel",
+        "type": "int",
+        "comment": "等级(旧版)"
+    },
+    "pawnable": {
+        "name": "pawnable",
+        "type": "int",
+        "comment": "可以被抵押"
+    },
+    "perishable": {
+        "name": "perishable",
+        "type": "int",
+        "comment": "使用完会消失"
+    },
+    "pickRandom": {
+        "name": "pickRandom",
+        "type": "int",
+        "comment": "可作为随机物品"
+    },
+    "powerup": {
+        "name": "powerup",
+        "type": "int",
+        "comment": "捡取时自动使用"
+    },
+    "prio": {
+        "name": "prio",
+        "type": "int",
+        "comment": "优先权"
+    },
+    "scale": {
+        "name": "scale",
+        "type": "float",
+        "comment": "模型缩放"
+    },
+    "sellable": {
+        "name": "sellable",
+        "type": "int",
+        "comment": "可被市场出售"
+    },
+    "selSize": {
+        "name": "selSize",
+        "type": "float",
+        "comment": "选择圈大小(编辑器)"
+    },
+    "stockMax": {
+        "name": "stockMax",
+        "type": "int",
+        "comment": "最大库存量"
+    },
+    "stockRegen": {
+        "name": "stockRegen",
+        "type": "int",
+        "comment": "购买时间间隔"
+    },
+    "stockStart": {
+        "name": "stockStart",
+        "type": "int",
+        "comment": "购买开始时间"
+    },
+    "usable": {
+        "name": "usable",
+        "type": "int",
+        "comment": "主动使用"
+    },
+    "uses": {
+        "name": "uses",
+        "type": "int",
+        "comment": "使用次数"
+    }
+}

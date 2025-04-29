@@ -1,0 +1,187 @@
+{
+    "Art": {
+        "name": "Art",
+        "type": "string",
+        "comment": "图标"
+    },
+    "base1": {
+        "name": "base1",
+        "type": "float",
+        "comment": "效果1"
+    },
+    "base2": {
+        "name": "base2",
+        "type": "float",
+        "comment": "效果2"
+    },
+    "base3": {
+        "name": "base3",
+        "type": "float",
+        "comment": "效果3"
+    },
+    "base4": {
+        "name": "base4",
+        "type": "float",
+        "comment": "效果4"
+    },
+    "Buttonpos_1": {
+        "name": "Buttonpos_1",
+        "type": "int",
+        "comment": "按钮位置(X)"
+    },
+    "Buttonpos_2": {
+        "name": "Buttonpos_2",
+        "type": "int",
+        "comment": "按钮位置(Y)"
+    },
+    "class": {
+        "name": "class",
+        "type": "string",
+        "comment": "升级类型"
+    },
+    "code1": {
+        "name": "code1",
+        "type": "string",
+        "comment": "效果1"
+    },
+    "code2": {
+        "name": "code2",
+        "type": "string",
+        "comment": "效果2"
+    },
+    "code3": {
+        "name": "code3",
+        "type": "string",
+        "comment": "效果3"
+    },
+    "code4": {
+        "name": "code4",
+        "type": "string",
+        "comment": "效果4"
+    },
+    "EditorSuffix": {
+        "name": "EditorSuffix",
+        "type": "string",
+        "comment": "编辑器后缀"
+    },
+    "effect1": {
+        "name": "effect1",
+        "type": "string",
+        "comment": "效果1"
+    },
+    "effect2": {
+        "name": "effect2",
+        "type": "string",
+        "comment": "效果2"
+    },
+    "effect3": {
+        "name": "effect3",
+        "type": "string",
+        "comment": "效果3"
+    },
+    "effect4": {
+        "name": "effect4",
+        "type": "string",
+        "comment": "效果4"
+    },
+    "global": {
+        "name": "global",
+        "type": "int",
+        "comment": "只应用于之后生产的单位"
+    },
+    "goldbase": {
+        "name": "goldbase",
+        "type": "int",
+        "comment": "基础黄金消耗"
+    },
+    "goldmod": {
+        "name": "goldmod",
+        "type": "int",
+        "comment": "每等级增加黄金"
+    },
+    "Hotkey": {
+        "name": "Hotkey",
+        "type": "string",
+        "comment": "热键"
+    },
+    "inherit": {
+        "name": "inherit",
+        "type": "int",
+        "comment": "可随单位转移所有者"
+    },
+    "lumberbase": {
+        "name": "lumberbase",
+        "type": "int",
+        "comment": "基础木材消耗"
+    },
+    "lumbermod": {
+        "name": "lumbermod",
+        "type": "int",
+        "comment": "每等级增加木材"
+    },
+    "maxlevel": {
+        "name": "maxlevel",
+        "type": "int",
+        "comment": "等级"
+    },
+    "mod1": {
+        "name": "mod1",
+        "type": "float",
+        "comment": "效果1"
+    },
+    "mod2": {
+        "name": "mod2",
+        "type": "float",
+        "comment": "效果2"
+    },
+    "mod3": {
+        "name": "mod3",
+        "type": "float",
+        "comment": "效果3"
+    },
+    "mod4": {
+        "name": "mod4",
+        "type": "float",
+        "comment": "效果4"
+    },
+    "Name": {
+        "name": "Name",
+        "type": "string",
+        "comment": "名字"
+    },
+    "race": {
+        "name": "race",
+        "type": "string",
+        "comment": "种族"
+    },
+    "Requires": {
+        "name": "Requires",
+        "type": "string",
+        "comment": "需求"
+    },
+    "Requiresamount": {
+        "name": "Requiresamount",
+        "type": "string",
+        "comment": "需求值"
+    },
+    "timebase": {
+        "name": "timebase",
+        "type": "int",
+        "comment": "基础时间消耗"
+    },
+    "timemod": {
+        "name": "timemod",
+        "type": "int",
+        "comment": "每等级增加时间"
+    },
+    "Tip": {
+        "name": "Tip",
+        "type": "string",
+        "comment": "提示工具"
+    },
+    "Ubertip": {
+        "name": "Ubertip",
+        "type": "string",
+        "comment": "提示工具-扩展"
+    }
+}

@@ -1,0 +1,914 @@
+# -*- coding: utf-8 -*-
+"""
+excel_to_ini_generate.py - Excel表格数据转换为War3物编INI文件
+
+此模块实现了Excel表格数据到War3物编INI文件的转换功能，
+支持生成各种物编类型（单位、技能、物品等）的INI文件，
+并生成相应的TypeScript映射文件。
+"""
+
+import os
+import re
+import logging
+import traceback
+import shutil
+from typing import Dict, List, Any, Tuple, Optional, Set, Union
+from configparser import ConfigParser
+from pathlib import Path
+
+from src.core.excel.data_handler import ExcelTable
+from src.core.ini.ini_parser import War3IniParser, OBJECT_TYPE_MAPPING
+from src.utils.config_manager import ConfigManager
+from src.utils.logger import setup_logger
+from src.utils.file_utils import FileUtils
+from src.utils.project_info import ProjectInfo
+
+
+class ExcelToIniGenerator:
+    """
+    Excel表格数据转换为War3物编INI文件的生成器类
+    
+    此类负责将处理后的Excel数据转换为War3物编INI文件，
+    支持基于模板生成不同类型的物编INI，并生成TS映射文件。
+    """
+
+    # 62进制字符集
+    BASE62_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    def __init__(self):
+        """
+        初始化Excel到INI生成器
+        
+        Args:
+            config_manager: 配置管理器实例
+        """
+        config_manager = ConfigManager()
+        self.config_manager = config_manager
+        # 统一使用全局logger
+        self.logger = logging.getLogger(__name__)
+        # 白泽框架
+        self.baize_frame = config_manager.get("baize_frame", True)
+        # 获取玩家数量，默认为5
+        self.player_count = int(config_manager.get("player_count", "5"))
+
+        # INI输出路径 - 用于将生成的INI文件额外复制到指定目录，非必填
+        self.ini_output_path = config_manager.get("ini_output", "")
+
+        # 初始化错误信息列表
+        self.error_messages = []
+
+        # 加载编辑器信息映射
+        self.dict_editor_info_map = ProjectInfo.dict_editor_info_map
+
+        # 加载editor_info_map.json
+        self.dict_editor_info_json_map = ProjectInfo.dict_editor_info_json_map
+
+        # 加载模板文件
+        self.dict_ini_template = ProjectInfo.dict_ini_template
+
+        # 加载基础命令ID元表
+        self.tuple_base_orderid = ProjectInfo.tuple_base_orderid
+
+        # 存储所有物编表格路径
+        self.list_excel_table_path = []
+
+        # 记录是否已经生成模版物编
+        self.template_ini = False
+
+        # 初始化生成的INI数据字典
+        self.ini_data = {}
+
+        # 初始化TS映射数据
+        self.unit_id_map = {}  # 单位ID映射
+        self.item_id_map = {}  # 物品ID映射
+        self.item_abil_map = {}  # 物品技能ID映射
+
+        # 记录所有已使用的ID，用于全局冲突检测
+        self.all_used_ids = {}  # {id: [(file_path, sheet_name, row_idx), ...]}
+
+    def decimal_to_base62(self, num: int) -> str:
+        """
+        将10进制数转换为62进制字符串
+        
+        Args:
+            num: 10进制数
+            
+        Returns:
+            str: 62进制字符串
+        """
+        if num == 0:
+            return self.BASE62_CHARS[0]
+
+        result = ""
+        while num > 0:
+            num, remainder = divmod(num, 62)
+            result = self.BASE62_CHARS[remainder] + result
+
+        return result
+
+    def base62_to_decimal(self, base62_str: str) -> int:
+        """
+        将62进制字符串转换为10进制数
+        
+        Args:
+            base62_str: 62进制字符串
+            
+        Returns:
+            int: 10进制数
+        """
+        result = 0
+        for char in base62_str:
+            result = result * 62 + self.BASE62_CHARS.index(char)
+
+        return result
+
+    def excel_to_inidata(self, excel_data: Dict[str, Any],
+                         file_path: str) -> None:
+        """
+        根据Excel数据并汇总到INI数据
+        
+        Args:
+            excel_data: Excel数据，格式为 {sheet_name: {data...}}
+            file_path: Excel文件路径，用于错误信息
+        """
+        # 检查是否是白泽框架下的表格文件:table
+        is_baize_table = "table" in FileUtils.get_file_name(file_path).lower()
+
+        for metadata in excel_data:
+            sheet_name = metadata["sheet_name"]
+            excel_table: ExcelTable = metadata["excel_table"]
+            keys = excel_table.get_keys()  # 第二行作为key值
+
+            # 判断物编类型
+            object_type = War3IniParser.detect_ini_type(sheet_name)
+
+            # 是否物编表格
+            is_object_table = False
+
+            # 初始化物编数据字典
+            for type in OBJECT_TYPE_MAPPING.keys():
+                if type not in self.ini_data:
+                    self.ini_data[type] = {}
+
+            # 白泽框架下特殊处理，只处理名为unit、ability、item的sheet
+            if self.baize_frame and is_baize_table and sheet_name.lower() in (
+                    "unit", "ability", "item"):
+                is_object_table = True
+
+                # 根据物编类型调用相应的处理函数
+                if object_type == "unit":
+                    self._process_baize_unit(excel_table, keys, file_path,
+                                             sheet_name)
+                elif object_type == "ability":
+                    self._process_baize_ability(excel_table, keys, file_path,
+                                                sheet_name)
+                elif object_type == "item":
+                    self._process_baize_item(excel_table, keys, file_path,
+                                             sheet_name)
+
+                # 白泽框架下，只生成一次模版物编
+                if not self.template_ini:
+                    self.template_ini = True
+                    # 生成模版物编，白泽框架下
+                    template = [
+                        ("瞭望塔模版-没有模型", "unit"),
+                        ("马甲单位模版", "unit"),
+                        ("移动技能模版", "ability"),
+                    ]
+                    for template_name, type1 in template:
+                        self._generate_template_object(template_name, type1)
+
+            # 通用处理：包含id和_parent的表格
+            elif "id" in keys and "_parent" in keys:
+                is_object_table = True
+                self._process_general_object(excel_table, keys, file_path,
+                                             sheet_name)
+
+            if is_object_table:
+                self.list_excel_table_path.append((file_path, sheet_name))
+
+    def _generate_template_object(self, template_name: str, object_type: str):
+        """
+        生成模版物编
+        
+        Args:
+            template_name: 模版名称
+            object_type: 物编类型
+        """
+        template = self.dict_ini_template.get(template_name, {})
+        if not template:
+            self.logger.error(f'未找到物编模版{template_name}')
+            return
+
+        dict = template.copy()
+        id = dict["id"]
+        file_path = "generated"
+        sheet_name = f"{template_name}"
+        row_idx = 0
+        if id not in self.all_used_ids:
+            self.all_used_ids[id] = []
+        self.all_used_ids[id].append((file_path, sheet_name, row_idx))
+
+        # 添加到结果字典
+        self.ini_data[object_type][id] = dict
+
+    def _process_baize_unit(self, excel_table: ExcelTable, keys: List[str],
+                            file_path: str, sheet_name: str):
+        """
+        处理白泽框架下的单位表格
+        
+        Args:
+            excel_table: 表格数据
+            keys: 表头索引映射
+            file_path: 文件路径
+            sheet_name: Sheet名称
+        """
+
+        unit_template = self.dict_ini_template.get("基础单位模版", {})
+        if not unit_template:
+            self.logger.error("未找到基础单位模版")
+            return
+
+        # 从第三行开始处理数据行
+        for row_idx in range(2, excel_table.shape()[0]):
+
+            # 基础单位ID: "A"+n，n从4开始
+            unit_count = len(self.ini_data["unit"]) + 4
+            unit_id_num = self.decimal_to_base62(unit_count)
+            unit_id = f"h{unit_id_num.zfill(3)}"
+
+            # 创建单位字典，复制模板
+            unit_dict = unit_template.copy()
+
+            # 根据表头填充字段
+            for col_idx, key in enumerate(keys):
+                # 获取单元格的值
+                value = excel_table.get_value(row_idx, col_idx)
+                if ExcelTable.custom_notna(value):
+                    # 检查是否匹配编辑器字段
+                    map_dict = self.dict_editor_info_map.get("unit", {})
+                    key_map = None
+                    if key in map_dict:
+                        key_map = key
+                    else:
+                        for key1 in map_dict.keys():
+                            if key.lower() == key1.lower():
+                                key_map = key1
+                                break
+                    if key_map:
+                        # 特殊字段处理
+                        # 攻击速度
+                        if key_map.lower() == "cool1":
+                            unit_dict[key_map] = value
+                        # 主动攻击范围
+                        elif key_map.lower() == "acquire":
+                            if value == 0:
+                                unit_dict["acquire"] = 0
+                                unit_dict["weapsOn"] = 0  #不能攻击
+                            else:
+                                unit_dict["acquire"] = value
+                                unit_dict["weapsOn"] = 1
+                        # 模型和文件
+                        elif key_map.lower() in ("model", "file"):
+                            unit_dict["file"] = value
+                        else:
+                            unit_dict[key_map] = value
+
+            # 添加单位ID映射
+            name = excel_table.get_value(row_idx, 0)  # 名字在第一列
+            self.unit_id_map[name] = unit_id
+
+            # 添加到结果字典
+            self.ini_data["unit"][unit_id] = unit_dict
+
+            # 记录全局已使用ID（用于冲突报告）
+            if unit_id not in self.all_used_ids:
+                self.all_used_ids[unit_id] = []
+            self.all_used_ids[unit_id].append(
+                (file_path, sheet_name, row_idx + 1))
+
+        # 生成瞭望塔模版
+        self._generate_lookout_towers()
+
+    def _generate_lookout_towers(self):
+        """
+        生成瞭望塔模版
+        """
+        tower_template = self.dict_ini_template.get("瞭望塔模版", {})
+        if not tower_template:
+            self.logger.error("未找到瞭望塔模版")
+            return
+
+        for m in range(1, 5):
+            tower_id = f"jzd{m}"
+
+            # 创建瞭望塔字典，复制模板
+            tower_dict = tower_template.copy()
+            tower_dict["id"] = tower_id
+
+            # 记录全局已使用ID（用于冲突报告）
+            file_path = "generated"
+            sheet_name = "瞭望塔模版"
+            row_idx = m
+
+            if tower_id not in self.all_used_ids:
+                self.all_used_ids[tower_id] = []
+            self.all_used_ids[tower_id].append(
+                (file_path, sheet_name, row_idx))
+
+            # 添加到结果字典
+            self.ini_data["unit"][tower_id] = tower_dict
+
+    def _process_baize_ability(self, excel_table: ExcelTable, keys: List[str],
+                               file_path: str, sheet_name: str):
+        """
+        处理白泽框架下的技能表格
+        
+        Args:
+            excel_table: 表格数据
+            keys: 表头索引映射
+            file_path: 文件路径
+            sheet_name: Sheet名称
+        """
+
+        # 生成基础技能
+        self._generate_basic_abilities()
+
+        # 生成建造技能
+        self._generate_build_abilities()
+
+        # 生成物品栏技能
+        self._generate_inventory_abilities()
+
+    def _generate_basic_abilities(self):
+        """
+        生成基础技能
+        """
+        template = self.dict_ini_template.get("基础技能模版", {})
+        if not template:
+            self.logger.error("未找到基础技能模版")
+            return
+
+        # 技能类型: 无目标/单位目标/点目标
+        ability_types = [{
+            "prefix": "X",
+            "DataB": "0",
+            "DataC": "1",
+            "targs": None
+        }, {
+            "prefix":
+            "Y",
+            "DataB":
+            "1",
+            "DataC":
+            "1",
+            "targs":
+            '"notself,ground,structure,air,ward,item,self"'
+        }, {
+            "prefix":
+            "Z",
+            "DataB":
+            "3",
+            "DataC":
+            "1",
+            "targs":
+            '"notself,ground,structure,air,ward,item,self"'
+        }]
+
+        # 每个玩家12*3个技能，对应12个技能位置，每个位置有3个技能
+        i = 0
+
+        for p in range(self.player_count):  # 玩家序号
+            for y in range(3):  # 按钮位置y: 0-2
+                for x in range(4):  # 按钮位置x: 0-3
+                    for ability_type in ability_types:
+                        # 计算基础命令ID索引
+                        n = i % len(self.tuple_base_orderid)
+
+                        # 生成技能ID: X/Y/Z + p + x + y
+                        ability_id = f"{ability_type['prefix']}{p}{x}{y}"
+
+                        # 创建技能字典，复制模板
+                        ability_dict = template.copy()
+
+                        # 设置基本属性
+                        ability_dict["DataB"] = ability_type[
+                            "DataB"]  #数据——目标类型DataB1
+                        ability_dict["DataC"] = ability_type[
+                            "DataC"]  #数据——选项DataC1
+                        if ability_type["targs"]:
+                            ability_dict["targs"] = ability_type[
+                                "targs"]  #目标允许类型
+
+                        # 设置命令相关属性
+                        ability_dict["Order"] = self.tuple_base_orderid[
+                            n]  # 命令串
+                        ability_dict["DataF"] = self.tuple_base_orderid[
+                            n]  # 基础命令 id
+                        ability_dict["Buttonpos_1"] = x  # 按钮位置 x:0-3
+                        ability_dict["Buttonpos_2"] = y  # 按钮位置 y:0-2
+                        ability_dict["Name"] = f"{p}+{x}+{y}"
+
+                        # 记录全局已使用ID（用于冲突报告）
+                        file_path = "generated"
+                        sheet_name = "基础技能模版"
+                        row_idx = i + 1
+
+                        if ability_id not in self.all_used_ids:
+                            self.all_used_ids[ability_id] = []
+                        self.all_used_ids[ability_id].append(
+                            (file_path, sheet_name, row_idx))
+
+                        # 添加到结果字典
+                        self.ini_data["ability"][ability_id] = ability_dict
+
+                        i += 1
+
+    def _generate_build_abilities(self):
+        """
+        生成建造技能
+        """
+        template = self.dict_ini_template.get("建造技能模版", {})
+        if not template:
+            self.logger.error("未找到建造技能模版")
+            return
+
+        for m in range(1, 5):
+            ability_id = f"JZT{m}"
+
+            # 创建技能字典，复制模板
+            ability_dict = template.copy()
+
+            # 设置属性
+            ability_dict["id"] = ability_id
+            ability_dict["_parent"] = '"AIbt"'  # 建造技能
+            ability_dict["Buttonpos_1"] = m - 1  # 按钮位置x: 0-3
+            ability_dict["UnitID"] = f"jzd{m}"  # 创建指定瞭望塔
+
+            # 记录全局已使用ID（用于冲突报告）
+            file_path = "generated"
+            sheet_name = "建造技能模版"
+            row_idx = m
+
+            if ability_id not in self.all_used_ids:
+                self.all_used_ids[ability_id] = []
+            self.all_used_ids[ability_id].append(
+                (file_path, sheet_name, row_idx))
+
+            # 添加到结果字典
+            self.ini_data["ability"][ability_id] = ability_dict
+
+    def _generate_inventory_abilities(self):
+        """
+        生成物品栏技能
+        """
+        template = self.dict_ini_template.get("物品栏技能模版", {})
+        if not template:
+            self.logger.error("未找到物品栏技能模版")
+            return
+
+        for m in range(1, 7):
+            ability_id = f"WPL{m}"
+
+            # 创建技能字典，复制模板
+            ability_dict = template.copy()
+
+            # 设置属性
+            ability_dict["id"] = ability_id
+            ability_dict["DataA"] = m  # 数据A，施法持续时间
+
+            # 记录全局已使用ID（用于冲突报告）
+            file_path = "generated"
+            sheet_name = "物品栏技能模版"
+            row_idx = m
+
+            if ability_id not in self.all_used_ids:
+                self.all_used_ids[ability_id] = []
+            self.all_used_ids[ability_id].append(
+                (file_path, sheet_name, row_idx))
+
+            # 添加到结果字典
+            self.ini_data["ability"][ability_id] = ability_dict
+
+    def _process_baize_item(self, excel_table: ExcelTable, keys: List[str],
+                            file_path: str, sheet_name: str):
+        """
+        处理白泽框架下的物品表格
+        
+        Args:
+            excel_table: 表格数据
+            keys: 表头索引映射
+            file_path: 文件路径
+            sheet_name: Sheet名称
+        """
+        item_template = self.dict_ini_template.get("基础物品模版", {})
+        ability_template = self.dict_ini_template.get("物品技能模版", {})
+
+        if not item_template:
+            self.logger.error("未找到基础物品模版")
+            return
+
+        if not ability_template:
+            self.logger.error("未找到物品技能模版")
+            return
+
+        # 从第三行开始处理数据行
+        for row_idx in range(2, excel_table.shape()[0]):
+
+            # 基础物品ID: "I"+n转62进制，不足3位补0
+            item_count = len(self.ini_data["item"]) + 4
+            id_num = self.decimal_to_base62(item_count)
+            item_id = f"I{id_num.zfill(3)}"
+
+            # 物品技能ID: "A"+n转62进制，不足3位补0
+            ability_id = f"A{id_num.zfill(3)}"
+
+            # 创建物品字典，复制模板
+            item_dict = item_template.copy()
+
+            # 设置物品的abilList为对应的物品技能ID
+            item_dict["abilList"] = ability_id
+
+            # 根据表头填充物品字段
+            for col_idx, key in enumerate(keys):
+                # 获取单元格的值
+                value = excel_table.get_value(row_idx, col_idx)
+                if ExcelTable.custom_notna(value):
+                    # 检查是否匹配编辑器字段
+                    map_dict = self.dict_editor_info_map.get("item", [])
+                    key_map = None
+                    if key in map_dict:
+                        key_map = key
+                    else:
+                        for key1 in map_dict.keys():
+                            if key.lower() == key1.lower():
+                                key_map = key1
+                                break
+                    if key_map:
+                        # 特殊字段处理
+                        if key_map.lower() in ["model", "file"]:
+                            item_dict["file"] = value
+                        else:
+                            item_dict[key_map] = value
+
+            # 添加物品ID映射
+            name = excel_table.get_value(row_idx, 0)  # 名字在第一列
+            self.item_id_map[name] = item_id
+
+            # 记录全局已使用ID（用于冲突报告）
+            if item_id not in self.all_used_ids:
+                self.all_used_ids[item_id] = []
+            self.all_used_ids[item_id].append(
+                (file_path, sheet_name, row_idx + 1))
+
+            # 处理物品技能
+            way = excel_table.get_value_by_key(row_idx, "使用方式")
+            range_value = excel_table.get_value_by_key(row_idx, "使用范围")
+            distance_value = excel_table.get_value_by_key(row_idx, "使用距离")
+            # 无方式，不需要物品技能
+            if way == "无":
+                continue
+
+            # 创建物品技能字典，复制模板
+            ability_dict = ability_template.copy()
+
+            # 根据使用方式设置物品技能属性
+            if way == "无目标":
+                ability_dict["DataB"] = "0"  #目标类型：无
+            elif way == "点":
+                ability_dict["DataB"] = "3"  #目标类型：点/单位
+                if range_value == 0:
+                    ability_dict["DataC"] = "1"  # 图标可见
+                else:
+                    ability_dict["DataC"] = "3"  # 目标选取图像
+            elif way == "单位":
+                ability_dict["DataB"] = "1"  #目标类型：单位
+                ability_dict["DataC"] = "1"  # 图标可见
+            elif way == "建造":
+                item_dict["abilList"] = '"JZT1"'  # 使用建造技能
+
+            # 设置命令相关属性
+            n = item_count % len(self.tuple_base_orderid)
+            ability_dict["Order"] = self.tuple_base_orderid[n]  #命令串
+            ability_dict["DataF"] = self.tuple_base_orderid[n]  #基础命令 id
+
+            # 设置使用距离和范围
+            ability_dict["Rng"] = distance_value  #使用距离
+            ability_dict["Area"] = range_value  #使用范围
+
+            # 记录全局已使用ID（用于冲突报告）
+            if ability_id not in self.all_used_ids:
+                self.all_used_ids[ability_id] = []
+            self.all_used_ids[ability_id].append(
+                (file_path, sheet_name, row_idx + 1))
+
+            # 添加物品技能ID映射
+            if name:
+                self.item_abil_map[name] = ability_id
+
+            # 添加到结果字典
+            self.ini_data["ability"][ability_id] = ability_dict
+
+            # 添加到结果字典
+            self.ini_data["item"][item_id] = item_dict  #这个放在后面是因为建造技能
+
+    def _process_general_object(self, excel_table: ExcelTable, keys: List[str],
+                                file_path: str, sheet_name: str):
+        """
+        处理通用物编对象
+        
+        Args:
+            excel_table: 表格数据
+            keys: 表头索引列表
+            file_path: 文件路径
+            sheet_name: Sheet名称
+        """
+        for row_idx in range(2, excel_table.shape()[0]):  # 从第三行开始是数据
+
+            obj_id = excel_table.get_value_by_key(row_idx, "id")  # ID
+            parent = excel_table.get_value_by_key(row_idx, "_parent")  # 父级
+
+            # 判断物编类型
+            obj_type = War3IniParser.detect_ini_type(sheet_name)
+            if not obj_type:
+                self.logger.error(
+                    f"物编表格{file_path}无法根据sheet名:{sheet_name}判断物编ini类型")
+                continue
+
+            # 创建对象字典
+            obj_dict = {"_parent": parent}
+
+            # 添加其他字段
+            for col_idx, key in enumerate(keys):
+                # 获取单元格的值
+                value = excel_table.get_value(row_idx, col_idx)
+                if ExcelTable.custom_notna(value):
+                    # 检查是否是编辑器支持的字段
+                    field_matched = False
+                    if obj_type in self.dict_editor_info_map:
+                        # 检查是否匹配编辑器字段
+                        map_dict = self.dict_editor_info_map[obj_type]
+                        key_map = None
+                        if key in map_dict:
+                            key_map = key
+                        else:
+                            for key1 in map_dict.keys():
+                                if key.lower() == key1.lower():
+                                    key_map = key1
+                                    break
+                        if key_map:
+                            field_matched = True
+                            obj_dict[key_map] = value
+
+            # 记录全局已使用ID（用于冲突报告）
+            if obj_id not in self.all_used_ids:
+                self.all_used_ids[obj_id] = []
+            self.all_used_ids[obj_id].append(
+                (file_path, sheet_name, row_idx + 1))
+            # 添加到结果字典
+            if obj_type not in self.ini_data:
+                self.ini_data[obj_type] = {}
+            self.ini_data[obj_type][obj_id] = obj_dict
+
+    def save_ini_files(self, output_dir: str) -> None:
+        """
+        保存INI文件
+        
+        Args:
+            output_dir: 输出目录
+        """
+        try:
+            # 确保输出目录存在
+            os.makedirs(output_dir, exist_ok=True)
+
+            # 保存每种物编类型的INI文件
+            for obj_type, sections in self.ini_data.items():
+                if sections:
+                    ini_path = os.path.join(output_dir, f"{obj_type}.ini")
+
+                    with open(ini_path, 'w', encoding='utf-8') as f:
+                        for section_id, fields in sections.items():
+                            f.write(f"[{section_id}]\n")
+                            for key, value in fields.items():
+                                # 格式化值
+                                type = self.dict_editor_info_json_map.get(
+                                    obj_type, {}).get(key, {}).get("type")
+                                val = self.format_ini_value(type, value)
+                                self.ini_data[obj_type][section_id][key] = val
+
+                                # 注释
+                                comment = self.dict_editor_info_map.get(
+                                    obj_type, {}).get(key, {})
+                                if comment:
+                                    f.write(f"# {comment}\n")
+                                # 键值对
+                                f.write(f"{key}={val}\n")
+                            f.write("\n")
+
+                    self.logger.info(f"已生成INI文件: {ini_path}")
+
+            # 如果有指定ini_output_path，复制生成的INI文件
+            if self.ini_output_path:
+                self._copy_ini_files(output_dir, self.ini_output_path)
+        except Exception as e:
+            self.logger.error(f"保存INI文件失败: {str(e)}\n{traceback.format_exc()}")
+
+    def _copy_ini_files(self, src_dir: str, dst_dir: str) -> None:
+        """
+        复制INI文件到指定目录
+        
+        Args:
+            src_dir: 源目录
+            dst_dir: 目标目录
+        """
+        try:
+            # 确保目标目录存在
+            os.makedirs(dst_dir, exist_ok=True)
+
+            # 复制INI文件
+            for obj_type in self.ini_data.keys():
+                src_path = os.path.join(src_dir, f"{obj_type}.ini")
+                dst_path = os.path.join(dst_dir, f"{obj_type}.ini")
+
+                if os.path.exists(src_path):
+                    shutil.copy2(src_path, dst_path)
+                    self.logger.info(f"已复制INI文件到: {dst_path}")
+        except Exception as e:
+            self.logger.error(f"复制INI文件失败: {str(e)}\n{traceback.format_exc()}")
+
+    def generate_ts_mapping_files(self, output_dir: str) -> None:
+        """
+        生成TypeScript映射文件
+        
+        Args:
+            output_dir: 输出目录
+        """
+        try:
+            # 确保输出目录存在
+            os.makedirs(output_dir, exist_ok=True)
+
+            # 生成unitid.ts
+            if self.unit_id_map:
+                unit_ts_path = os.path.join(output_dir, "unitid.ts")
+                with open(unit_ts_path, 'w', encoding='utf-8') as f:
+                    f.write("/** 单位ID映射 */\n")
+                    f.write("export const UnitId = {\n")
+                    for name, unit_id in sorted(self.unit_id_map.items()):
+                        f.write(f"    '{name}': '{unit_id}',\n")
+                        f.write(f"    '{unit_id}': '{name}',\n")
+                    f.write("} as const;\n")
+
+                self.logger.info(f"已生成TypeScript映射文件: {unit_ts_path}")
+
+            # 生成itemid.ts
+            if self.item_id_map:
+                item_ts_path = os.path.join(output_dir, "itemid.ts")
+                with open(item_ts_path, 'w', encoding='utf-8') as f:
+                    f.write("/** 物品ID映射 */\n")
+                    f.write("export const ItemId = {\n")
+                    for name, item_id in sorted(self.item_id_map.items()):
+                        f.write(f"    '{name}': '{item_id}',\n")
+                        f.write(f"    '{item_id}': '{name}',\n")
+                    f.write("} as const;\n")
+
+                self.logger.info(f"已生成TypeScript映射文件: {item_ts_path}")
+
+            # 生成itemabil.ts
+            if self.item_abil_map:
+                item_abil_ts_path = os.path.join(output_dir, "itemabil.ts")
+                with open(item_abil_ts_path, 'w', encoding='utf-8') as f:
+                    f.write("/** 物品技能ID映射 */\n")
+                    f.write("export const ItemAbilId = {\n")
+                    for name, ability_id in sorted(self.item_abil_map.items()):
+                        f.write(f"    '{name}': '{ability_id}',\n")
+                        f.write(f"    '{ability_id}': '{name}',\n")
+                    f.write("} as const;\n")
+
+                self.logger.info(f"已生成TypeScript映射文件: {item_abil_ts_path}")
+        except Exception as e:
+            self.logger.error(
+                f"生成TypeScript映射文件失败: {str(e)}\n{traceback.format_exc()}")
+
+    def process_excel_to_ini(self, excel_data: Dict[str, Dict[str, Any]],
+                             file_path: str) -> None:
+        """
+        处理Excel数据并生成INI文件
+        
+        Args:
+            excel_data: Excel数据
+            file_path: Excel文件路径
+        """
+        try:
+            # 汇总INI数据，直接更新self.ini_data
+            self.excel_to_inidata(excel_data, file_path)
+        except Exception as e:
+            self.logger.error(
+                f"处理Excel数据失败: {str(e)}\n{traceback.format_exc()}")
+
+    def format_ini_value(self, type: str, value: Any) -> str:
+        """
+        格式化INI值，确保字符串有双引号
+        
+        Args:
+            key:键值
+            value: 原始值
+            
+        Returns:
+            str: 格式化后的值
+        """
+
+        if type == "int":
+            return int(value)
+
+        elif type == "float":
+            return float(value)
+
+        elif type == "string":
+            if (value.startswith("{")
+                    and value.endswith("}")) or (value.startswith("[=[")
+                                                 and value.endswith("]=]")):
+                # war3物编特殊格式，直接返回
+                return value
+            else:
+                # 普通字符串：带双引号
+                if value is None:
+                    return '""'
+                value = value.strip('"')
+                return f'"{value}"'
+
+        return
+
+    def _check_global_id_conflicts(self) -> None:
+        """
+        检查全局ID冲突，将所有冲突信息添加到错误消息列表
+        所有物编ID在War3中是全局唯一的，不能重复
+        """
+        # 遍历所有记录的ID
+        for obj_id, sources in self.all_used_ids.items():
+            # 如果某个ID出现多次，则生成冲突报告
+            if len(sources) > 1:
+                # 构建详细的冲突信息
+                conflict_msg = f"ID冲突: '{obj_id}' 在以下位置重复使用:\n"
+
+                for source in sources:
+                    file_path, sheet_name, row_idx = source
+                    conflict_msg += f"  - [文件]: {file_path}, [表]: {sheet_name}, [行]: {row_idx}\n"
+
+                # 添加到错误消息列表
+                self.error_messages.append(conflict_msg)
+
+    def finish_processing(self, output_dir: str) -> List[str]:
+        """
+        完成处理并生成所有文件
+        
+        Args:
+            output_dir: 输出目录
+            
+        Returns:
+            List[str]: 错误信息列表
+        """
+        try:
+            # # 格式化所有值
+            # for object_type, dict1 in self.ini_data.items():
+            #     for id, dict2 in dict1.items():
+            #         for key, value in dict2.items():
+            #             type = self.dict_editor_info_json_map.get(
+            #                 object_type, {}).get(key, {}).get("type")
+            #             val = self.format_ini_value(type, value)
+            #             self.ini_data[object_type][id][key] = val
+
+            # 打印所有物编表格路径
+            len_list_excel_table_path = len(self.list_excel_table_path)
+            if len_list_excel_table_path > 0:
+                i = 1
+                for file_path, sheet_name in self.list_excel_table_path:
+                    self.logger.info(
+                        f"物编表格{i}. excel路径: {file_path}, 表名: {sheet_name}")
+                    i += 1
+            else:
+                self.logger.warning("没有发现物编表格")
+                return
+
+            # 先检查全局ID冲突
+            self._check_global_id_conflicts()
+
+            # 如果有错误，返回错误信息
+            if self.error_messages:
+                self.logger.warning(f"处理过程中发现 {len(self.error_messages)} 个错误")
+                for error in self.error_messages:
+                    self.logger.warning(error)
+
+            # 保存INI文件
+            ini_output_dir = os.path.join(output_dir, "ini")
+            self.save_ini_files(ini_output_dir)
+
+            # 生成TypeScript映射文件
+            ts_output_dir = os.path.join(output_dir, "ts")
+            self.generate_ts_mapping_files(ts_output_dir)
+
+            # 返回错误信息
+            return self.error_messages
+        except Exception as e:
+            self.logger.error(f"完成处理失败: {str(e)}\n{traceback.format_exc()}")
+            self.error_messages.append(f"处理过程中发生错误: {str(e)}")
+            return self.error_messages

@@ -1,0 +1,137 @@
+{
+    "Buffart": {
+        "name": "Buffart",
+        "type": "string",
+        "comment": "图标"
+    },
+    "Bufftip": {
+        "name": "Bufftip",
+        "type": "string",
+        "comment": "工具提示"
+    },
+    "Buffubertip": {
+        "name": "Buffubertip",
+        "type": "string",
+        "comment": "工具提示-扩展"
+    },
+    "EditorName": {
+        "name": "EditorName",
+        "type": "string",
+        "comment": "名字(编辑器)"
+    },
+    "EditorSuffix": {
+        "name": "EditorSuffix",
+        "type": "string",
+        "comment": "编辑器后缀"
+    },
+    "EffectArt": {
+        "name": "EffectArt",
+        "type": "string",
+        "comment": "效果-点目标"
+    },
+    "Effectattach": {
+        "name": "Effectattach",
+        "type": "string",
+        "comment": "效果-点目标附加点"
+    },
+    "Effectsound": {
+        "name": "Effectsound",
+        "type": "string",
+        "comment": "声音效果"
+    },
+    "Effectsoundlooped": {
+        "name": "Effectsoundlooped",
+        "type": "string",
+        "comment": "声音效果(循环)"
+    },
+    "isEffect": {
+        "name": "isEffect",
+        "type": "int",
+        "comment": "是区域效果"
+    },
+    "LightningEffect": {
+        "name": "LightningEffect",
+        "type": "string",
+        "comment": "效果-闪电效果"
+    },
+    "Missilearc": {
+        "name": "Missilearc",
+        "type": "float",
+        "comment": "效果-射弹弧度"
+    },
+    "Missileart": {
+        "name": "Missileart",
+        "type": "string",
+        "comment": "效果-投射物图像"
+    },
+    "MissileHoming": {
+        "name": "MissileHoming",
+        "type": "int",
+        "comment": "设置箭矢是否跟踪目标"
+    },
+    "Missilespeed": {
+        "name": "Missilespeed",
+        "type": "int",
+        "comment": "效果-射弹速度"
+    },
+    "race": {
+        "name": "race",
+        "type": "string",
+        "comment": "种族"
+    },
+    "SpecialArt": {
+        "name": "SpecialArt",
+        "type": "string",
+        "comment": "效果-特殊"
+    },
+    "Specialattach": {
+        "name": "Specialattach",
+        "type": "string",
+        "comment": "效果-特殊附加点"
+    },
+    "Spelldetail": {
+        "name": "Spelldetail",
+        "type": "int",
+        "comment": "效果显示需求"
+    },
+    "TargetArt": {
+        "name": "TargetArt",
+        "type": "string",
+        "comment": "效果-目标"
+    },
+    "Targetattach": {
+        "name": "Targetattach",
+        "type": "string",
+        "comment": "效果-目标附加点1"
+    },
+    "Targetattach1": {
+        "name": "Targetattach1",
+        "type": "string",
+        "comment": "效果-目标附加点2"
+    },
+    "Targetattach2": {
+        "name": "Targetattach2",
+        "type": "string",
+        "comment": "效果-目标附加点3"
+    },
+    "Targetattach3": {
+        "name": "Targetattach3",
+        "type": "string",
+        "comment": "效果-目标附加点4"
+    },
+    "Targetattach4": {
+        "name": "Targetattach4",
+        "type": "string",
+        "comment": "效果-目标附加点5"
+    },
+    "Targetattach5": {
+        "name": "Targetattach5",
+        "type": "string",
+        "comment": "效果-目标附加点6"
+    },
+    "Targetattachcount": {
+        "name": "Targetattachcount",
+        "type": "int",
+        "comment": "效果-目标-附加数量"
+    }
+}

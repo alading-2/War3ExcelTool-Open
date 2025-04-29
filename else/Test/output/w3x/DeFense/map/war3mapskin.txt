@@ -1,3 +1,0 @@
-[CustomSkin]
-CommandButtonCooldown=interface\cooldown ui.mdx
-IdlePeon=ReplaceableTextures\CommandButtons\BTNWarEagle.blp

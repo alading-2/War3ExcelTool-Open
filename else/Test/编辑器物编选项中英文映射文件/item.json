@@ -1,0 +1,230 @@
+[
+  {
+    "name": "Art",
+    "values": [],
+    "type": "string",
+    "comment": "界面图标"
+  },
+  {
+    "name": "Buttonpos_1",
+    "values": [],
+    "type": "int",
+    "comment": "按钮位置(X)"
+  },
+  {
+    "name": "Buttonpos_2",
+    "values": [],
+    "type": "int",
+    "comment": "按钮位置(Y)"
+  },
+  {
+    "name": "Description",
+    "values": [],
+    "type": "string",
+    "comment": "说明"
+  },
+  {
+    "name": "HP",
+    "values": [],
+    "type": "int",
+    "comment": "生命值"
+  },
+  {
+    "name": "Level",
+    "values": [],
+    "type": "int",
+    "comment": "等级"
+  },
+  {
+    "name": "Name",
+    "values": [],
+    "type": "string",
+    "comment": "名字"
+  },
+  {
+    "name": "Tip",
+    "values": [],
+    "type": "string",
+    "comment": "提示工具 - 基础"
+  },
+  {
+    "name": "Ubertip",
+    "values": [],
+    "type": "string",
+    "comment": "提示工具 - 扩展"
+  },
+  {
+    "name": "abilList",
+    "values": [],
+    "type": "string",
+    "comment": "技能"
+  },
+  {
+    "name": "armor",
+    "values": [],
+    "type": "string",
+    "comment": "装甲类型"
+  },
+  {
+    "name": "class",
+    "values": [],
+    "type": "string",
+    "comment": "物品分类"
+  },
+  {
+    "name": "colorB",
+    "values": [],
+    "type": "int",
+    "comment": "颜色值(蓝)"
+  },
+  {
+    "name": "colorG",
+    "values": [],
+    "type": "int",
+    "comment": "颜色值(绿)"
+  },
+  {
+    "name": "colorR",
+    "values": [],
+    "type": "int",
+    "comment": "颜色值(红)"
+  },
+  {
+    "name": "cooldownID",
+    "values": [],
+    "type": "string",
+    "comment": "CD间隔组"
+  },
+  {
+    "name": "drop",
+    "values": [],
+    "type": "int",
+    "comment": "持有者死亡时掉落"
+  },
+  {
+    "name": "droppable",
+    "values": [],
+    "type": "int",
+    "comment": "可以丢弃"
+  },
+  {
+    "name": "file",
+    "values": [],
+    "type": "string",
+    "comment": "使用模型"
+  },
+  {
+    "name": "goldcost",
+    "values": [],
+    "type": "int",
+    "comment": "黄金消耗"
+  },
+  {
+    "name": "ignoreCD",
+    "values": [],
+    "type": "int",
+    "comment": "无视CD间隔"
+  },
+  {
+    "name": "lumbercost",
+    "values": [],
+    "type": "int",
+    "comment": "木材消耗"
+  },
+  {
+    "name": "morph",
+    "values": [],
+    "type": "int",
+    "comment": "有效的物品转换目标"
+  },
+  {
+    "name": "oldLevel",
+    "values": [],
+    "type": "int",
+    "comment": "等级(旧版)"
+  },
+  {
+    "name": "pawnable",
+    "values": [],
+    "type": "int",
+    "comment": "可以被抵押"
+  },
+  {
+    "name": "perishable",
+    "values": [],
+    "type": "int",
+    "comment": "使用完会消失"
+  },
+  {
+    "name": "pickRandom",
+    "values": [],
+    "type": "int",
+    "comment": "可作为随机物品"
+  },
+  {
+    "name": "powerup",
+    "values": [],
+    "type": "int",
+    "comment": "捡取时自动使用"
+  },
+  {
+    "name": "prio",
+    "values": [],
+    "type": "int",
+    "comment": "优先权"
+  },
+  {
+    "name": "scale",
+    "values": [],
+    "type": "float",
+    "comment": "模型缩放"
+  },
+  {
+    "name": "selSize",
+    "values": [],
+    "type": "float",
+    "comment": "选择圈大小(编辑器)"
+  },
+  {
+    "name": "sellable",
+    "values": [],
+    "type": "int",
+    "comment": "可被市场出售"
+  },
+  {
+    "name": "stockMax",
+    "values": [],
+    "type": "int",
+    "comment": "最大库存量"
+  },
+  {
+    "name": "stockRegen",
+    "values": [],
+    "type": "int",
+    "comment": "购买时间间隔"
+  },
+  {
+    "name": "stockStart",
+    "values": [],
+    "type": "int",
+    "comment": "购买开始时间"
+  },
+  {
+    "name": "usable",
+    "values": [],
+    "type": "int",
+    "comment": "主动使用"
+  },
+  {
+    "name": "Hotkey",
+    "values": [],
+    "type": "string",
+    "comment": "热键"
+  },
+  {
+    "name": "Requires",
+    "values": [],
+    "type": "string",
+    "comment": "需求"
+  }
+]

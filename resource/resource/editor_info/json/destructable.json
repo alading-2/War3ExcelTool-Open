@@ -1,0 +1,262 @@
+{
+    "armor": {
+        "name": "armor",
+        "type": "string",
+        "comment": "装甲类型"
+    },
+    "buildTime": {
+        "name": "buildTime",
+        "type": "int",
+        "comment": "建造时间"
+    },
+    "canPlaceDead": {
+        "name": "canPlaceDead",
+        "type": "int",
+        "comment": "面板显示死亡版本"
+    },
+    "canPlaceRandScale": {
+        "name": "canPlaceRandScale",
+        "type": "int",
+        "comment": "可以放置随机比例"
+    },
+    "category": {
+        "name": "category",
+        "type": "string",
+        "comment": "类别"
+    },
+    "cliffHeight": {
+        "name": "cliffHeight",
+        "type": "int",
+        "comment": "悬崖高度"
+    },
+    "colorB": {
+        "name": "colorB",
+        "type": "int",
+        "comment": "颜色值(蓝)"
+    },
+    "colorG": {
+        "name": "colorG",
+        "type": "int",
+        "comment": "颜色值(绿)"
+    },
+    "colorR": {
+        "name": "colorR",
+        "type": "int",
+        "comment": "颜色值(红)"
+    },
+    "deathSnd": {
+        "name": "deathSnd",
+        "type": "string",
+        "comment": "死亡"
+    },
+    "EditorSuffix": {
+        "name": "EditorSuffix",
+        "type": "string",
+        "comment": "编辑器后缀"
+    },
+    "fatLOS": {
+        "name": "fatLOS",
+        "type": "int",
+        "comment": "加强闭塞范围"
+    },
+    "file": {
+        "name": "file",
+        "type": "string",
+        "comment": "模型文件"
+    },
+    "fixedRot": {
+        "name": "fixedRot",
+        "type": "float",
+        "comment": "固定角度"
+    },
+    "flyH": {
+        "name": "flyH",
+        "type": "float",
+        "comment": "飞越高度"
+    },
+    "fogRadius": {
+        "name": "fogRadius",
+        "type": "float",
+        "comment": "迷雾范围"
+    },
+    "fogVis": {
+        "name": "fogVis",
+        "type": "int",
+        "comment": "迷雾中可见动画"
+    },
+    "goldRep": {
+        "name": "goldRep",
+        "type": "int",
+        "comment": "修理金子消耗"
+    },
+    "HP": {
+        "name": "HP",
+        "type": "float",
+        "comment": "生命值"
+    },
+    "lightweight": {
+        "name": "lightweight",
+        "type": "int",
+        "comment": "模型文件-有附属模型"
+    },
+    "lumberRep": {
+        "name": "lumberRep",
+        "type": "int",
+        "comment": "修理木材消耗"
+    },
+    "maxPitch": {
+        "name": "maxPitch",
+        "type": "float",
+        "comment": "X轴最大旋转角度(度数)"
+    },
+    "maxRoll": {
+        "name": "maxRoll",
+        "type": "float",
+        "comment": "Y轴最大旋转角度(度数)"
+    },
+    "maxScale": {
+        "name": "maxScale",
+        "type": "float",
+        "comment": "最大比例"
+    },
+    "minScale": {
+        "name": "minScale",
+        "type": "float",
+        "comment": "最小比例"
+    },
+    "MMBlue": {
+        "name": "MMBlue",
+        "type": "int",
+        "comment": "小地图颜色(蓝)"
+    },
+    "MMGreen": {
+        "name": "MMGreen",
+        "type": "int",
+        "comment": "小地图颜色(绿)"
+    },
+    "MMRed": {
+        "name": "MMRed",
+        "type": "int",
+        "comment": "小地图颜色(红)"
+    },
+    "Name": {
+        "name": "Name",
+        "type": "string",
+        "comment": "名字"
+    },
+    "numVar": {
+        "name": "numVar",
+        "type": "int",
+        "comment": "模型文件-样式总数"
+    },
+    "occH": {
+        "name": "occH",
+        "type": "float",
+        "comment": "闭塞高度"
+    },
+    "onCliffs": {
+        "name": "onCliffs",
+        "type": "int",
+        "comment": "悬崖上可放置"
+    },
+    "onWater": {
+        "name": "onWater",
+        "type": "int",
+        "comment": "水面可放置"
+    },
+    "pathTex": {
+        "name": "pathTex",
+        "type": "string",
+        "comment": "路径纹理"
+    },
+    "pathTexDeath": {
+        "name": "pathTexDeath",
+        "type": "string",
+        "comment": "路径纹理(死亡)"
+    },
+    "portraitmodel": {
+        "name": "portraitmodel",
+        "type": "string",
+        "comment": "模型文件-头像"
+    },
+    "radius": {
+        "name": "radius",
+        "type": "float",
+        "comment": "高度变化-采样范围"
+    },
+    "repairTime": {
+        "name": "repairTime",
+        "type": "int",
+        "comment": "修理时间"
+    },
+    "selcircsize": {
+        "name": "selcircsize",
+        "type": "float",
+        "comment": "选择圈大小(游戏)"
+    },
+    "selectable": {
+        "name": "selectable",
+        "type": "int",
+        "comment": "游戏中可选择"
+    },
+    "selSize": {
+        "name": "selSize",
+        "type": "float",
+        "comment": "选择圈大小(编辑器)"
+    },
+    "shadow": {
+        "name": "shadow",
+        "type": "string",
+        "comment": "阴影"
+    },
+    "showInMM": {
+        "name": "showInMM",
+        "type": "int",
+        "comment": "小地图-显示"
+    },
+    "targType": {
+        "name": "targType",
+        "type": "string",
+        "comment": "作为目标类型"
+    },
+    "texFile": {
+        "name": "texFile",
+        "type": "string",
+        "comment": "替换纹理文件"
+    },
+    "texID": {
+        "name": "texID",
+        "type": "int",
+        "comment": "替换纹理ID"
+    },
+    "tilesets": {
+        "name": "tilesets",
+        "type": "string",
+        "comment": "地形设置"
+    },
+    "tilesetSpecific": {
+        "name": "tilesetSpecific",
+        "type": "int",
+        "comment": "有地形指定数据"
+    },
+    "useClickHelper": {
+        "name": "useClickHelper",
+        "type": "int",
+        "comment": "使用点击帮助"
+    },
+    "useMMColor": {
+        "name": "useMMColor",
+        "type": "int",
+        "comment": "小地图-使用自定义颜色"
+    },
+    "UserList": {
+        "name": "UserList",
+        "type": "int",
+        "comment": "加入用户指定列表"
+    },
+    "walkable": {
+        "name": "walkable",
+        "type": "int",
+        "comment": "可通行"
+    }
+}

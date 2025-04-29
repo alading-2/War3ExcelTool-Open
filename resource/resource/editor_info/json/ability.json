@@ -1,0 +1,342 @@
+{
+    "Animnames": {
+        "name": "Animnames",
+        "type": "string",
+        "comment": "效果-施法动作"
+    },
+    "Area": {
+        "name": "Area",
+        "type": "float",
+        "comment": "影响区域"
+    },
+    "Areaeffectart": {
+        "name": "Areaeffectart",
+        "type": "string",
+        "comment": "效果-区域"
+    },
+    "Art": {
+        "name": "Art",
+        "type": "string",
+        "comment": "图标-普通"
+    },
+    "BuffID": {
+        "name": "BuffID",
+        "type": "string",
+        "comment": "魔法效果"
+    },
+    "Buttonpos_1": {
+        "name": "Buttonpos_1",
+        "type": "int",
+        "comment": "按钮位置-普通(X)"
+    },
+    "Buttonpos_2": {
+        "name": "Buttonpos_2",
+        "type": "int",
+        "comment": "按钮位置-普通(Y)"
+    },
+    "Cast": {
+        "name": "Cast",
+        "type": "float",
+        "comment": "魔法施放时间"
+    },
+    "CasterArt": {
+        "name": "CasterArt",
+        "type": "string",
+        "comment": "效果-施法者"
+    },
+    "Casterattach": {
+        "name": "Casterattach",
+        "type": "string",
+        "comment": "效果-施法者附加点1"
+    },
+    "Casterattach1": {
+        "name": "Casterattach1",
+        "type": "string",
+        "comment": "效果-施法者附加点2"
+    },
+    "Casterattachcount": {
+        "name": "Casterattachcount",
+        "type": "int",
+        "comment": "效果-施法者-附加数量"
+    },
+    "checkDep": {
+        "name": "checkDep",
+        "type": "int",
+        "comment": "检查等价所属"
+    },
+    "Cool": {
+        "name": "Cool",
+        "type": "float",
+        "comment": "魔法施放时间间隔"
+    },
+    "Cost": {
+        "name": "Cost",
+        "type": "int",
+        "comment": "魔法消耗"
+    },
+    "Dur": {
+        "name": "Dur",
+        "type": "float",
+        "comment": "持续时间-普通"
+    },
+    "EditorSuffix": {
+        "name": "EditorSuffix",
+        "type": "string",
+        "comment": "编辑器后缀"
+    },
+    "EfctID": {
+        "name": "EfctID",
+        "type": "string",
+        "comment": "区域持续效果"
+    },
+    "EffectArt": {
+        "name": "EffectArt",
+        "type": "string",
+        "comment": "效果-目标点"
+    },
+    "Effectsound": {
+        "name": "Effectsound",
+        "type": "string",
+        "comment": "音效"
+    },
+    "Effectsoundlooped": {
+        "name": "Effectsoundlooped",
+        "type": "string",
+        "comment": "音效(循环)"
+    },
+    "hero": {
+        "name": "hero",
+        "type": "int",
+        "comment": "英雄技能"
+    },
+    "HeroDur": {
+        "name": "HeroDur",
+        "type": "float",
+        "comment": "持续时间-英雄"
+    },
+    "Hotkey": {
+        "name": "Hotkey",
+        "type": "string",
+        "comment": "热键-普通"
+    },
+    "item": {
+        "name": "item",
+        "type": "int",
+        "comment": "物品技能"
+    },
+    "levels": {
+        "name": "levels",
+        "type": "int",
+        "comment": "等级"
+    },
+    "levelSkip": {
+        "name": "levelSkip",
+        "type": "int",
+        "comment": "跳级要求"
+    },
+    "LightningEffect": {
+        "name": "LightningEffect",
+        "type": "string",
+        "comment": "效果-闪电效果"
+    },
+    "Missilearc": {
+        "name": "Missilearc",
+        "type": "float",
+        "comment": "效果-射弹弧度"
+    },
+    "Missileart": {
+        "name": "Missileart",
+        "type": "string",
+        "comment": "效果-投射物图像"
+    },
+    "MissileHoming": {
+        "name": "MissileHoming",
+        "type": "int",
+        "comment": "设置箭矢是否自动跟踪目标"
+    },
+    "Missilespeed": {
+        "name": "Missilespeed",
+        "type": "int",
+        "comment": "效果-射弹速度"
+    },
+    "Name": {
+        "name": "Name",
+        "type": "string",
+        "comment": "名字"
+    },
+    "Order": {
+        "name": "Order",
+        "type": "string",
+        "comment": "命令串-使用/打开"
+    },
+    "Orderoff": {
+        "name": "Orderoff",
+        "type": "string",
+        "comment": "命令串-取消激活"
+    },
+    "Orderon": {
+        "name": "Orderon",
+        "type": "string",
+        "comment": "命令串-激活"
+    },
+    "priority": {
+        "name": "priority",
+        "type": "int",
+        "comment": "魔法偷取优先权"
+    },
+    "race": {
+        "name": "race",
+        "type": "string",
+        "comment": "种族"
+    },
+    "reqLevel": {
+        "name": "reqLevel",
+        "type": "int",
+        "comment": "等级要求"
+    },
+    "Requires": {
+        "name": "Requires",
+        "type": "string",
+        "comment": "需求"
+    },
+    "Requiresamount": {
+        "name": "Requiresamount",
+        "type": "string",
+        "comment": "需求值"
+    },
+    "ResearchArt": {
+        "name": "ResearchArt",
+        "type": "string",
+        "comment": "图标-学习"
+    },
+    "Researchbuttonpos_1": {
+        "name": "Researchbuttonpos_1",
+        "type": "int",
+        "comment": "按钮位置-研究(X)"
+    },
+    "Researchbuttonpos_2": {
+        "name": "Researchbuttonpos_2",
+        "type": "int",
+        "comment": "按钮位置-研究(Y)"
+    },
+    "Researchhotkey": {
+        "name": "Researchhotkey",
+        "type": "string",
+        "comment": "热键-学习"
+    },
+    "Researchtip": {
+        "name": "Researchtip",
+        "type": "string",
+        "comment": "提示工具-学习"
+    },
+    "Researchubertip": {
+        "name": "Researchubertip",
+        "type": "string",
+        "comment": "提示工具-学习-扩展"
+    },
+    "Rng": {
+        "name": "Rng",
+        "type": "float",
+        "comment": "施法距离"
+    },
+    "SpecialArt": {
+        "name": "SpecialArt",
+        "type": "string",
+        "comment": "效果-特殊"
+    },
+    "Specialattach": {
+        "name": "Specialattach",
+        "type": "string",
+        "comment": "效果-特殊附加点"
+    },
+    "TargetArt": {
+        "name": "TargetArt",
+        "type": "string",
+        "comment": "效果-目标"
+    },
+    "Targetattach": {
+        "name": "Targetattach",
+        "type": "string",
+        "comment": "效果-目标附加点1"
+    },
+    "Targetattach1": {
+        "name": "Targetattach1",
+        "type": "string",
+        "comment": "效果-目标附加点2"
+    },
+    "Targetattach2": {
+        "name": "Targetattach2",
+        "type": "string",
+        "comment": "效果-目标附加点3"
+    },
+    "Targetattach3": {
+        "name": "Targetattach3",
+        "type": "string",
+        "comment": "效果-目标附加点4"
+    },
+    "Targetattach4": {
+        "name": "Targetattach4",
+        "type": "string",
+        "comment": "效果-目标附加点5"
+    },
+    "Targetattach5": {
+        "name": "Targetattach5",
+        "type": "string",
+        "comment": "效果-目标附加点6"
+    },
+    "Targetattachcount": {
+        "name": "Targetattachcount",
+        "type": "int",
+        "comment": "效果-目标-附加数量"
+    },
+    "targs": {
+        "name": "targs",
+        "type": "string",
+        "comment": "目标允许"
+    },
+    "Tip": {
+        "name": "Tip",
+        "type": "string",
+        "comment": "提示工具-普通"
+    },
+    "Ubertip": {
+        "name": "Ubertip",
+        "type": "string",
+        "comment": "提示工具-普通-扩展"
+    },
+    "Unart": {
+        "name": "Unart",
+        "type": "string",
+        "comment": "图标-关闭"
+    },
+    "UnButtonpos_1": {
+        "name": "UnButtonpos_1",
+        "type": "int",
+        "comment": "按钮位置-关闭(X)"
+    },
+    "UnButtonpos_2": {
+        "name": "UnButtonpos_2",
+        "type": "int",
+        "comment": "按钮位置-关闭(Y)"
+    },
+    "Unhotkey": {
+        "name": "Unhotkey",
+        "type": "string",
+        "comment": "热键-关闭"
+    },
+    "Unorder": {
+        "name": "Unorder",
+        "type": "string",
+        "comment": "命令串-关闭"
+    },
+    "Untip": {
+        "name": "Untip",
+        "type": "string",
+        "comment": "提示工具-关闭"
+    },
+    "Unubertip": {
+        "name": "Unubertip",
+        "type": "string",
+        "comment": "提示工具-关闭-扩展"
+    }
+}

@@ -1,0 +1,1167 @@
+{
+    "abilList": {
+        "name": "abilList",
+        "type": "string",
+        "comment": "普通技能"
+    },
+    "acquire": {
+        "name": "acquire",
+        "type": "float",
+        "comment": "主动攻击范围"
+    },
+    "AGI": {
+        "name": "AGI",
+        "type": "int",
+        "comment": "英雄-初始敏捷"
+    },
+    "AGIplus": {
+        "name": "AGIplus",
+        "type": "float",
+        "comment": "英雄-每等级提升敏捷"
+    },
+    "animProps": {
+        "name": "animProps",
+        "type": "string",
+        "comment": "要求动画名"
+    },
+    "armor": {
+        "name": "armor",
+        "type": "string",
+        "comment": "装甲类型"
+    },
+    "Art": {
+        "name": "Art",
+        "type": "string",
+        "comment": "图标-游戏界面"
+    },
+    "atkType1": {
+        "name": "atkType1",
+        "type": "string",
+        "comment": "攻击1-攻击类型"
+    },
+    "atkType2": {
+        "name": "atkType2",
+        "type": "string",
+        "comment": "攻击2-攻击类型"
+    },
+    "Attachmentanimprops": {
+        "name": "Attachmentanimprops",
+        "type": "string",
+        "comment": "要求动画名-附加动画"
+    },
+    "Attachmentlinkprops": {
+        "name": "Attachmentlinkprops",
+        "type": "string",
+        "comment": "要求附加动画链接名"
+    },
+    "auto": {
+        "name": "auto",
+        "type": "string",
+        "comment": "默认主动技能"
+    },
+    "Awakentip": {
+        "name": "Awakentip",
+        "type": "string",
+        "comment": "提示工具-唤醒"
+    },
+    "backSw1": {
+        "name": "backSw1",
+        "type": "float",
+        "comment": "攻击1-动画回复点"
+    },
+    "backSw2": {
+        "name": "backSw2",
+        "type": "float",
+        "comment": "攻击2-动画回复点"
+    },
+    "bldtm": {
+        "name": "bldtm",
+        "type": "int",
+        "comment": "建造时间"
+    },
+    "blend": {
+        "name": "blend",
+        "type": "float",
+        "comment": "动画-混合时间(秒)"
+    },
+    "blue": {
+        "name": "blue",
+        "type": "int",
+        "comment": "颜色值(蓝)"
+    },
+    "Boneprops": {
+        "name": "Boneprops",
+        "type": "string",
+        "comment": "要求骨骼名"
+    },
+    "bountydice": {
+        "name": "bountydice",
+        "type": "int",
+        "comment": "黄金奖励-骰子数量"
+    },
+    "bountyplus": {
+        "name": "bountyplus",
+        "type": "int",
+        "comment": "黄金奖励-基础值"
+    },
+    "bountysides": {
+        "name": "bountysides",
+        "type": "int",
+        "comment": "黄金奖励-骰子面数"
+    },
+    "buffRadius": {
+        "name": "buffRadius",
+        "type": "float",
+        "comment": "AI放置范围"
+    },
+    "buffType": {
+        "name": "buffType",
+        "type": "string",
+        "comment": "AI放置类型"
+    },
+    "buildingShadow": {
+        "name": "buildingShadow",
+        "type": "string",
+        "comment": "阴影图像(建筑)"
+    },
+    "BuildingSoundLabel": {
+        "name": "BuildingSoundLabel",
+        "type": "string",
+        "comment": "建筑"
+    },
+    "Builds": {
+        "name": "Builds",
+        "type": "string",
+        "comment": "可建造建筑"
+    },
+    "Buttonpos_1": {
+        "name": "Buttonpos_1",
+        "type": "int",
+        "comment": "按钮位置(X)"
+    },
+    "Buttonpos_2": {
+        "name": "Buttonpos_2",
+        "type": "int",
+        "comment": "按钮位置(Y)"
+    },
+    "campaign": {
+        "name": "campaign",
+        "type": "int",
+        "comment": "分类-战役"
+    },
+    "canFlee": {
+        "name": "canFlee",
+        "type": "int",
+        "comment": "可以逃跑"
+    },
+    "canSleep": {
+        "name": "canSleep",
+        "type": "int",
+        "comment": "允许睡眠"
+    },
+    "cargoSize": {
+        "name": "cargoSize",
+        "type": "int",
+        "comment": "运输尺寸"
+    },
+    "castbsw": {
+        "name": "castbsw",
+        "type": "float",
+        "comment": "动画-魔法施放回复"
+    },
+    "Casterupgradeart": {
+        "name": "Casterupgradeart",
+        "type": "string",
+        "comment": "魔法升级图标"
+    },
+    "Casterupgradename": {
+        "name": "Casterupgradename",
+        "type": "string",
+        "comment": "魔法升级名字"
+    },
+    "Casterupgradetip": {
+        "name": "Casterupgradetip",
+        "type": "string",
+        "comment": "魔法升级说明"
+    },
+    "castpt": {
+        "name": "castpt",
+        "type": "float",
+        "comment": "动画-魔法施放点"
+    },
+    "collision": {
+        "name": "collision",
+        "type": "float",
+        "comment": "碰撞体积"
+    },
+    "cool1": {
+        "name": "cool1",
+        "type": "float",
+        "comment": "攻击1-攻击间隔"
+    },
+    "cool2": {
+        "name": "cool2",
+        "type": "float",
+        "comment": "攻击2-攻击间隔"
+    },
+    "customTeamColor": {
+        "name": "customTeamColor",
+        "type": "int",
+        "comment": "队伍颜色-允许自定义"
+    },
+    "damageLoss1": {
+        "name": "damageLoss1",
+        "type": "float",
+        "comment": "攻击1-伤害衰减参数"
+    },
+    "damageLoss2": {
+        "name": "damageLoss2",
+        "type": "float",
+        "comment": "攻击2-伤害衰减参数"
+    },
+    "death": {
+        "name": "death",
+        "type": "float",
+        "comment": "死亡时间(秒)"
+    },
+    "deathType": {
+        "name": "deathType",
+        "type": "int",
+        "comment": "死亡类型"
+    },
+    "def": {
+        "name": "def",
+        "type": "int",
+        "comment": "基础护甲"
+    },
+    "defType": {
+        "name": "defType",
+        "type": "string",
+        "comment": "护甲类型"
+    },
+    "defUp": {
+        "name": "defUp",
+        "type": "int",
+        "comment": "防御升级奖励"
+    },
+    "DependencyOr": {
+        "name": "DependencyOr",
+        "type": "string",
+        "comment": "从属等价物"
+    },
+    "dice1": {
+        "name": "dice1",
+        "type": "int",
+        "comment": "攻击1-伤害骰子数量"
+    },
+    "dice2": {
+        "name": "dice2",
+        "type": "int",
+        "comment": "攻击2-伤害骰子数量"
+    },
+    "dmgplus1": {
+        "name": "dmgplus1",
+        "type": "int",
+        "comment": "攻击1-基础伤害"
+    },
+    "dmgplus2": {
+        "name": "dmgplus2",
+        "type": "int",
+        "comment": "攻击2-基础伤害"
+    },
+    "dmgpt1": {
+        "name": "dmgpt1",
+        "type": "float",
+        "comment": "攻击1-动画伤害点"
+    },
+    "dmgpt2": {
+        "name": "dmgpt2",
+        "type": "float",
+        "comment": "攻击2-动画伤害点"
+    },
+    "dmgUp1": {
+        "name": "dmgUp1",
+        "type": "int",
+        "comment": "攻击1-伤害升级奖励"
+    },
+    "dmgUp2": {
+        "name": "dmgUp2",
+        "type": "int",
+        "comment": "攻击2-伤害升级奖励"
+    },
+    "dropItems": {
+        "name": "dropItems",
+        "type": "int",
+        "comment": "可设置死亡掉落物品"
+    },
+    "EditorSuffix": {
+        "name": "EditorSuffix",
+        "type": "string",
+        "comment": "名字-编辑器后缀"
+    },
+    "elevPts": {
+        "name": "elevPts",
+        "type": "int",
+        "comment": "高度变化-采样点数量"
+    },
+    "elevRad": {
+        "name": "elevRad",
+        "type": "float",
+        "comment": "高度变化-采样范围"
+    },
+    "Farea1": {
+        "name": "Farea1",
+        "type": "int",
+        "comment": "攻击1-全伤害范围"
+    },
+    "Farea2": {
+        "name": "Farea2",
+        "type": "int",
+        "comment": "攻击2-全伤害范围"
+    },
+    "fatLOS": {
+        "name": "fatLOS",
+        "type": "int",
+        "comment": "不可见区域显示单位"
+    },
+    "file": {
+        "name": "file",
+        "type": "string",
+        "comment": "模型文件"
+    },
+    "fileVerFlags": {
+        "name": "fileVerFlags",
+        "type": "int",
+        "comment": "模型文件-版本"
+    },
+    "fmade": {
+        "name": "fmade",
+        "type": "int",
+        "comment": "提供人口"
+    },
+    "fogRad": {
+        "name": "fogRad",
+        "type": "float",
+        "comment": "战争迷雾-采样范围"
+    },
+    "formation": {
+        "name": "formation",
+        "type": "int",
+        "comment": "队形排列"
+    },
+    "fused": {
+        "name": "fused",
+        "type": "int",
+        "comment": "占用人口"
+    },
+    "goldcost": {
+        "name": "goldcost",
+        "type": "int",
+        "comment": "黄金消耗"
+    },
+    "goldRep": {
+        "name": "goldRep",
+        "type": "int",
+        "comment": "修理黄金消耗"
+    },
+    "green": {
+        "name": "green",
+        "type": "int",
+        "comment": "颜色值(绿)"
+    },
+    "Harea1": {
+        "name": "Harea1",
+        "type": "int",
+        "comment": "攻击1-中伤害范围"
+    },
+    "Harea2": {
+        "name": "Harea2",
+        "type": "int",
+        "comment": "攻击2-中伤害范围"
+    },
+    "heroAbilList": {
+        "name": "heroAbilList",
+        "type": "string",
+        "comment": "英雄技能"
+    },
+    "Hfact1": {
+        "name": "Hfact1",
+        "type": "float",
+        "comment": "攻击1-中伤害参数"
+    },
+    "Hfact2": {
+        "name": "Hfact2",
+        "type": "float",
+        "comment": "攻击2-中伤害参数"
+    },
+    "hideHeroBar": {
+        "name": "hideHeroBar",
+        "type": "int",
+        "comment": "英雄-隐藏英雄栏图标"
+    },
+    "hideHeroDeathMsg": {
+        "name": "hideHeroDeathMsg",
+        "type": "int",
+        "comment": "英雄-隐藏英雄死亡信息"
+    },
+    "hideHeroMinimap": {
+        "name": "hideHeroMinimap",
+        "type": "int",
+        "comment": "英雄-隐藏小地图英雄显示"
+    },
+    "hideOnMinimap": {
+        "name": "hideOnMinimap",
+        "type": "int",
+        "comment": "隐藏小地图显示"
+    },
+    "hostilePal": {
+        "name": "hostilePal",
+        "type": "int",
+        "comment": "可作为中立敌对显示"
+    },
+    "Hotkey": {
+        "name": "Hotkey",
+        "type": "string",
+        "comment": "热键"
+    },
+    "HP": {
+        "name": "HP",
+        "type": "int",
+        "comment": "生命最大值"
+    },
+    "impactSwimZ": {
+        "name": "impactSwimZ",
+        "type": "float",
+        "comment": "射弹碰撞偏移-Z(深水)"
+    },
+    "impactZ": {
+        "name": "impactZ",
+        "type": "float",
+        "comment": "射弹碰撞偏移-Z"
+    },
+    "inEditor": {
+        "name": "inEditor",
+        "type": "int",
+        "comment": "可在编辑器中放置"
+    },
+    "INT": {
+        "name": "INT",
+        "type": "int",
+        "comment": "英雄-初始智力"
+    },
+    "INTplus": {
+        "name": "INTplus",
+        "type": "float",
+        "comment": "英雄-每等级提升智力"
+    },
+    "isbldg": {
+        "name": "isbldg",
+        "type": "int",
+        "comment": "是一个建筑"
+    },
+    "launchSwimZ": {
+        "name": "launchSwimZ",
+        "type": "float",
+        "comment": "射弹偏移-Z(深水)"
+    },
+    "launchX": {
+        "name": "launchX",
+        "type": "float",
+        "comment": "射弹偏移-X"
+    },
+    "launchY": {
+        "name": "launchY",
+        "type": "float",
+        "comment": "射弹偏移-Y"
+    },
+    "launchZ": {
+        "name": "launchZ",
+        "type": "float",
+        "comment": "射弹偏移-Z"
+    },
+    "level": {
+        "name": "level",
+        "type": "int",
+        "comment": "等级"
+    },
+    "LoopingSoundFadeIn": {
+        "name": "LoopingSoundFadeIn",
+        "type": "int",
+        "comment": "循环淡入率"
+    },
+    "LoopingSoundFadeOut": {
+        "name": "LoopingSoundFadeOut",
+        "type": "int",
+        "comment": "循环淡出率"
+    },
+    "lumberbountydice": {
+        "name": "lumberbountydice",
+        "type": "int",
+        "comment": "木材奖励-骰子数量"
+    },
+    "lumberbountyplus": {
+        "name": "lumberbountyplus",
+        "type": "int",
+        "comment": "木材奖励-基础值"
+    },
+    "lumberbountysides": {
+        "name": "lumberbountysides",
+        "type": "int",
+        "comment": "木材奖励-骰子面数"
+    },
+    "lumbercost": {
+        "name": "lumbercost",
+        "type": "int",
+        "comment": "木材消耗"
+    },
+    "lumberRep": {
+        "name": "lumberRep",
+        "type": "int",
+        "comment": "修理木材消耗"
+    },
+    "Makeitems": {
+        "name": "Makeitems",
+        "type": "string",
+        "comment": "制造物品"
+    },
+    "mana0": {
+        "name": "mana0",
+        "type": "int",
+        "comment": "魔法初始数量"
+    },
+    "manaN": {
+        "name": "manaN",
+        "type": "int",
+        "comment": "魔法最大值"
+    },
+    "maxPitch": {
+        "name": "maxPitch",
+        "type": "float",
+        "comment": "X轴最大旋转角度(弧度)"
+    },
+    "maxRoll": {
+        "name": "maxRoll",
+        "type": "float",
+        "comment": "Y轴最大旋转角度(弧度)"
+    },
+    "maxSpd": {
+        "name": "maxSpd",
+        "type": "int",
+        "comment": "最大速度"
+    },
+    "minRange": {
+        "name": "minRange",
+        "type": "int",
+        "comment": "最小攻击范围"
+    },
+    "minSpd": {
+        "name": "minSpd",
+        "type": "int",
+        "comment": "最小速度"
+    },
+    "Missilearc_1": {
+        "name": "Missilearc_1",
+        "type": "float",
+        "comment": "攻击1-射弹弧度"
+    },
+    "Missilearc_2": {
+        "name": "Missilearc_2",
+        "type": "float",
+        "comment": "攻击2-射弹弧度"
+    },
+    "Missileart_1": {
+        "name": "Missileart_1",
+        "type": "string",
+        "comment": "攻击1-投射物图像"
+    },
+    "Missileart_2": {
+        "name": "Missileart_2",
+        "type": "string",
+        "comment": "攻击2-投射物图像"
+    },
+    "MissileHoming_1": {
+        "name": "MissileHoming_1",
+        "type": "int",
+        "comment": "攻击1-射弹自导允许"
+    },
+    "MissileHoming_2": {
+        "name": "MissileHoming_2",
+        "type": "int",
+        "comment": "攻击2-射弹自导允许"
+    },
+    "Missilespeed_1": {
+        "name": "Missilespeed_1",
+        "type": "int",
+        "comment": "攻击1-射弹速率"
+    },
+    "Missilespeed_2": {
+        "name": "Missilespeed_2",
+        "type": "int",
+        "comment": "攻击2-射弹速率"
+    },
+    "modelScale": {
+        "name": "modelScale",
+        "type": "float",
+        "comment": "模型缩放"
+    },
+    "moveFloor": {
+        "name": "moveFloor",
+        "type": "float",
+        "comment": "最小高度"
+    },
+    "moveHeight": {
+        "name": "moveHeight",
+        "type": "float",
+        "comment": "高度"
+    },
+    "MovementSoundLabel": {
+        "name": "MovementSoundLabel",
+        "type": "string",
+        "comment": "移动"
+    },
+    "movetp": {
+        "name": "movetp",
+        "type": "string",
+        "comment": "类型"
+    },
+    "Name": {
+        "name": "Name",
+        "type": "string",
+        "comment": "名字"
+    },
+    "nameCount": {
+        "name": "nameCount",
+        "type": "int",
+        "comment": "称谓数量"
+    },
+    "nbmmIcon": {
+        "name": "nbmmIcon",
+        "type": "int",
+        "comment": "中立建筑-显示小地图标记"
+    },
+    "nbrandom": {
+        "name": "nbrandom",
+        "type": "int",
+        "comment": "中立建筑-可作为随机建筑"
+    },
+    "nsight": {
+        "name": "nsight",
+        "type": "int",
+        "comment": "视野范围(夜晚)"
+    },
+    "occH": {
+        "name": "occH",
+        "type": "float",
+        "comment": "闭塞高度"
+    },
+    "orientInterp": {
+        "name": "orientInterp",
+        "type": "int",
+        "comment": "动画-转向补正"
+    },
+    "pathTex": {
+        "name": "pathTex",
+        "type": "string",
+        "comment": "路径纹理"
+    },
+    "points": {
+        "name": "points",
+        "type": "int",
+        "comment": "单位附加值"
+    },
+    "preventPlace": {
+        "name": "preventPlace",
+        "type": "string",
+        "comment": "放置要求"
+    },
+    "Primary": {
+        "name": "Primary",
+        "type": "string",
+        "comment": "英雄-主要属性"
+    },
+    "prio": {
+        "name": "prio",
+        "type": "int",
+        "comment": "编队优先权"
+    },
+    "Propernames": {
+        "name": "Propernames",
+        "type": "string",
+        "comment": "称谓"
+    },
+    "propWin": {
+        "name": "propWin",
+        "type": "float",
+        "comment": "动画-转向角度"
+    },
+    "Qarea1": {
+        "name": "Qarea1",
+        "type": "int",
+        "comment": "攻击1-小伤害范围"
+    },
+    "Qarea2": {
+        "name": "Qarea2",
+        "type": "int",
+        "comment": "攻击2-小伤害范围"
+    },
+    "Qfact1": {
+        "name": "Qfact1",
+        "type": "float",
+        "comment": "攻击1-小伤害参数"
+    },
+    "Qfact2": {
+        "name": "Qfact2",
+        "type": "float",
+        "comment": "攻击2-小伤害参数"
+    },
+    "race": {
+        "name": "race",
+        "type": "string",
+        "comment": "种族"
+    },
+    "RandomSoundLabel": {
+        "name": "RandomSoundLabel",
+        "type": "string",
+        "comment": "随机"
+    },
+    "rangeN1": {
+        "name": "rangeN1",
+        "type": "int",
+        "comment": "攻击1-攻击范围"
+    },
+    "rangeN2": {
+        "name": "rangeN2",
+        "type": "int",
+        "comment": "攻击2-攻击范围"
+    },
+    "red": {
+        "name": "red",
+        "type": "int",
+        "comment": "颜色值(红)"
+    },
+    "regenHP": {
+        "name": "regenHP",
+        "type": "float",
+        "comment": "生命回复"
+    },
+    "regenMana": {
+        "name": "regenMana",
+        "type": "float",
+        "comment": "魔法回复"
+    },
+    "regenType": {
+        "name": "regenType",
+        "type": "string",
+        "comment": "生命回复类型"
+    },
+    "reptm": {
+        "name": "reptm",
+        "type": "int",
+        "comment": "修理时间"
+    },
+    "repulse": {
+        "name": "repulse",
+        "type": "int",
+        "comment": "组群分离-允许"
+    },
+    "repulseGroup": {
+        "name": "repulseGroup",
+        "type": "int",
+        "comment": "组群分离-组号"
+    },
+    "repulseParam": {
+        "name": "repulseParam",
+        "type": "int",
+        "comment": "组群分离-参数"
+    },
+    "repulsePrio": {
+        "name": "repulsePrio",
+        "type": "int",
+        "comment": "组群分离-优先权"
+    },
+    "requirePlace": {
+        "name": "requirePlace",
+        "type": "string",
+        "comment": "放置不允许"
+    },
+    "Requires": {
+        "name": "Requires",
+        "type": "string",
+        "comment": "需求"
+    },
+    "Requires1": {
+        "name": "Requires1",
+        "type": "string",
+        "comment": "需求-等级2"
+    },
+    "Requires2": {
+        "name": "Requires2",
+        "type": "string",
+        "comment": "需求-等级3"
+    },
+    "Requires3": {
+        "name": "Requires3",
+        "type": "string",
+        "comment": "需求-等级4"
+    },
+    "Requires4": {
+        "name": "Requires4",
+        "type": "string",
+        "comment": "需求-等级5"
+    },
+    "Requires5": {
+        "name": "Requires5",
+        "type": "string",
+        "comment": "需求-等级6"
+    },
+    "Requires6": {
+        "name": "Requires6",
+        "type": "string",
+        "comment": "需求-等级7"
+    },
+    "Requires7": {
+        "name": "Requires7",
+        "type": "string",
+        "comment": "需求-等级8"
+    },
+    "Requires8": {
+        "name": "Requires8",
+        "type": "string",
+        "comment": "需求-等级9"
+    },
+    "Requiresamount": {
+        "name": "Requiresamount",
+        "type": "string",
+        "comment": "需求值"
+    },
+    "Requirescount": {
+        "name": "Requirescount",
+        "type": "int",
+        "comment": "需求-使用等级数"
+    },
+    "requireWaterRadius": {
+        "name": "requireWaterRadius",
+        "type": "float",
+        "comment": "放置要求距离水的范围"
+    },
+    "Researches": {
+        "name": "Researches",
+        "type": "string",
+        "comment": "可研究项目"
+    },
+    "Revive": {
+        "name": "Revive",
+        "type": "int",
+        "comment": "可重生阵亡英雄"
+    },
+    "Reviveat": {
+        "name": "Reviveat",
+        "type": "string",
+        "comment": "指定复活点"
+    },
+    "Revivetip": {
+        "name": "Revivetip",
+        "type": "string",
+        "comment": "提示工具-重生"
+    },
+    "RngBuff1": {
+        "name": "RngBuff1",
+        "type": "float",
+        "comment": "攻击1-攻击范围缓冲"
+    },
+    "RngBuff2": {
+        "name": "RngBuff2",
+        "type": "float",
+        "comment": "攻击2-攻击范围缓冲"
+    },
+    "run": {
+        "name": "run",
+        "type": "float",
+        "comment": "动画-跑步速度"
+    },
+    "scale": {
+        "name": "scale",
+        "type": "float",
+        "comment": "选择缩放"
+    },
+    "scaleBull": {
+        "name": "scaleBull",
+        "type": "int",
+        "comment": "缩放投射物"
+    },
+    "ScoreScreenIcon": {
+        "name": "ScoreScreenIcon",
+        "type": "string",
+        "comment": "图标-计分屏"
+    },
+    "selCircOnWater": {
+        "name": "selCircOnWater",
+        "type": "int",
+        "comment": "选择圈在水面上"
+    },
+    "Sellitems": {
+        "name": "Sellitems",
+        "type": "string",
+        "comment": "售出物品"
+    },
+    "Sellunits": {
+        "name": "Sellunits",
+        "type": "string",
+        "comment": "售出单位"
+    },
+    "selZ": {
+        "name": "selZ",
+        "type": "float",
+        "comment": "选择圈高度"
+    },
+    "shadowH": {
+        "name": "shadowH",
+        "type": "float",
+        "comment": "阴影图像-高度"
+    },
+    "shadowOnWater": {
+        "name": "shadowOnWater",
+        "type": "int",
+        "comment": "深水区有阴影"
+    },
+    "shadowW": {
+        "name": "shadowW",
+        "type": "float",
+        "comment": "阴影图像-宽度"
+    },
+    "shadowX": {
+        "name": "shadowX",
+        "type": "float",
+        "comment": "阴影图像-X轴偏移"
+    },
+    "shadowY": {
+        "name": "shadowY",
+        "type": "float",
+        "comment": "阴影图像-Y轴偏移"
+    },
+    "showUI1": {
+        "name": "showUI1",
+        "type": "int",
+        "comment": "攻击1-显示UI"
+    },
+    "showUI2": {
+        "name": "showUI2",
+        "type": "int",
+        "comment": "攻击2-显示UI"
+    },
+    "sides1": {
+        "name": "sides1",
+        "type": "int",
+        "comment": "攻击1-伤害骰子面数"
+    },
+    "sides2": {
+        "name": "sides2",
+        "type": "int",
+        "comment": "攻击2-伤害骰子面数"
+    },
+    "sight": {
+        "name": "sight",
+        "type": "int",
+        "comment": "视野范围(白天)"
+    },
+    "spd": {
+        "name": "spd",
+        "type": "int",
+        "comment": "基础速度"
+    },
+    "special": {
+        "name": "special",
+        "type": "int",
+        "comment": "分类-特殊"
+    },
+    "Specialart": {
+        "name": "Specialart",
+        "type": "string",
+        "comment": "特殊效果"
+    },
+    "spillDist1": {
+        "name": "spillDist1",
+        "type": "float",
+        "comment": "攻击1-穿透伤害距离"
+    },
+    "spillDist2": {
+        "name": "spillDist2",
+        "type": "float",
+        "comment": "攻击2-穿透伤害距离"
+    },
+    "spillRadius1": {
+        "name": "spillRadius1",
+        "type": "float",
+        "comment": "攻击1-穿透伤害范围"
+    },
+    "spillRadius2": {
+        "name": "spillRadius2",
+        "type": "float",
+        "comment": "攻击2-穿透伤害范围"
+    },
+    "splashTargs1": {
+        "name": "splashTargs1",
+        "type": "string",
+        "comment": "攻击1-范围影响目标"
+    },
+    "splashTargs2": {
+        "name": "splashTargs2",
+        "type": "string",
+        "comment": "攻击2-范围影响目标"
+    },
+    "stockMax": {
+        "name": "stockMax",
+        "type": "int",
+        "comment": "最大库存量"
+    },
+    "stockRegen": {
+        "name": "stockRegen",
+        "type": "int",
+        "comment": "雇佣时间间隔"
+    },
+    "stockStart": {
+        "name": "stockStart",
+        "type": "int",
+        "comment": "雇佣开始时间"
+    },
+    "STR": {
+        "name": "STR",
+        "type": "int",
+        "comment": "英雄-初始力量"
+    },
+    "STRplus": {
+        "name": "STRplus",
+        "type": "float",
+        "comment": "英雄-每等级提升力量"
+    },
+    "targCount1": {
+        "name": "targCount1",
+        "type": "int",
+        "comment": "攻击1-最大目标数"
+    },
+    "targCount2": {
+        "name": "targCount2",
+        "type": "int",
+        "comment": "攻击2-最大目标数"
+    },
+    "Targetart": {
+        "name": "Targetart",
+        "type": "string",
+        "comment": "目标效果"
+    },
+    "targs1": {
+        "name": "targs1",
+        "type": "string",
+        "comment": "攻击1-目标允许"
+    },
+    "targs2": {
+        "name": "targs2",
+        "type": "string",
+        "comment": "攻击2-目标允许"
+    },
+    "targType": {
+        "name": "targType",
+        "type": "string",
+        "comment": "作为目标类型"
+    },
+    "teamColor": {
+        "name": "teamColor",
+        "type": "int",
+        "comment": "队伍颜色"
+    },
+    "tilesets": {
+        "name": "tilesets",
+        "type": "string",
+        "comment": "地形设置"
+    },
+    "tilesetSpecific": {
+        "name": "tilesetSpecific",
+        "type": "int",
+        "comment": "有地形指定数据"
+    },
+    "Tip": {
+        "name": "Tip",
+        "type": "string",
+        "comment": "提示工具-基础"
+    },
+    "Trains": {
+        "name": "Trains",
+        "type": "string",
+        "comment": "训练单位"
+    },
+    "turnRate": {
+        "name": "turnRate",
+        "type": "float",
+        "comment": "转身速度"
+    },
+    "type": {
+        "name": "type",
+        "type": "string",
+        "comment": "单位类别"
+    },
+    "uberSplat": {
+        "name": "uberSplat",
+        "type": "string",
+        "comment": "建筑地面纹理"
+    },
+    "Ubertip": {
+        "name": "Ubertip",
+        "type": "string",
+        "comment": "提示工具-扩展"
+    },
+    "unitShadow": {
+        "name": "unitShadow",
+        "type": "string",
+        "comment": "阴影图像(单位)"
+    },
+    "unitSound": {
+        "name": "unitSound",
+        "type": "string",
+        "comment": "单位声音设置"
+    },
+    "Upgrade": {
+        "name": "Upgrade",
+        "type": "string",
+        "comment": "建筑升级"
+    },
+    "upgrades": {
+        "name": "upgrades",
+        "type": "string",
+        "comment": "使用科技"
+    },
+    "useClickHelper": {
+        "name": "useClickHelper",
+        "type": "int",
+        "comment": "使用点击帮助"
+    },
+    "walk": {
+        "name": "walk",
+        "type": "float",
+        "comment": "动画-行走速度"
+    },
+    "weapsOn": {
+        "name": "weapsOn",
+        "type": "int",
+        "comment": "允许攻击模式"
+    },
+    "weapTp1": {
+        "name": "weapTp1",
+        "type": "string",
+        "comment": "攻击1-武器类型"
+    },
+    "weapTp2": {
+        "name": "weapTp2",
+        "type": "string",
+        "comment": "攻击2-武器类型"
+    },
+    "weapType1": {
+        "name": "weapType1",
+        "type": "string",
+        "comment": "攻击1-武器声音"
+    },
+    "weapType2": {
+        "name": "weapType2",
+        "type": "string",
+        "comment": "攻击2-武器声音"
+    }
+}

@@ -1,0 +1,458 @@
+[
+  {
+    "name": "Area",
+    "values": [],
+    "type": "float",
+    "comment": "影响区域"
+  },
+  {
+    "name": "Art",
+    "values": [],
+    "type": "string",
+    "comment": "图标 - 普通"
+  },
+  {
+    "name": "BuffID",
+    "values": [],
+    "type": "string",
+    "comment": "魔法效果"
+  },
+  {
+    "name": "Buttonpos_1",
+    "values": [],
+    "type": "int",
+    "comment": "按钮位置 - 普通 (X)"
+  },
+  {
+    "name": "Buttonpos_2",
+    "values": [],
+    "type": "int",
+    "comment": "按钮位置 - 普通 (Y)"
+  },
+  {
+    "name": "Cast",
+    "values": [],
+    "type": "float",
+    "comment": "魔法施放时间"
+  },
+  {
+    "name": "Casterattachcount",
+    "values": [],
+    "type": "int",
+    "comment": "效果 - 施法者 - 附加数量"
+  },
+  {
+    "name": "Cool",
+    "values": [],
+    "type": "float",
+    "comment": "魔法施放时间间隔"
+  },
+  {
+    "name": "Cost",
+    "values": [],
+    "type": "int",
+    "comment": "魔法消耗"
+  },
+  {
+    "name": "DataA",
+    "values": [],
+    "type": "int",
+    "comment": "黄金消耗"
+  },
+  {
+    "name": "DataB",
+    "values": [],
+    "type": "int",
+    "comment": "木材消耗"
+  },
+  {
+    "name": "DataE",
+    "values": [],
+    "type": "string",
+    "comment": "基础命令ID"
+  },
+  {
+    "name": "DataF",
+    "values": [],
+    "type": "int",
+    "comment": "向技能拥有者收费"
+  },
+  {
+    "name": "Dur",
+    "values": [],
+    "type": "float",
+    "comment": "持续时间 - 普通"
+  },
+  {
+    "name": "EfctID",
+    "values": [],
+    "type": "string",
+    "comment": "区域持续效果"
+  },
+  {
+    "name": "HeroDur",
+    "values": [],
+    "type": "float",
+    "comment": "持续时间 - 英雄"
+  },
+  {
+    "name": "Hotkey",
+    "values": [],
+    "type": "string",
+    "comment": "热键 - 普通"
+  },
+  {
+    "name": "MissileHoming",
+    "values": [],
+    "type": "int",
+    "comment": "效果 - 射弹自导允许"
+  },
+  {
+    "name": "Missilearc",
+    "values": [],
+    "type": "float",
+    "comment": "效果 - 射弹弧度"
+  },
+  {
+    "name": "Missilespeed",
+    "values": [],
+    "type": "int",
+    "comment": "效果 - 射弹速度"
+  },
+  {
+    "name": "Name",
+    "values": [],
+    "type": "string",
+    "comment": "名字"
+  },
+  {
+    "name": "Researchbuttonpos_1",
+    "values": [],
+    "type": "int",
+    "comment": "按钮位置 - 研究 (X)"
+  },
+  {
+    "name": "Researchbuttonpos_2",
+    "values": [],
+    "type": "int",
+    "comment": "按钮位置 - 研究 (Y)"
+  },
+  {
+    "name": "Rng",
+    "values": [],
+    "type": "float",
+    "comment": "施法距离"
+  },
+  {
+    "name": "Targetattachcount",
+    "values": [],
+    "type": "int",
+    "comment": "效果 - 目标 - 附加数量"
+  },
+  {
+    "name": "Tip",
+    "values": [],
+    "type": "string",
+    "comment": "提示工具 - 普通"
+  },
+  {
+    "name": "Ubertip",
+    "values": [],
+    "type": "string",
+    "comment": "提示工具 - 普通 - 扩展"
+  },
+  {
+    "name": "UnButtonpos_1",
+    "values": [],
+    "type": "int",
+    "comment": "按钮位置 - 关闭 (X)"
+  },
+  {
+    "name": "UnButtonpos_2",
+    "values": [],
+    "type": "int",
+    "comment": "按钮位置 - 关闭 (Y)"
+  },
+  {
+    "name": "checkDep",
+    "values": [],
+    "type": "int",
+    "comment": "检查等价所属"
+  },
+  {
+    "name": "hero",
+    "values": [],
+    "type": "int",
+    "comment": "英雄技能"
+  },
+  {
+    "name": "item",
+    "values": [],
+    "type": "int",
+    "comment": "物品技能"
+  },
+  {
+    "name": "levelSkip",
+    "values": [],
+    "type": "int",
+    "comment": "跳级要求"
+  },
+  {
+    "name": "levels",
+    "values": [],
+    "type": "int",
+    "comment": "等级"
+  },
+  {
+    "name": "priority",
+    "values": [],
+    "type": "int",
+    "comment": "魔法偷取优先权"
+  },
+  {
+    "name": "race",
+    "values": [],
+    "type": "string",
+    "comment": "种族"
+  },
+  {
+    "name": "reqLevel",
+    "values": [],
+    "type": "int",
+    "comment": "等级要求"
+  },
+  {
+    "name": "DataC",
+    "values": [],
+    "type": "int",
+    "comment": "远程奖励"
+  },
+  {
+    "name": "DataD",
+    "values": [],
+    "type": "int",
+    "comment": "使用指定数值奖励"
+  },
+  {
+    "name": "TargetArt",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 目标"
+  },
+  {
+    "name": "Targetattach",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 目标附加点1"
+  },
+  {
+    "name": "EditorSuffix",
+    "values": [],
+    "type": "string",
+    "comment": "编辑器后缀"
+  },
+  {
+    "name": "Order",
+    "values": [],
+    "type": "string",
+    "comment": "命令串 - 使用/打开"
+  },
+  {
+    "name": "SpecialArt",
+    "values": [],
+    "type": "string",
+    "comment": "效果 -特殊"
+  },
+  {
+    "name": "Requires",
+    "values": [],
+    "type": "string",
+    "comment": "需求"
+  },
+  {
+    "name": "Orderoff",
+    "values": [],
+    "type": "string",
+    "comment": "命令串 - 取消激活"
+  },
+  {
+    "name": "Orderon",
+    "values": [],
+    "type": "string",
+    "comment": "命令串 - 激活"
+  },
+  {
+    "name": "Unart",
+    "values": [],
+    "type": "string",
+    "comment": "图标 -关闭"
+  },
+  {
+    "name": "Unhotkey",
+    "values": [],
+    "type": "string",
+    "comment": "热键 -关闭"
+  },
+  {
+    "name": "Untip",
+    "values": [],
+    "type": "string",
+    "comment": "提示工具 -关闭"
+  },
+  {
+    "name": "Unubertip",
+    "values": [],
+    "type": "string",
+    "comment": "提示工具 -关闭 - 扩展"
+  },
+  {
+    "name": "Animnames",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 施法动作"
+  },
+  {
+    "name": "Missileart",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 投射物图像"
+  },
+  {
+    "name": "ResearchArt",
+    "values": [],
+    "type": "string",
+    "comment": "图标 - 学习"
+  },
+  {
+    "name": "UnitID",
+    "values": [],
+    "type": "string",
+    "comment": "召唤单位类型"
+  },
+  {
+    "name": "Specialattach",
+    "values": [],
+    "type": "string",
+    "comment": "效果 -特殊附加点"
+  },
+  {
+    "name": "LightningEffect",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 闪电效果"
+  },
+  {
+    "name": "DataG",
+    "values": [],
+    "type": "float",
+    "comment": "生命值奖励衰减"
+  },
+  {
+    "name": "DataH",
+    "values": [],
+    "type": "float",
+    "comment": "魔法值奖励参数"
+  },
+  {
+    "name": "DataI",
+    "values": [],
+    "type": "float",
+    "comment": "魔法值奖励衰减"
+  },
+  {
+    "name": "Effectsoundlooped",
+    "values": [],
+    "type": "string",
+    "comment": "音效(循环)"
+  },
+  {
+    "name": "Unorder",
+    "values": [],
+    "type": "string",
+    "comment": "命令串 - 关闭"
+  },
+  {
+    "name": "Researchhotkey",
+    "values": [],
+    "type": "string",
+    "comment": "热键 - 学习"
+  },
+  {
+    "name": "Researchtip",
+    "values": [],
+    "type": "string",
+    "comment": "提示工具 - 学习"
+  },
+  {
+    "name": "Researchubertip",
+    "values": [],
+    "type": "string",
+    "comment": "提示工具 - 学习 - 扩展"
+  },
+  {
+    "name": "EffectArt",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 目标点"
+  },
+  {
+    "name": "Effectsound",
+    "values": [],
+    "type": "string",
+    "comment": "音效"
+  },
+  {
+    "name": "CasterArt",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 施法者"
+  },
+  {
+    "name": "Casterattach",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 施法者附加点1"
+  },
+  {
+    "name": "Areaeffectart",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 区域"
+  },
+  {
+    "name": "Requiresamount",
+    "values": [],
+    "type": "string",
+    "comment": "需求值"
+  },
+  {
+    "name": "Targetattach1",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 目标附加点2"
+  },
+  {
+    "name": "Targetattach2",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 目标附加点3"
+  },
+  {
+    "name": "Targetattach3",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 目标附加点4"
+  },
+  {
+    "name": "Targetattach4",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 目标附加点5"
+  },
+  {
+    "name": "Targetattach5",
+    "values": [],
+    "type": "string",
+    "comment": "效果 - 目标附加点6"
+  }
+]
