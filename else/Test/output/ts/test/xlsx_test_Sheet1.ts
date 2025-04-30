@@ -22,7 +22,7 @@ export interface xlsx_inte_test_Sheet1 {
 export const xlsx_data_test_Sheet1: xlsx_inte_test_Sheet1 = {
     "测试id1":{
         "id": "测试id1",
-        "str": "字符串测试1",
+        "str": "字符|cffff0000串测|r试|cff00b0501aa|raab|cff00b0f0bbbc|rcc|cffffc000cdd|rdd",
         "icon": "a\\c\\b\\s.blp",
         "num": 1234567.89,
         "num1": 52.87,

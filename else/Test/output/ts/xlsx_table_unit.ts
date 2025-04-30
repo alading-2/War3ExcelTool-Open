@@ -55,7 +55,7 @@ export const xlsx_data_table_unit: xlsx_inte_table_unit = {
         "scale": 1
     },
     "单位":{
-        "名字": "单位",
+        "名字": "|cffff0000单位|r",
         "类别": "单位",
         "等级": 1,
         "基础生命值": 5000,
@@ -78,7 +78,7 @@ export const xlsx_data_table_unit: xlsx_inte_table_unit = {
         "scale": 1
     },
     "test":{
-        "名字": "test",
+        "名字": "|cff00b050test|r",
         "类别": "英雄",
         "等级": 1,
         "基础生命值": 5000,
@@ -101,7 +101,7 @@ export const xlsx_data_table_unit: xlsx_inte_table_unit = {
         "scale": 1
     },
     "剑圣":{
-        "名字": "剑圣",
+        "名字": "|cffffff00剑圣|r",
         "类别": "英雄",
         "等级": 1,
         "基础生命值": 5000,
@@ -124,7 +124,7 @@ export const xlsx_data_table_unit: xlsx_inte_table_unit = {
         "scale": 1
     },
     "冰雪法师":{
-        "名字": "冰雪法师",
+        "名字": "|cff00b0f0冰雪法师|r",
         "类别": "英雄",
         "等级": 1,
         "基础生命值": 5000,
