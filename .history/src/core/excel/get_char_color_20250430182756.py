@@ -253,7 +253,8 @@ class ExcelCharColorReader:
                         comment = df.iloc[0, col_idx]  # 第一行的注释，用于识别#color预处理指令
                         type = self.excel_parser.infer_type_single(value)
                         # 只处理非数字和布尔值的单元格，还有非空的单元格，没有#color不处理
-                        if type in ("number", "boolean") or ExcelTable.custom_isna(value) or "#color" not in comment:
+                        if type in ("number", "boolean") or
+                        ExcelTable.custom_isna(value) or "#color" not in comment:
                             continue
                         # 获取带颜色标签的单元格内容和是否有颜色
                         cell_content, has_color = self.get_cell_with_color_tags(sheet_name, cell_address)

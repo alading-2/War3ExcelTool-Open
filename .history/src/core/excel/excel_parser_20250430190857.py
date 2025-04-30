@@ -60,7 +60,7 @@ class ExcelParser:
 
         filename = os.path.basename(file_path)
         # 创建临时文件目录并复制Excel文件，用于process_workbook处理
-        temp_dir = os.path.join(ProjectInfo.main_base_dir, "xlsx_temp_path")
+        temp_dir = os.path.join(ProjectInfo.main_base_dir, "xlsx_copy_path")
         os.makedirs(temp_dir, exist_ok=True)
         temp_file_path = os.path.join(temp_dir, filename)
         shutil.copy2(file_path, temp_file_path)

@@ -58,93 +58,102 @@ class ExcelParser:
             self.logger.warning(f"Excel文件不存在: {file_path}")
             raise FileNotFoundError(f"Excel文件不存在: {file_path}")
 
-        filename = os.path.basename(file_path)
-        # 创建临时文件目录并复制Excel文件，用于process_workbook处理
-        temp_dir = os.path.join(ProjectInfo.main_base_dir, "xlsx_temp_path")
-        os.makedirs(temp_dir, exist_ok=True)
-        temp_file_path = os.path.join(temp_dir, filename)
-        shutil.copy2(file_path, temp_file_path)
-        self.logger.info(f"已复制Excel文件到临时目录: {temp_file_path}")
-
         try:
-            # 获取Excel文件的所有sheet名称
-            xl = pd.ExcelFile(file_path)
-            sheet_names = xl.sheet_names
+            # 创建临时文件目录
+            temp_dir = os.path.join(ProjectInfo.main_base_dir, "xlsx_copy_path")
+            os.makedirs(temp_dir, exist_ok=True)
 
-            results = []
+            # 复制Excel文件到临时目录
+            temp_file_path = os.path.join(temp_dir, os.path.basename(file_path))
+            try:
+                shutil.copy2(file_path, temp_file_path)
+                self.logger.info(f"已复制Excel文件到临时目录: {temp_file_path}")
 
-            # 遍历所有sheet并解析
-            for sheet_name in sheet_names:
-                self.logger.info(f"解析工作表: {sheet_name}")
+                # 获取Excel文件的所有sheet名称
+                xl = pd.ExcelFile(file_path)
+                sheet_names = xl.sheet_names
 
-                # 首先读取整个DataFrame，用于预处理指令提取
-                df: pd.DataFrame = pd.read_excel(temp_file_path, sheet_name=sheet_name, header=None)
+                results = []
 
-                # 创建ExcelTable
-                excel_table = ExcelTable(df)
-                # 检查DataFrame是否有足够的行
-                if df.shape[0] < 3:
-                    self.logger.warning(f'{filename}的表"{sheet_name}"行数<3，不解析')
-                    continue
+                # 遍历所有sheet并解析
+                for sheet_name in sheet_names:
+                    self.logger.info(f"解析工作表: {sheet_name}")
 
-                # 为数据行（从第三行开始）添加颜色码
-                excel_char_color_reader = ExcelCharColorReader()
-                # 使用临时文件处理工作簿，避免原文件被长时间占用
-                df = excel_char_color_reader.process_workbook(temp_file_path, sheet_name, df)
+                    # 首先读取整个DataFrame，用于预处理指令提取
+                    df: pd.DataFrame = pd.read_excel(file_path, sheet_name=sheet_name, header=None)
 
-                # 删除键名为空或=""的列
-                # df.loc[]会去掉False的列
-                condition = df.iloc[1].map(lambda x: ExcelTable.custom_isna(x) or x == r'""')
-                df = df.loc[:, ~condition]
-                # 删除以//开头或空单元格开头的行（保留前两行）
-                condition = df.iloc[:, 0].map(lambda x: ExcelTable.custom_isna(x) or str(x).strip().startswith("//"))
-                # 向量化比较 ：df.index < 2 会产生布尔值序列
-                df = df.loc[~condition | (df.index < 2)]
-                # 重置行索引
-                df.reset_index(drop=True, inplace=True)
-                # 从DataFrame的第一行提取预处理指令，删除和执行预处理指令
-                preprocessors, df = extract_preprocessor_directives(df)
+                    # 创建ExcelTable
+                    excel_table = ExcelTable(df)
+                    # 检查DataFrame是否有足够的行
+                    if df.shape[0] < 3:
+                        filename = os.path.basename(file_path)
+                        self.logger.warning(f'{filename}的表"{sheet_name}"行数<3，不解析')
+                        continue
 
-                # 获取每列的type，存放到字典中
-                types_dict = self.infer_types(df)
+                    # 为数据行（从第三行开始）添加颜色码
+                    excel_char_color_reader = ExcelCharColorReader()
+                    # 使用临时文件路径处理工作簿
+                    df = excel_char_color_reader.process_workbook(temp_file_path, sheet_name, df)
 
-                # 数据处理
-                df.iloc[2:] = df.iloc[2:].apply(lambda x: x.map(self.value_handle))
+                    # 删除键名为空或=""的列
+                    # df.loc[]会去掉False的列
+                    condition = df.iloc[1].map(lambda x: ExcelTable.custom_isna(x) or x == r'""')
+                    df = df.loc[:, ~condition]
+                    # 删除以//开头或空单元格开头的行（保留前两行）
+                    condition = df.iloc[:, 0].map(
+                        lambda x: ExcelTable.custom_isna(x) or str(x).strip().startswith("//")
+                    )
+                    # 向量化比较 ：df.index < 2 会产生布尔值序列
+                    df = df.loc[~condition | (df.index < 2)]
+                    # 重置行索引
+                    df.reset_index(drop=True, inplace=True)
+                    # 从DataFrame的第一行提取预处理指令，删除和执行预处理指令
+                    preprocessors, df = extract_preprocessor_directives(df)
 
-                # 重写DataFrame列名为有效键名
-                excel_table.data = df
-                excel_table.data.columns = excel_table.get_keys()
-                excel_table.types = types_dict  # 类型信息
-                excel_table.preprocessors = preprocessors  # 预处理指令
+                    # 获取每列的type，存放到字典中
+                    types_dict = self.infer_types(df)
 
-                is_object_table = False
-                keys = excel_table.get_keys()
-                if "id" in keys and "_parent" in keys:
-                    is_object_table = True
-                # 创建新的 metadata 结构
-                metadata = {
-                    "is_object_table": is_object_table,  # 是否物编表格，而且是通用表格，不是白泽物编
-                    "file_path": file_path,
-                    "filename": filename,  # 文件名
-                    "sheet_name": sheet_name,  # 工作表名
-                    "excel_table": excel_table,
-                }
+                    # 数据处理
+                    df.iloc[2:] = df.iloc[2:].apply(lambda x: x.map(self.value_handle))
 
-                # 将当前工作表的解析结果添加到最终列表中
-                results.append(metadata)
+                    # 重写DataFrame列名为有效键名
+                    excel_table.data = df
+                    excel_table.data.columns = excel_table.get_keys()
+                    excel_table.types = types_dict  # 类型信息
+                    excel_table.preprocessors = preprocessors  # 预处理指令
 
-            # 处理完成后删除临时文件
-            if os.path.exists(temp_file_path):
-                os.remove(temp_file_path)
-                self.logger.info(f"已删除临时Excel文件: {temp_file_path}")
+                    is_object_table = False
+                    keys = excel_table.get_keys()
+                    if "id" in keys and "_parent" in keys:
+                        is_object_table = True
+                    # 创建新的 metadata 结构
+                    metadata = {
+                        "is_object_table": is_object_table,  # 是否物编表格，而且是通用表格，不是白泽物编
+                        "file_path": file_path,
+                        "filename": os.path.basename(file_path),  # 文件名
+                        "sheet_name": sheet_name,  # 工作表名
+                        "excel_table": excel_table,
+                    }
 
-            return results
+                    # 将当前工作表的解析结果添加到最终列表中
+                    results.append(metadata)
+
+                # 处理完成后删除临时文件
+                if os.path.exists(temp_file_path):
+                    os.remove(temp_file_path)
+                    self.logger.info(f"已删除临时Excel文件: {temp_file_path}")
+
+                return results
+
+            except Exception as e:
+                self.logger.error(f"处理Excel文件时发生错误: {str(e)}")
+                # 确保临时文件被删除
+                if os.path.exists(temp_file_path):
+                    os.remove(temp_file_path)
+                    self.logger.info(f"发生错误后删除临时Excel文件: {temp_file_path}")
+                raise e
 
         except Exception as e:
-            # 确保临时文件被删除
-            if os.path.exists(temp_file_path):
-                os.remove(temp_file_path)
-                self.logger.info(f"发生错误后删除临时Excel文件: {temp_file_path}")
             self.logger.error(f"解析Excel文件的工作表时出错: {str(e)}")
             raise e
 

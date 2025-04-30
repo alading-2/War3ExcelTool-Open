@@ -58,14 +58,6 @@ class ExcelParser:
             self.logger.warning(f"Excel文件不存在: {file_path}")
             raise FileNotFoundError(f"Excel文件不存在: {file_path}")
 
-        filename = os.path.basename(file_path)
-        # 创建临时文件目录并复制Excel文件，用于process_workbook处理
-        temp_dir = os.path.join(ProjectInfo.main_base_dir, "xlsx_temp_path")
-        os.makedirs(temp_dir, exist_ok=True)
-        temp_file_path = os.path.join(temp_dir, filename)
-        shutil.copy2(file_path, temp_file_path)
-        self.logger.info(f"已复制Excel文件到临时目录: {temp_file_path}")
-
         try:
             # 获取Excel文件的所有sheet名称
             xl = pd.ExcelFile(file_path)
@@ -78,19 +70,43 @@ class ExcelParser:
                 self.logger.info(f"解析工作表: {sheet_name}")
 
                 # 首先读取整个DataFrame，用于预处理指令提取
-                df: pd.DataFrame = pd.read_excel(temp_file_path, sheet_name=sheet_name, header=None)
+                df: pd.DataFrame = pd.read_excel(file_path, sheet_name=sheet_name, header=None)
 
                 # 创建ExcelTable
                 excel_table = ExcelTable(df)
                 # 检查DataFrame是否有足够的行
                 if df.shape[0] < 3:
+                    filename = os.path.basename(file_path)
                     self.logger.warning(f'{filename}的表"{sheet_name}"行数<3，不解析')
                     continue
 
                 # 为数据行（从第三行开始）添加颜色码
                 excel_char_color_reader = ExcelCharColorReader()
-                # 使用临时文件处理工作簿，避免原文件被长时间占用
-                df = excel_char_color_reader.process_workbook(temp_file_path, sheet_name, df)
+
+                # 创建临时文件目录
+                temp_dir = os.path.join(ProjectInfo.main_base_dir, "xlsx_copy_path")
+                os.makedirs(temp_dir, exist_ok=True)
+
+                # 复制Excel文件到临时目录
+                temp_file_path = os.path.join(temp_dir, os.path.basename(file_path))
+                try:
+                    shutil.copy2(file_path, temp_file_path)
+                    self.logger.info(f"已复制Excel文件到临时目录: {temp_file_path}")
+
+                    # 使用临时文件路径处理工作簿
+                    df = excel_char_color_reader.process_workbook(temp_file_path, sheet_name, df)
+
+                    # 处理完成后删除临时文件
+                    if os.path.exists(temp_file_path):
+                        os.remove(temp_file_path)
+                        self.logger.info(f"已删除临时Excel文件: {temp_file_path}")
+                except Exception as e:
+                    self.logger.error(f"处理Excel文件时发生错误: {str(e)}")
+                    # 确保临时文件被删除
+                    if os.path.exists(temp_file_path):
+                        os.remove(temp_file_path)
+                        self.logger.info(f"发生错误后删除临时Excel文件: {temp_file_path}")
+                    raise e
 
                 # 删除键名为空或=""的列
                 # df.loc[]会去掉False的列
@@ -125,7 +141,7 @@ class ExcelParser:
                 metadata = {
                     "is_object_table": is_object_table,  # 是否物编表格，而且是通用表格，不是白泽物编
                     "file_path": file_path,
-                    "filename": filename,  # 文件名
+                    "filename": os.path.basename(file_path),  # 文件名
                     "sheet_name": sheet_name,  # 工作表名
                     "excel_table": excel_table,
                 }
@@ -133,18 +149,9 @@ class ExcelParser:
                 # 将当前工作表的解析结果添加到最终列表中
                 results.append(metadata)
 
-            # 处理完成后删除临时文件
-            if os.path.exists(temp_file_path):
-                os.remove(temp_file_path)
-                self.logger.info(f"已删除临时Excel文件: {temp_file_path}")
-
             return results
 
         except Exception as e:
-            # 确保临时文件被删除
-            if os.path.exists(temp_file_path):
-                os.remove(temp_file_path)
-                self.logger.info(f"发生错误后删除临时Excel文件: {temp_file_path}")
             self.logger.error(f"解析Excel文件的工作表时出错: {str(e)}")
             raise e
 

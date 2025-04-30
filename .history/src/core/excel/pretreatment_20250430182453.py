@@ -9,7 +9,7 @@ from src.core.excel.data_handler import ExcelTable
 logger = logging.getLogger(__name__)
 
 # 有效的预处理指令集合
-VALID_PREPROCESSORS = ("#default", "#path", "#color")
+VALID_PREPROCESSORS = ["#default", "#path"]
 
 # 预处理函数类型注解
 PreprocessorFn = Callable[[Any, Any], Any]
@@ -129,9 +129,6 @@ PREPROCESSOR_ACTIONS: Dict[str, PreprocessorFn] = {
         if ExcelTable.custom_notna(value) and isinstance(value, str)
         else value
     ),
-    "#color":
-    # 暂不处理
-    lambda value, _: value,
 }
 
 

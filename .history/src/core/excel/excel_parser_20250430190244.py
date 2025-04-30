@@ -58,11 +58,10 @@ class ExcelParser:
             self.logger.warning(f"Excel文件不存在: {file_path}")
             raise FileNotFoundError(f"Excel文件不存在: {file_path}")
 
-        filename = os.path.basename(file_path)
         # 创建临时文件目录并复制Excel文件，用于process_workbook处理
-        temp_dir = os.path.join(ProjectInfo.main_base_dir, "xlsx_temp_path")
+        temp_dir = os.path.join(ProjectInfo.main_base_dir, "xlsx_copy_path")
         os.makedirs(temp_dir, exist_ok=True)
-        temp_file_path = os.path.join(temp_dir, filename)
+        temp_file_path = os.path.join(temp_dir, os.path.basename(file_path))
         shutil.copy2(file_path, temp_file_path)
         self.logger.info(f"已复制Excel文件到临时目录: {temp_file_path}")
 
@@ -84,6 +83,7 @@ class ExcelParser:
                 excel_table = ExcelTable(df)
                 # 检查DataFrame是否有足够的行
                 if df.shape[0] < 3:
+                    filename = os.path.basename(file_path)
                     self.logger.warning(f'{filename}的表"{sheet_name}"行数<3，不解析')
                     continue
 
@@ -125,7 +125,7 @@ class ExcelParser:
                 metadata = {
                     "is_object_table": is_object_table,  # 是否物编表格，而且是通用表格，不是白泽物编
                     "file_path": file_path,
-                    "filename": filename,  # 文件名
+                    "filename": os.path.basename(file_path),  # 文件名
                     "sheet_name": sheet_name,  # 工作表名
                     "excel_table": excel_table,
                 }

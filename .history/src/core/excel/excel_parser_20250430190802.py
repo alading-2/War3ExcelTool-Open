@@ -60,7 +60,7 @@ class ExcelParser:
 
         filename = os.path.basename(file_path)
         # 创建临时文件目录并复制Excel文件，用于process_workbook处理
-        temp_dir = os.path.join(ProjectInfo.main_base_dir, "xlsx_temp_path")
+        temp_dir = os.path.join(ProjectInfo.main_base_dir, "xlsx_copy_path")
         os.makedirs(temp_dir, exist_ok=True)
         temp_file_path = os.path.join(temp_dir, filename)
         shutil.copy2(file_path, temp_file_path)
@@ -133,18 +133,26 @@ class ExcelParser:
                 # 将当前工作表的解析结果添加到最终列表中
                 results.append(metadata)
 
-            # 处理完成后删除临时文件
+            # 处理完成后删除临时文件和目录
             if os.path.exists(temp_file_path):
                 os.remove(temp_file_path)
                 self.logger.info(f"已删除临时Excel文件: {temp_file_path}")
 
+            # 删除临时目录
+            if os.path.exists(temp_dir):
+                os.rmdir(temp_dir)
+                self.logger.info(f"已删除临时目录: {temp_dir}")
+
             return results
 
         except Exception as e:
-            # 确保临时文件被删除
+            # 确保临时文件和目录被删除
             if os.path.exists(temp_file_path):
                 os.remove(temp_file_path)
                 self.logger.info(f"发生错误后删除临时Excel文件: {temp_file_path}")
+            if os.path.exists(temp_dir):
+                os.rmdir(temp_dir)
+                self.logger.info(f"发生错误后删除临时目录: {temp_dir}")
             self.logger.error(f"解析Excel文件的工作表时出错: {str(e)}")
             raise e
 
