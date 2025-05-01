@@ -1,7 +1,7 @@
-('E:\\Vscode_Code\\Python\\ExcelToTypescript\\resource\\picture\\载入画面.png',
+('E:\\Vscode_Code\\Python\\ExcelToTypescript\\resource\\imbed\\载入画面.png',
  'E:\\Vscode_Code\\Python\\ExcelToTypescript\\package\\build\\War3ExcelTool\\Splash-00.res',
  'E:\\Vscode_Code\\Python\\ExcelToTypescript\\package\\build\\War3ExcelTool\\Splash-00_script.tcl',
- (30, 270),
+ (30, 230),
  12,
  'TkDefaultFont',
  'black',
@@ -65,7 +65,7 @@
  'font configure myFont -size 12\n'
  '.root.canvas create text \\\n'
  '30 \\\n'
- '270 \\\n'
+ '230 \\\n'
  '-fill black \\\n'
  '-justify center \\\n'
  '-font myFont \\\n'
@@ -101,10 +101,10 @@
   ('tk86t.dll',
    'C:\\Users\\29701\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\tk86t.dll',
    'BINARY'),
+  ('VCRUNTIME140.dll', 'C:\\Windows\\system32\\VCRUNTIME140.dll', 'BINARY'),
   ('zlib1.dll',
    'C:\\Users\\29701\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\zlib1.dll',
    'BINARY'),
-  ('VCRUNTIME140.dll', 'C:\\Windows\\system32\\VCRUNTIME140.dll', 'BINARY'),
   ('_tk_data\\license.terms',
    'C:\\Users\\29701\\AppData\\Local\\Programs\\Python\\Python313\\tcl\\tk8.6\\license.terms',
    'DATA'),

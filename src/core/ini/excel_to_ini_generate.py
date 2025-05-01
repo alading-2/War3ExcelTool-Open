@@ -49,7 +49,7 @@ class ExcelToIniGenerator:
         # 白泽框架
         self.baize_frame = config_manager.get("baize_frame", True)
         # 获取玩家数量，默认为5
-        self.player_count = int(config_manager.get("player_count", "5"))
+        self.player_count = int(config_manager.get("player_count", 5))
 
         # INI输出路径 - 用于将生成的INI文件额外复制到指定目录，非必填
         self.ini_output_path = config_manager.get("ini_output", "")

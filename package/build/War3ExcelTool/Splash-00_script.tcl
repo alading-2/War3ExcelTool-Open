@@ -52,7 +52,7 @@ font create myFont {*}[font actual TkDefaultFont]
 font configure myFont -size 12
 .root.canvas create text \
 30 \
-270 \
+230 \
 -fill black \
 -justify center \
 -font myFont \

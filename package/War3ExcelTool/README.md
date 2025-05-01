@@ -1,49 +1,62 @@
-## War3Excel 工具项目简介
+# War3ExcelTool 🛠️
 
-Excel 到 TypeScript 转换工具是一个 Python 应用程序，可以将 Excel 表格数据自动转换为 TypeScript 代码。这个工具专为需要从 Excel 数据生成 TypeScript 代码的开发人员设计。
+## 项目简介
 
-## 主要功能
+War3ExcelTool 是批量处理魔兽表格的工具，能够将 Excel 表格数据批量转换为 typescript、lua、ini 、json 文件，也能够将物编 ini 文件转换为 Excel 文件。
 
-- **Excel 解析**：自动解析 Excel 文件，根据指定规则提取数据
-- **类型推断**：自动判断数据类型，支持 number、string、boolean 和复杂类型
-- **颜色处理**：支持提取并转换 Excel 中的文本颜色信息
-- **代码生成**：生成符合规范的 TypeScript 接口和类
-- **批量处理**：支持批量处理多个 Excel 文件
-- **图形界面**：提供友好的用户界面，便于操作
-- **多工作表支持**：支持处理包含多个工作表的 Excel 文件
-- **智能打包**：打包时自动关闭正在运行的程序，打包完成后自动打开新的可执行文件
-- **预处理指令**：支持在 Excel 文件的前几行添加预处理指令，用于数据转换
+## 仓库地址
+
+[gitee：]()
+[github：]()
 
 ## 安装方法
 
-### 使用可执行文件（推荐）
+下载 release 的压缩包
 
-1. 下载最新的安装包
-2. 运行安装程序，按照提示进行安装
-3. 安装完成后，从开始菜单或桌面快捷方式启动程序
+## 快速开始 🚀
 
-### 从源码安装
+白泽框架解压就能使用
 
-1. 克隆仓库：
+- **命令行模式**
+  配置 vscode 任务：
 
-   ```
-   git clone https://github.com/yourusername/excel-to-ts.git
-   cd excel-to-ts
-   ```
+  ```json
+  {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "运行 main(命令行模式)",
+        "type": "shell",
+        "command": "python",
+        "args": [
+          "src/main.py",
+          "-i",
+          "else/Test/input", // 统一使用正斜杠避免转义问题
+          "-o",
+          "else/Test", // 含空格路径必须用双引号包裹
+          "--ini-output", //ini文件路径
+          "else/Test/initest"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      }
+    ]
+  }
+  ```
 
-2. 安装依赖：
+- **GUI 模式**
 
-   ```
-   pip install -r requirements.txt
-   ```
+  运行程序后，会弹出 GUI 界面，选择需要的功能，点击转换按钮即可。
 
-3. 运行程序：
+---
 
-   ```
-   python -m src.main
-   ```
-
-### 打包为可执行文件
+## 打包为可执行文件
 
 如果要将程序打包为可执行文件，可以运行：
 
@@ -51,261 +64,197 @@ Excel 到 TypeScript 转换工具是一个 Python 应用程序，可以将 Excel
 python build.py
 ```
 
-打包过程有以下特点：
+## 功能详解 🧠
 
-- 自动检查并关闭正在运行的 ExcelToTS.exe 程序
-- 打包完成后自动打开新生成的可执行文件
+### **批量处理**
 
-## 使用方法
+支持批量处理多个 Excel 文件，支持以下格式：`.xls, .xlsx, .xlsm, .xlsb, .odf, .ods, .odt`
 
-### 图形界面
+---
 
-1. 启动程序
-2. 选择包含 Excel 文件的输入目录
-3. 选择 TypeScript 文件的输出目录
-4. 勾选"递归处理子目录"选项（如果需要）
-5. 点击"开始转换"按钮
-6. 转换过程将在操作日志中显示
+### **Excel 文件解析功能**
 
-### 命令行
+1.  excel 表格第一行为注释行，不写入生成的文件中；第二行是 key 值，作为生成对象的键，第三行开始是数据行
 
-程序也支持命令行操作：
+2.  key 值为空的列不解析；id 为空或以//开头的行不解析，默认注释行
+    ![img](resource\README\test2.png)
 
-```
-excel_to_ts -i /path/to/input -o /path/to/output -r
-```
+3.  自动识别单元格数据类型，ts 识别成 number、string、boolean、any
 
-参数说明：
+4.  支持字符级颜色识别，需注意：有颜色识别的列要加上预处理指令(#color)
+    ![img](resource\README\test4.png)
 
-- `-i, --input`：输入目录
-- `-o, --output`：输出目录
-- `-r, --recursive`：递归处理子目录
-- `--log-level`：日志级别，可选值为 DEBUG, INFO, WARNING, ERROR, CRITICAL
-- `--batch-size`：批处理大小
+5.  不正确的 war3 路径格式自动修改 `如：a\c\\b\\\\\s.blp 修改为 a\\c\\b\\s.blp`
 
-## Excel 文件格式要求
+6.  支持科学计数法 `1,234,567.89e+6`，可以用英文逗号','
 
-为了正确转换，Excel 文件需要符合以下格式：
+7.  支持对象、数组、布尔值、数字、字符串，布尔值大写小写都行(true/false)
 
-1. 第一行作为注释
-2. 第二行作为数据的 key 值
-3. 第三行及以下为实际数据
-4. 第一列作为数据 ID 用于索引
-5. 忽略首列为"//"的行
-6. 空数据单元格不会被提取
+8.  预处理指令
 
-### 预处理指令
+- (#color) 颜色识别
+- (#default bbb) 设置默认值，该列空的单元格的值设置为 bbb
+  ![img](resource\README\test5.png)
+  `"default": "bbb",`
 
-工具支持在 Excel 文件的前几行添加预处理指令，这些指令会影响数据的处理方式：
+---
 
-1. **指令格式**：预处理指令以 `#` 开头，可以放置在单元格的任意位置，一个单元格可以包含多个指令
-2. **支持的指令**：
+### **白泽框架说明**
 
-   - `#default <value>`: 为该列的空值单元格设置默认值
-   - `#path`: 将该列字符串值中的 `\` 替换为 `\\`（用于路径格式）
+- 白泽框架物编表格：名为 table 的 excel 文件，sheet 名为 `unit、 ability、item`表格
 
-3. **指令位置**：指令应放在实际数据表头之前的行中（程序最多检查前 3 行）
-4. **预处理过程**：
+  - **unit**
 
-   - 程序会先从 Excel 的前几行（默认最多 3 行）提取所有预处理指令
-   - 然后根据提取的指令对整个数据集（除了指令行和表头行）进行预处理
-   - 预处理完成后，指令会被从单元格中删除，不会出现在最终生成的 TypeScript 代码中
-   - 同时会清理单元格中的换行符(`\n`)和多余的空格
+    单位 id：`h004`开始，依次递增
+    注意：`acquire=0`时，物编会写入 `weapsOn=0`，即单位不能攻击
+    ![img](resource\README\test8.png)
 
-5. **示例**：
+  - **ability**
 
-   | 攻击力说明 #default 0 | 图标路径信息 #path                              |
-   | --------------------- | ----------------------------------------------- |
-   | 攻击力                | 图标路径                                        |
-   | 10                    | ReplaceableTextures\CommandButtons\BTNSword.blp |
-   | 20                    | ReplaceableTextures\CommandButtons\BTNAxe.blp   |
-   |                       | ReplaceableTextures\CommandButtons\BTNGun.blp   |
+  X/Y/Z+玩家序号+技能按钮 x 坐标+技能按钮 y 坐标
+  id 第 1 位：无目标为 X，单位目标为 Y，点目标为 Z
+  id 第 2 位：玩家序号：p
+  id 第 3 位：技能按钮位置 x 坐标：x:0-3，4 列
+  id 第 4 位：技能按钮位置 y 坐标：y:0-2，3 行
+  id=X/Y/Z+p+x+y
 
-   在这个例子中：
+  - **item**
 
-   - 第一列"攻击力"的空值会被替换为 0（因为有 `#default 0` 指令）
-   - 第二列"图标路径"的值会将反斜杠替换为双反斜杠（因为有 `#path` 指令）
-   - 第三行的第一列是空值，会被替换为默认值 0
+  物品 id：`I004`开始，依次递增
+  物品技能 id：`A004`开始，依次递增
 
-6. **多个指令**：一个单元格可以包含多个预处理指令，它们会按顺序应用：
+- 生成名字与物编 id 双向映射的 ts 文件，例如：
 
-   | 路径设置 #default 无图标 #path                  |
-   | ----------------------------------------------- |
-   | 图标路径                                        |
-   | ReplaceableTextures\CommandButtons\BTNSword.blp |
-   |                                                 |
+  ```ts
+  export const UnitId = {
+    test: "h006",
+    h006: "test",
+    冰雪法师: "h008",
+    h008: "冰雪法师",
+    剑圣: "h007",
+    h007: "剑圣",
+    助手: "h004",
+    h004: "助手",
+    单位: "h005",
+    h005: "单位",
+  } as const;
+  ```
 
-   在这个例子中，第一列既有默认值"无图标"，也会进行路径转换。空值会被替换为"无图标"，然后如果值是字符串，会进行路径转换。
+### **Excel 转 ts**
 
-7. **错误处理**：如果预处理过程中遇到格式错误或无效指令，会在日志中记录警告消息，但不会中断转换过程。
-8. **注意事项**：
+code 列可以写代码，import 放在 ts 文件最前面，其他放在 Start 函数内
 
-   - 预处理指令仅在该列的处理中生效，不会影响其他列
-   - 预处理指令必须位于数据表头之前的行中
-   - 支持在同一个单元格中多次使用同一指令，但只有最后一个会生效
+### **Excel 转 lua**
 
-## 生成的 TypeScript 代码
+### **Excel 转 json**
 
-假设 Excel 文件名为"演员单位.xlsx"，生成的 TypeScript 文件将命名为"xlsx\_演员单位.ts"，包含：
+---
 
-1. 接口索引常量：`xlsx_inte_keys_演员单位`
-2. 接口定义：`xlsx_inte_演员单位`
-3. 数据常量：`xlsx_data_演员单位`
-4. 类定义：`xlsx_演员单位`，包含 Start 方法
+### **Excel 转 ini**
 
-## 颜色代码支持
+- **物编表格**
+  只有被识别成物编表格的 excel 文件的 sheet 才会生成 ini 文件，识别规则：
 
-工具支持从 Excel 提取文本颜色，并转换为特定格式。例如，红色文本将转换为：
+  1. 白泽框架物编表格
+     ![img](resource\README\test6.png)
+  2. 通用物编表格：excel 文件名无要求，sheet 名第二行 key 值包括 `id和_parent`的表格
+     ![img](resource\README\test7.png)
+  3. 如果物编 id 重复使用，会详细指出哪个 excel 文件，哪个 sheet，哪一行重复了
 
-```typescript
-'|cffff0000文本内容|r'
-```
+- **war3ini 格式**
+  需要注意 war3ini 的格式：`{1,2,3}`：中括号内用逗号间隔：表示多个等级的数据，`[=[...]=]`：以 `[=[`开头，以 `]=]`结尾表示多行字符串
 
-支持的颜色代码：
-
-- 红色：`|cffff0000`
-- 黄色：`|cffffff00`
-- 绿色：`|cff00ff00`
-- 蓝色：`|cff0000ff`
-- 紫色：`|cffff00ff`
-- 黑色：`|c00000000`
-- 白色：`|cffffffff`
-
-## 常见问题
-
-1. **Q: 为什么我的 Excel 文件没有被正确转换？**A: 请确保 Excel 文件格式符合要求，特别是第一行为注释，第二行为键名。
-2. **Q: 能否自定义输出文件的命名格式？**A: 当前版本不支持自定义命名格式，未来版本可能添加此功能。
-3. **Q: 支持哪些 Excel 文件格式？**
-   A: 支持.xlsx 格式，不支持旧的.xls 格式。
-4. **Q: 预处理指令需要放在哪里？**
-   A: 预处理指令应放在 Excel 文件的前几行，最多支持检查前 3 行。指令行后的第一行将被视为表头。指令可以放在单元格的任意位置，一个单元格可以包含多个指令。
-
-## 贡献指南
-
-欢迎贡献代码或提出建议！请遵循以下步骤：
-
-1. Fork 仓库
-2. 创建功能分支：`git checkout -b feature/your-feature`
-3. 提交更改：`git commit -m 'Add your feature'`
-4. 推送到分支：`git push origin feature/your-feature`
-5. 提交 Pull Request
-
-## 许可证
-
-本项目采用 MIT 许可证。详情请参阅[LICENSE](LICENSE)文件。
-
-## ExcelTable 类
-
-`ExcelTable` 类是一个设计用于封装 Excel 表格数据及其元数据的数据结构。它为访问和操作已读入 pandas DataFrame 的 Excel 数据提供了清晰的接口。
-
-### 主要特性:
-
-- 自动清洗和处理原始 Excel 数据
-- 提取列元数据（注释、键名）
-- 过滤注释行和空行
-- 提供通过单元格、行或列访问数据的便捷方法
-- 与 ColumnInfo 集成实现元数据管理
-
-### 使用示例:
-
-```python
-import pandas as pd
-from src.core.data_handler import ExcelTable
-
-# 从Excel读取原始数据
-raw_df = pd.read_excel("example.xlsx", sheet_name="Sheet1", header=None)
-
-# 创建ExcelTable实例
-excel_table = ExcelTable(raw_df)
-
-# 使用便捷方法访问数据
-cell_value = excel_table.get_cell(row_idx=0, col_idx=1)
-row_data = excel_table.get_row(row_idx=0)
-column_data = excel_table.get_col_by_key(key="id")
-
-# 获取列元数据
-column_info = excel_table.get_column_info(key="id")
-print(f"列注释: {column_info.comment}")
-
-# 遍历所有行
-for idx, row in excel_table.iterrows():
-    print(f"行 {idx}: {row}")
-```
-
-## Excel 到 TypeScript 转换器
-
-本项目还包括将 Excel 数据转换为 TypeScript 接口和常量的功能。
-
-### 特性:
-
-- 将 Excel 工作表转换为 TypeScript 接口
-- 从 Excel 行生成 TypeScript 常量数据
-- 支持注释和类型推断
-- 提供命令行界面便于使用
-
-### 命令行使用:
-
-```bash
-# 将Excel文件转换为TypeScript
-python src/cli.py example.xlsx -o ./ts_output
-
-# 获取帮助信息
-python src/cli.py --help
-```
-
-### 编程方式使用:
-
-```python
-from src.core.excel_to_ts import ExcelToTypeScript
-
-# 创建转换器实例
-converter = ExcelToTypeScript()
-
-# 将Excel文件转换为TypeScript
-generated_files = converter.convert_excel_to_ts("example.xlsx", "ts_output")
-
-# 打印生成的文件
-for file_path in generated_files:
-    print(f"已生成: {file_path}")
-```
-
-### 生成的文件
-
-对于 Excel 文件中的每个工作表，转换器生成:
-
-1. `{工作表名}.interface.ts` - TypeScript 接口定义
-2. `{工作表名}.data.ts` - 包含数据的 TypeScript 常量
-
-接口文件示例:
-
-```typescript
-// 自动生成的TypeScript接口
-export interface UserData {
-  /** 用户标识符 */
-  id: number
-  /** 全名 */
-  name: string
-  /** 账户是否激活 */
-  active: boolean
+---
+
+### 配置管理 ⚙️
+
+配置文件格式为`.cfg`，包含以下配置项：
+
+- **路径参数**
+
+  - `input_path` ：输入路径
+  - `output_path` ：输出路径
+  - `w3x2lni_path` ：w3x2lni 可执行文件路径，开启 w3x 解析功能时必须配置
+
+- **功能参数**
+
+  - `convert_to_ts` ：是否开启 Excel 到 TypeScript 功能
+  - `convert_to_lua` ：是否开启 Excel 到 Lua 功能
+  - `convert_to_json` ：是否开启 Excel 到 JSON 功能
+  - `convert_to_ini` ：是否开启 Excel 到 INI 功能
+  - `ini_output` ：ini 文件路径，会额外将导出的 ini 文件复制到此路径下，仅在 convert_to_ini 为 true 时有效
+  - `convert_ini_to_excel` ：是否开启 INI 到 Excel 功能
+  - `parse_w3x` ：是否开启 w3x 解析功能
+
+- **辅助参数**
+  - `baize_frame` ：是否启用白泽框架，默认：True
+  - `player_count` ：白泽框架，玩家数量，影响基础技能物编数量，默认：5
+  - `recursive` ：是否递归处理输入目录，默认：True
+  - `log_level` ：日志级别（DEBUG/INFO/WARNING/ERROR/CRITICAL），默认：INFO
+  - `sort_by_alpha` ：生成表格是否按字母排序，默认：False
+  - `font_size` ：Excel 导出字体大小，默认：14
+  - `remove_empty_columns` ：生成 Excel 时删除全空列，默认：True
+
+### 命令行参数
+
+- `-i, --input`：输入目录或文件，必须设置
+- `-o, --output`：输出目录，必须设置
+- `--ini-output`： ini 文件路径（可不设置）
+
+---
+
+## 功能演示
+
+![excel测试数据](resource\README\test_excel.png)
+
+```ts
+export const xlsx_inte_keys_test_Sheet1 = [
+  "id",
+  "str",
+  "icon",
+  "num",
+  "num1",
+  "num2",
+  "bool",
+  "object",
+  "array",
+];
+
+export interface xlsx_inte_test_Sheet1 {
+  [key: string]: {
+    id?: string; // 自定义id
+    str?: string; // 字符串
+    icon?: number | string; // 路径
+    num?: number; // 数字1
+    num1?: number; // 数字2
+    num2?: number; // 科学计数法
+    bool?: boolean; // 布尔值
+    object?: any; // 对象
+    array?: any; // 数组
+  };
 }
-```
 
-数据文件示例:
-
-```typescript
-// 自动生成的TypeScript常量
-import { UserData } from './userData.interface'
-
-export const userDataData: UserData[] = [
-  {
-    id: 1,
-    name: '张三',
-    active: true,
+export const xlsx_data_test_Sheet1: xlsx_inte_test_Sheet1 = {
+  测试id4: {
+    id: "测试id4",
+    str: "字|cffff0000符串|r测|cff00b050试1a|raaa|cff00b0f0bbbb|rcc|cffffc000ccd|rddd",
+    icon: "a\\c\\b\\s.blp",
+    num: 138,
+    num1: -58.049,
+    num2: 1234567.89e6,
+    bool: false,
+    object: { 防御: 2785, 法抗: 58118 },
+    array: [85, 13, 599],
   },
-  {
-    id: 2,
-    name: '李四',
-    active: false,
-  },
-]
+};
+export class xlsx_test_Sheet1 {
+  static Start() {
+    const data = xlsx_data_test_Sheet1;
+    for (let datum of data) {
+      if (datum.id) {
+        ActorTypeUtil.registerActorType(datum as any);
+      }
+    }
+  }
+}
 ```

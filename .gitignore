@@ -1,3 +1,4 @@
 ~$*.xlsx
 else/Test/output
-
+src/xlsx_temp_path
+.history

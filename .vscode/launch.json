@@ -12,6 +12,8 @@
                 "else/Test/input", // 统一使用正斜杠避免转义问题
                 "-o",
                 "else/Test", // 含空格路径必须用双引号包裹
+                // "--ini-output",
+                // "else/Test/output"
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}", // 设置工作目录为项目根目录

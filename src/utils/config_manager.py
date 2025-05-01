@@ -9,7 +9,7 @@ from src.utils.project_info import ProjectInfo
 class ConfigManager:
     """
     配置管理类
-    
+
     用于加载、保存和管理应用程序的配置信息，支持使用CFG格式的配置文件。
     主要功能：
     - 从文件加载配置（支持自动创建默认配置）
@@ -31,7 +31,7 @@ class ConfigManager:
             "label": "输入目录",  # 界面显示标签
             "group": "路径参数",  # 分组
             "readonly": False,  # 是否只读
-            "desc": "Excel输入文件夹路径"  # 参数描述
+            "desc": "Excel输入文件夹路径",  # 参数描述
         },
         "output_path": {
             "category": "path",
@@ -40,16 +40,16 @@ class ConfigManager:
             "label": "基础输出目录",
             "group": "路径参数",
             "readonly": False,
-            "desc": "所有转换结果的基础输出目录"
+            "desc": "所有转换结果的基础输出目录",
         },
         "ini_output": {
             "category": "path",
             "default": "",
             "widget": "QLineEdit",
-            "label": "INI输出路径",
+            "label": "INI文件路径",
             "group": "路径参数",
             "readonly": False,
-            "desc": "生成INI文件的输出路径"
+            "desc": "生成的INI文件额外复制到此路径下",
         },
         "w3x2lni_path": {
             "category": "path",
@@ -58,7 +58,7 @@ class ConfigManager:
             "label": "w3x2lni工具路径",
             "group": "路径参数",
             "readonly": False,
-            "desc": "w3x2lni工具的可执行文件路径"
+            "desc": "w3x2lni工具的可执行文件路径",
         },
         # 功能参数
         "convert_to_ts": {
@@ -68,7 +68,7 @@ class ConfigManager:
             "label": "Excel -> TypeScript",
             "group": "功能参数",
             "readonly": False,
-            "desc": "是否执行Excel到TS转换"
+            "desc": "是否执行Excel到TS转换",
         },
         "convert_to_lua": {
             "category": "feature",
@@ -77,7 +77,7 @@ class ConfigManager:
             "label": "Excel -> Lua",
             "group": "功能参数",
             "readonly": False,
-            "desc": "是否执行Excel到Lua转换"
+            "desc": "是否执行Excel到Lua转换",
         },
         "convert_to_json": {
             "category": "feature",
@@ -86,7 +86,7 @@ class ConfigManager:
             "label": "Excel -> JSON",
             "group": "功能参数",
             "readonly": False,
-            "desc": "是否执行Excel到JSON转换"
+            "desc": "是否执行Excel到JSON转换",
         },
         "convert_to_ini": {
             "category": "feature",
@@ -95,7 +95,7 @@ class ConfigManager:
             "label": "Excel -> Ini",
             "group": "功能参数",
             "readonly": False,
-            "desc": "是否执行Excel到Ini转换"
+            "desc": "是否执行Excel到Ini转换",
         },
         "convert_ini_to_excel": {
             "category": "feature",
@@ -104,7 +104,7 @@ class ConfigManager:
             "label": "Ini -> Excel",
             "group": "功能参数",
             "readonly": False,
-            "desc": "是否执行Ini到Excel转换"
+            "desc": "是否执行Ini到Excel转换",
         },
         "parse_w3x": {
             "category": "feature",
@@ -113,7 +113,7 @@ class ConfigManager:
             "label": "解析w3x",
             "group": "功能参数",
             "readonly": False,
-            "desc": "是否解析w3x文件"
+            "desc": "是否解析w3x文件",
         },
         # 辅助参数
         "baize_frame": {
@@ -123,7 +123,7 @@ class ConfigManager:
             "label": "白泽框架",
             "group": "辅助参数",
             "readonly": False,
-            "desc": "是否启用白泽框架"
+            "desc": "是否启用白泽框架",
         },
         "recursive": {
             "category": "assist",  # 参数分类：辅助参数
@@ -132,7 +132,7 @@ class ConfigManager:
             "label": "递归处理输入目录",
             "group": "辅助参数",
             "readonly": False,
-            "desc": "是否递归处理输入目录"
+            "desc": "是否递归处理输入目录",
         },
         "log_level": {
             "category": "assist",
@@ -141,7 +141,7 @@ class ConfigManager:
             "label": "日志级别",
             "group": "辅助参数",
             "readonly": False,
-            "desc": "日志输出级别"
+            "desc": "日志输出级别",
         },
         "sort_by_alpha": {
             "category": "assist",
@@ -150,7 +150,7 @@ class ConfigManager:
             "label": "按字母排序生成表格",
             "group": "辅助参数",
             "readonly": False,
-            "desc": "生成表格时是否按字母排序"
+            "desc": "生成表格时是否按字母排序",
         },
         "font_size": {
             "category": "assist",
@@ -159,7 +159,7 @@ class ConfigManager:
             "label": "字体大小",
             "group": "辅助参数",
             "readonly": False,
-            "desc": "Excel导出字体大小"
+            "desc": "Excel导出字体大小",
         },
         "remove_empty_columns": {
             "category": "assist",  # 参数分类：辅助参数
@@ -168,7 +168,7 @@ class ConfigManager:
             "label": "生成Excel的删除全空列",
             "group": "辅助参数",
             "readonly": False,
-            "desc": "生成Excel时是否删除全是空值的列，建议保留默认True。"
+            "desc": "生成Excel时是否删除全是空值的列，建议保留默认True。",
         },
         "player_count": {
             "category": "assist",  # 参数分类：辅助参数
@@ -177,7 +177,7 @@ class ConfigManager:
             "label": "玩家数量",
             "group": "辅助参数",
             "readonly": False,
-            "desc": "生成基础技能等物编时的玩家数量，影响技能物编数量，默认为5。"
+            "desc": "生成基础技能等物编时的玩家数量，影响技能物编数量，默认为5。",
         },
     }
 
@@ -218,10 +218,8 @@ class ConfigManager:
                 self.logger.info(f"配置文件不存在: {ConfigManager.config_path}")
 
                 if os.path.exists(ConfigManager.default_config_path):
-                    self.logger.info(
-                        f"从默认位置复制配置文件: {ConfigManager.default_config_path}")
-                    shutil.copy(ConfigManager.default_config_path,
-                                ConfigManager.config_path)
+                    self.logger.info(f"从默认位置复制配置文件: {ConfigManager.default_config_path}")
+                    shutil.copy(ConfigManager.default_config_path, ConfigManager.config_path)
                 else:
                     # 默认配置文件也不存在，创建新文件
                     self.logger.error("默认配置文件不存在")
@@ -240,7 +238,7 @@ class ConfigManager:
                     if key in section_data:
                         # 按默认值类型转换
                         if isinstance(default_value, bool):
-                            config[key] = section_data[key].lower() == 'true'
+                            config[key] = section_data[key].lower() == "true"
                         elif isinstance(default_value, int):
                             config[key] = int(section_data[key])
                         else:
@@ -263,15 +261,15 @@ class ConfigManager:
         """
         try:
             # 确保配置文件目录存在
-            os.makedirs(os.path.dirname(ConfigManager.config_path)
-                        if os.path.dirname(ConfigManager.config_path) else '.',
-                        exist_ok=True)
+            os.makedirs(
+                os.path.dirname(ConfigManager.config_path) if os.path.dirname(ConfigManager.config_path) else ".",
+                exist_ok=True,
+            )
 
             # 读取现有文件内容（保留注释）
             existing_lines = []
             if os.path.exists(ConfigManager.config_path):
-                with open(ConfigManager.config_path, 'r',
-                          encoding='utf-8') as f:
+                with open(ConfigManager.config_path, "r", encoding="utf-8") as f:
                     existing_lines = f.readlines()
 
             # 解析现有配置行，找出每个键所在行
@@ -280,11 +278,11 @@ class ConfigManager:
             for i, line in enumerate(existing_lines):
                 line = line.strip()
                 # 识别节点
-                if line.startswith('[') and line.endswith(']'):
+                if line.startswith("[") and line.endswith("]"):
                     section = line[1:-1]
                 # 识别键值对
-                elif '=' in line:
-                    key = line.split('=')[0].strip()
+                elif "=" in line:
+                    key = line.split("=")[0].strip()
                     key_line_map[key] = i
 
             # 更新现有行或添加新行
@@ -303,7 +301,7 @@ class ConfigManager:
                     line_idx = key_line_map[key]
                     # 分割原行，保留注释部分
                     original_line = existing_lines[line_idx]
-                    comment_pos = original_line.find('#')
+                    comment_pos = original_line.find("#")
                     if comment_pos != -1:
                         # 保留注释
                         new_line = f"{key} = {str_value} {original_line[comment_pos:]}"
@@ -313,7 +311,7 @@ class ConfigManager:
                     existing_lines.append(new_line)
 
             # 写回文件
-            with open(ConfigManager.config_path, 'w', encoding='utf-8') as f:
+            with open(ConfigManager.config_path, "w", encoding="utf-8") as f:
                 f.writelines(existing_lines)
 
             return True
@@ -352,10 +350,7 @@ class ConfigManager:
         Returns:
             参数名列表
         """
-        return [
-            k for k, v in cls.PARAM_META.items()
-            if v.get("category") == category
-        ]
+        return [k for k, v in cls.PARAM_META.items() if v.get("category") == category]
 
     @classmethod
     def get_param_widget_type(cls, key: str) -> str:
@@ -384,8 +379,7 @@ class ConfigManager:
         expected_type = type(meta["default"])
         try:
             if expected_type is bool:
-                return bool(value) if isinstance(
-                    value, bool) else str(value).lower() == "true"
+                return bool(value) if isinstance(value, bool) else str(value).lower() == "true"
             if expected_type is int:
                 return int(value)
             if expected_type is float:
@@ -409,8 +403,7 @@ class ConfigManager:
         expected_type = type(meta["default"])
         try:
             if expected_type is bool:
-                ConfigManager.config[key] = bool(value) if isinstance(
-                    value, bool) else str(value).lower() == "true"
+                ConfigManager.config[key] = bool(value) if isinstance(value, bool) else str(value).lower() == "true"
             elif expected_type is int:
                 ConfigManager.config[key] = int(value)
             elif expected_type is float:
