@@ -1,9 +1,0 @@
-{
-  "convert_to_ts": true,
-  "convert_to_lua": false,
-  "convert_to_ini": true,
-  "convert_ini_to_excel": true,
-  "recursive": true,
-  "log_level": "INFO",
-  "baize_frame": true
-}
