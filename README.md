@@ -2,7 +2,7 @@
 
 ## 项目简介
 
-War3ExcelTool 是批量处理魔兽表格的工具，能够将 Excel 表格数据批量转换为 typescript、lua、ini 、json 文件，也能够将物编 ini 文件转换为 Excel 文件。
+War3ExcelTool 是批量处理表格的工具，可以用在 war3 作图，能够将 Excel 表格数据批量转换为 typescript、lua、ini 、json 文件，也能够将物编 ini 文件转换为 Excel 文件。
 
 ## 仓库地址
 
