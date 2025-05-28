@@ -39,6 +39,8 @@ class ConversionWorker(QThread):
     progress_updated = pyqtSignal(int, int, str)  # 当前进度, 总数, 当前文件
     conversion_done = pyqtSignal(bool, str)  # 成功/失败, 消息
     log_message = pyqtSignal(str)  # 日志消息
+    operation_updated = pyqtSignal(str)  # 当前操作类型
+    id_conflicts = pyqtSignal(int, str)  # 物编ID冲突数量和报告路径
 
     def __init__(self):
         """
@@ -55,10 +57,21 @@ class ConversionWorker(QThread):
         """运行转换过程，调用核心处理函数"""
         try:
             self.log_message.emit("开始文件转换...")
+
+            # 创建进度回调函数
+            def progress_callback(operation, current, total, file_path):
+                # 发送操作类型信号
+                self.operation_updated.emit(operation)
+                # 发送进度更新信号
+                self.progress_updated.emit(current, total, file_path)
+                # 记录特定里程碑的日志
+                if current == 0 or current == 100:
+                    self.log_message.emit(f"{operation}: {file_path}")
+
             # 调用核心处理逻辑，该函数负责实际的文件处理
             # 注意：process_files 理想情况下应处理日志记录和进度报告
             # 目前，我们将依赖其返回值和此处的基日志记录。
-            results = process_files()
+            results = process_files(progress_callback)
 
             # --- 处理转换结果 ---
             # 从返回的字典中提取处理统计信息
@@ -67,10 +80,21 @@ class ConversionWorker(QThread):
             error_count = results.get("errors", 0)  # 发生错误的文件数
             total_attempted = processed_count + skipped_count + error_count  # 尝试处理的总数
 
+            # 检查是否有物编ID冲突
+            id_conflicts = results.get("id_conflicts", {})
+            if id_conflicts.get("has_conflicts", False):
+                conflict_count = id_conflicts.get("conflict_count", 0)
+                markdown_path = id_conflicts.get("markdown_path", "")
+                # 发送ID冲突信号
+                self.id_conflicts.emit(conflict_count, markdown_path)
+                # 记录冲突信息到日志
+                self.log_message.emit(
+                    f"警告: 检测到{conflict_count}个物编ID冲突，详情请查看冲突报告")
+
             # 发送最终进度更新信号 (简化处理，视为100%完成)
             # 使用 "完成" 作为当前文件名占位符
             self.progress_updated.emit(total_attempted, total_attempted,
-                                       "完成")  # 简化处理
+                                       "完成")  #
 
             # --- 记录详细日志 ---
             # 遍历结果中的详细信息列表
@@ -129,6 +153,11 @@ class MainWindow(QMainWindow):
 
         # 加载配置管理器，用于读写应用程序设置
         self.config_manager = ConfigManager()
+
+        # 物编ID冲突状态跟踪
+        self.has_id_conflicts = False
+        self.conflict_count = 0
+        self.conflict_report_path = ""
 
         # 设置窗口的基本属性
         self.setWindowTitle(ProjectInfo.name)
@@ -229,8 +258,25 @@ class MainWindow(QMainWindow):
         self.convert_button.setStyleSheet("font-weight: bold;")
         control_layout.addWidget(self.convert_button)
 
-        # --- 进度条部分 ---
+        # 创建单独的布局容器用于冲突按钮
+        conflicts_layout = QHBoxLayout()
+        self.view_conflicts_button = QPushButton("查看物编ID冲突")
+        self.view_conflicts_button.clicked.connect(self.show_id_conflicts)
+        self.view_conflicts_button.setStyleSheet(
+            "color: #333333; background-color: #f0d0a0; font-weight: bold; padding: 4px 8px;"
+        )  # 淡橙色背景深灰色字体，更柔和但仍醒目
+        self.view_conflicts_button.setVisible(False)  # 默认隐藏
+        conflicts_layout.addWidget(self.view_conflicts_button)
+        conflicts_layout.addStretch()  # 添加弹性空间，让按钮靠左
+
+        # --- 进度部分 ---
         progress_layout = QVBoxLayout()
+
+        # 操作类型标签
+        self.operation_type_label = QLabel("当前操作: 准备中")
+        progress_layout.addWidget(self.operation_type_label)
+
+        # 进度标签和进度条
         progress_label = QLabel("进度:")
         self.progress_bar = QProgressBar()
         self.progress_bar.setTextVisible(True)
@@ -252,6 +298,7 @@ class MainWindow(QMainWindow):
         main_layout.addWidget(output_group)
         main_layout.addWidget(options_group)
         main_layout.addLayout(control_layout)
+        main_layout.addLayout(conflicts_layout)  # 添加冲突按钮布局
         main_layout.addLayout(progress_layout)
         main_layout.addWidget(log_group)
         self.statusBar().showMessage("就绪")
@@ -307,6 +354,7 @@ class MainWindow(QMainWindow):
             self.input_dir_edit.setText(directory)  # 更新输入框文本
             self.log_message(f"设置输入目录: {directory}")  # 记录日志
             self.config_manager.set("input_path", directory)
+            self.config_manager.save_config()  # 立即保存配置到文件
 
     def browse_output_dir(self):
         """
@@ -326,6 +374,7 @@ class MainWindow(QMainWindow):
             self.output_dir_edit.setText(directory)  # 更新输出框文本
             self.log_message(f"设置输出目录: {directory}")  # 记录日志
             self.config_manager.set("output_path", directory)
+            self.config_manager.save_config()  # 立即保存配置到文件
 
     def start_conversion(self):
         """
@@ -383,6 +432,12 @@ class MainWindow(QMainWindow):
         # 在开始转换前保存当前UI设置到配置文件
         self.save_config()
 
+        # 重置物编ID冲突状态
+        self.has_id_conflicts = False
+        self.conflict_count = 0
+        self.conflict_report_path = ""
+        self.view_conflicts_button.setVisible(False)
+
         # 禁用开始按钮，防止重复点击
         self.convert_button.setEnabled(False)
         # 清空日志区域
@@ -401,6 +456,8 @@ class MainWindow(QMainWindow):
         self.worker.log_message.connect(self.log_message)
         self.worker.progress_updated.connect(self.update_progress)
         self.worker.conversion_done.connect(self.conversion_finished)
+        self.worker.operation_updated.connect(self.update_operation)
+        self.worker.id_conflicts.connect(self.handle_id_conflicts)
         self.worker.start()
 
     def update_progress(self,
@@ -461,8 +518,9 @@ class MainWindow(QMainWindow):
         # 根据成功状态显示不同的反馈
         if success:
             self.statusBar().showMessage("转换完成")
-            # 显示信息提示框
-            QMessageBox.information(self, "完成", message)
+            # 显示信息提示框，但如果有ID冲突，不显示普通完成消息框
+            if not self.has_id_conflicts:
+                QMessageBox.information(self, "完成", message)
         else:
             self.statusBar().showMessage("转换失败")
             # 显示严重错误提示框
@@ -531,6 +589,7 @@ class MainWindow(QMainWindow):
         - 读取ConfigManager中的参数值，设置到对应的输入/输出目录等控件。
         - 保证界面初始状态与配置文件一致。
         - 若有自动生成的参数控件，也应在此处同步初始值。
+        - 检查是否存在之前的物编ID冲突报告，如果存在显示按钮。
         """
         config = self.config_manager.get_all()
         self.input_dir_edit.setText(config.get("input_path", ""))
@@ -541,6 +600,37 @@ class MainWindow(QMainWindow):
                 config.get(
                     key,
                     ConfigManager.get_param_meta(key).get("default", False)))
+
+        # 检查是否有上次生成的物编ID冲突报告
+        output_path = config.get("output_path", "")
+        if output_path and os.path.isdir(output_path):
+            # 使用规范化路径，确保路径分隔符一致
+            conflict_report_path = os.path.normpath(
+                os.path.join(output_path, "output", "物编ID冲突详情.md"))
+            if os.path.exists(conflict_report_path):
+                # 尝试读取报告文件前几行，提取冲突数量
+                try:
+                    with open(conflict_report_path, "r",
+                              encoding="utf-8") as f:
+                        content = f.read(1000)  # 读取前1000个字符足够
+
+                        # 查找冲突数量
+                        import re
+                        match = re.search(r"共发现\s+\*\*(\d+)\*\*\s+个ID冲突",
+                                          content)
+                        if match:
+                            conflict_count = int(match.group(1))
+                            self.has_id_conflicts = True
+                            self.conflict_count = conflict_count
+                            self.conflict_report_path = conflict_report_path
+                            self.view_conflicts_button.setText(
+                                f"查看物编ID冲突({conflict_count}个)")
+                            self.view_conflicts_button.setVisible(True)
+                            self.log_message(
+                                f"提示: 发现{conflict_count}个物编ID冲突，点击淡橙色按钮查看详情")
+                except Exception as e:
+                    # 出错时不显示冲突按钮，只是记录日志
+                    self.log_message(f"提示: 检查冲突报告时出错: {str(e)}")
 
     def save_config(self):
         """
@@ -577,3 +667,119 @@ class MainWindow(QMainWindow):
         value = self.feature_checkboxes[key].isChecked()
         self.config_manager.set(key, value)
         self.config_manager.save_config()
+
+    def update_operation(self, operation: str):
+        """
+        更新当前操作类型标签
+        
+        Args:
+            operation: 当前执行的操作类型
+        """
+        self.operation_type_label.setText(f"当前操作: {operation}")
+
+    def handle_id_conflicts(self, conflict_count: int, markdown_path: str):
+        """
+        处理物编ID冲突信号
+        
+        Args:
+            conflict_count: 冲突数量
+            markdown_path: 冲突报告路径
+        """
+        # 记录冲突状态
+        self.has_id_conflicts = True
+        self.conflict_count = conflict_count
+        self.conflict_report_path = markdown_path
+
+        # 显示冲突按钮
+        self.view_conflicts_button.setVisible(True)
+        self.view_conflicts_button.setText(f"查看物编ID冲突({conflict_count}个)")
+
+        # 记录警告日志
+        self.log_message(f"警告: 检测到{conflict_count}个物编ID冲突，详情请查看冲突报告")
+
+        # 显示对话框
+        self.show_id_conflicts()
+
+    def show_id_conflicts(self):
+        """
+        显示物编ID冲突对话框，可从主界面按钮调用
+        """
+        if not self.has_id_conflicts:
+            return
+
+        conflict_dialog = QMessageBox(self)
+        conflict_dialog.setIcon(QMessageBox.Warning)
+        conflict_dialog.setWindowTitle("物编ID冲突警告")
+        conflict_dialog.setText(f"检测到{self.conflict_count}个物编ID冲突！")
+
+        # 使用HTML格式化文本，使报告路径更易于阅读
+        formatted_text = (
+            "<p>多个物编条目使用了相同的ID，这可能导致游戏中的物编混乱。</p>"
+            "<p>冲突详情已生成到Markdown报告文件中。</p>"
+            f"<p><b>报告路径:</b> <span style='font-family:monospace;'>{self.conflict_report_path}</span></p>"
+        )
+        conflict_dialog.setInformativeText(formatted_text)
+
+        # 添加自定义按钮
+        view_button = conflict_dialog.addButton("打开冲突报告",
+                                                QMessageBox.ActionRole)
+        ignore_button = conflict_dialog.addButton("关闭", QMessageBox.RejectRole)
+
+        # 显示对话框
+        conflict_dialog.exec_()
+
+        # 处理按钮点击
+        if conflict_dialog.clickedButton() == view_button:
+            self.open_conflict_report()
+
+    def open_conflict_report(self):
+        """
+        在系统默认应用中打开物编ID冲突报告
+        """
+        if os.path.exists(self.conflict_report_path):
+            try:
+                # 使用合适的方法打开文件
+                if sys.platform.startswith('win'):  # Windows
+                    os.startfile(self.conflict_report_path)
+                elif sys.platform.startswith('darwin'):  # macOS
+                    import subprocess
+                    subprocess.call(['open', self.conflict_report_path])
+                else:  # Linux
+                    import subprocess
+                    subprocess.call(['xdg-open', self.conflict_report_path])
+            except Exception as e:
+                self.log_message(f"错误: 无法打开冲突报告: {str(e)}")
+                error_msg = QMessageBox(self)
+                error_msg.setIcon(QMessageBox.Critical)
+                error_msg.setWindowTitle("打开失败")
+                error_msg.setText("无法打开冲突报告文件")
+                error_msg.setInformativeText(
+                    f"<p>系统无法使用默认应用打开该文件。</p>"
+                    f"<p>错误信息: {str(e)}</p>"
+                    f"<p>您可以尝试手动打开该文件:</p>"
+                    f"<p style='font-family:monospace;'>{self.conflict_report_path}</p>"
+                )
+                copy_path_button = error_msg.addButton("复制文件路径",
+                                                       QMessageBox.ActionRole)
+                error_msg.addButton("关闭", QMessageBox.RejectRole)
+
+                error_msg.exec_()
+
+                # 处理按钮点击
+                if error_msg.clickedButton() == copy_path_button:
+                    # 复制路径到剪贴板
+                    clipboard = QApplication.clipboard()
+                    clipboard.setText(self.conflict_report_path)
+                    self.log_message("已复制冲突报告路径到剪贴板")
+        else:
+            self.log_message(f"错误: 冲突报告文件不存在: {self.conflict_report_path}")
+            error_msg = QMessageBox(self)
+            error_msg.setIcon(QMessageBox.Warning)
+            error_msg.setWindowTitle("文件不存在")
+            error_msg.setText("冲突报告文件不存在")
+            error_msg.setInformativeText(
+                f"<p>无法找到冲突报告文件:</p>"
+                f"<p style='font-family:monospace;'>{self.conflict_report_path}</p>"
+                "<p>可能是文件已被移动或删除。</p>"
+                "<p>您可以重新运行转换，生成新的冲突报告。</p>")
+            error_msg.exec_()

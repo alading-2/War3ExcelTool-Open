@@ -49,7 +49,7 @@
         {
             "label": "测试exe（命令行模式）",
             "type": "shell",
-            "command": "E:\\Vscode_Code\\Python\\ExcelToTypescript\\package\\War3ExcelTool\\War3ExcelTool.exe",
+            "command": "E:\\Code\\Python\\War3ExcelTool\\package\\War3ExcelTool_1.0\\War3ExcelTool.exe",
             "args": [
                 "-i",
                 "else/Test/excel", // 统一使用正斜杠避免转义问题
@@ -69,7 +69,7 @@
         {
             "label": "测试exe（GUI模式）",
             "type": "shell",
-            "command": "E:\\Vscode_Code\\Python\\ExcelToTypescript\\package\\War3ExcelTool\\War3ExcelTool.exe",
+            "command": "E:\\Code\\Python\\War3ExcelTool\\package\\War3ExcelTool_1.0\\War3ExcelTool.exe",
             "options": {
                 "cwd": "${workspaceFolder}"
             },

@@ -6,63 +6,12 @@ War3ExcelTool 是批量处理魔兽表格的工具，能够将 Excel 表格数�
 
 ## 仓库地址
 
-[gitee：]()
-[github：]()
+[gitee 下载地址]()
+[github 下载地址]()
 
-## 安装方法
+## 下载
 
 下载 release 的压缩包
-
-## 快速开始 🚀
-
-白泽框架解压就能使用
-
-- **命令行模式**
-  配置 vscode 任务：
-
-  ```json
-  {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "运行 main(命令行模式)",
-        "type": "shell",
-        "command": "python",
-        "args": [
-          "src/main.py",
-          "-i",
-          "else/Test/input", // 统一使用正斜杠避免转义问题
-          "-o",
-          "else/Test", // 含空格路径必须用双引号包裹
-          "--ini-output", //ini文件路径
-          "else/Test/initest"
-        ],
-        "options": {
-          "cwd": "${workspaceFolder}"
-        },
-        "problemMatcher": [],
-        "group": {
-          "kind": "build",
-          "isDefault": true
-        }
-      }
-    ]
-  }
-  ```
-
-- **GUI 模式**
-
-  运行程序后，会弹出 GUI 界面，选择需要的功能，点击转换按钮即可。
-
----
-
-## 打包为可执行文件
-
-如果要将程序打包为可执行文件，可以运行：
-
-```
-python build.py
-```
 
 ## 功能详解 🧠
 
@@ -74,23 +23,16 @@ python build.py
 
 ### **Excel 文件解析功能**
 
-1.  excel 表格第一行为注释行，不写入生成的文件中；第二行是 key 值，作为生成对象的键，第三行开始是数据行
-
-2.  key 值为空的列不解析；id 为空或以//开头的行不解析，默认注释行
-    ![img](resource\README\test2.png)
-
-3.  自动识别单元格数据类型，ts 识别成 number、string、boolean、any
-
-4.  支持字符级颜色识别，需注意：有颜色识别的列要加上预处理指令(#color)
-    ![img](resource\README\test4.png)
-
-5.  不正确的 war3 路径格式自动修改 `如：a\c\\b\\\\\s.blp 修改为 a\\c\\b\\s.blp`
-
-6.  支持科学计数法 `1,234,567.89e+6`，可以用英文逗号','
-
-7.  支持对象、数组、布尔值、数字、字符串，布尔值大写小写都行(true/false)
-
-8.  预处理指令
+1. excel 表格第一行为注释行，不写入生成的文件中；第二行是 key 值，作为生成对象的键，第三行开始是数据行
+2. key 值为空的列不解析；id 为空或以//开头的行不解析，默认注释行
+   ![img](resource\README\test2.png)
+3. 自动识别单元格数据类型，ts 识别成 number、string、boolean、any
+4. 支持字符级颜色识别，需注意：有颜色识别的列要加上预处理指令(#color)
+   ![img](resource\README\test4.png)
+5. 不正确的 war3 路径格式自动修改 `如：a\c\\b\\\\\s.blp 修改为 a\\c\\b\\s.blp`
+6. 支持科学计数法 `1,234,567.89e+6`，可以用英文逗号','
+7. 支持对象、数组、布尔值、数字、字符串，布尔值大写小写都行(true/false)
+8. 预处理指令
 
 - (#color) 颜色识别
 - (#default bbb) 设置默认值，该列空的单元格的值设置为 bbb
@@ -152,10 +94,12 @@ code 列可以写代码，import 放在 ts 文件最前面，其他放在 Start 
 
 ### **Excel 转 ini**
 
+- **物編 ID 冲突检测**
+  War3 物編 ID 不能重复，若有重复会自动检测并生成"物编 ID 冲突报告"
 - **物编表格**
   只有被识别成物编表格的 excel 文件的 sheet 才会生成 ini 文件，识别规则：
 
-  1. 白泽框架物编表格
+  1. 白泽框架物编表格中的 unit,ability,item 表格
      ![img](resource\README\test6.png)
   2. 通用物编表格：excel 文件名无要求，sheet 名第二行 key 值包括 `id和_parent`的表格
      ![img](resource\README\test7.png)
@@ -168,32 +112,36 @@ code 列可以写代码，import 放在 ts 文件最前面，其他放在 Start 
 
 ### 配置管理 ⚙️
 
-配置文件格式为`.cfg`，包含以下配置项：
+配置文件格式为 `.cfg`，包含以下配置项：
 
 - **路径参数**
 
-  - `input_path` ：输入路径
-  - `output_path` ：输出路径
-  - `w3x2lni_path` ：w3x2lni 可执行文件路径，开启 w3x 解析功能时必须配置
+  - `input_path` ：输入路径，Excel 文件所在目录
+  - `output_path` ：基础输出目录，所有转换结果的基础输出目录
+  - `ini_output` ：INI 文件路径，生成的 INI 文件额外复制到此路径下
+  - `w3x2lni_path` ：w3x2lni 工具路径，开启 w3x 解析功能时必须配置
 
 - **功能参数**
 
-  - `convert_to_ts` ：是否开启 Excel 到 TypeScript 功能
-  - `convert_to_lua` ：是否开启 Excel 到 Lua 功能
-  - `convert_to_json` ：是否开启 Excel 到 JSON 功能
-  - `convert_to_ini` ：是否开启 Excel 到 INI 功能
-  - `ini_output` ：ini 文件路径，会额外将导出的 ini 文件复制到此路径下，仅在 convert_to_ini 为 true 时有效
-  - `convert_ini_to_excel` ：是否开启 INI 到 Excel 功能
+  - `convert_to_ts` ：是否开启 Excel 到 TypeScript 转换
+  - `convert_to_lua` ：是否开启 Excel 到 Lua 转换
+  - `convert_to_json` ：是否开启 Excel 到 JSON 转换
+  - `convert_to_ini` ：是否开启 Excel 到 INI 转换
+  - `convert_ini_to_excel` ：是否开启 INI 到 Excel 转换
   - `parse_w3x` ：是否开启 w3x 解析功能
 
 - **辅助参数**
+
   - `baize_frame` ：是否启用白泽框架，默认：True
-  - `player_count` ：白泽框架，玩家数量，影响基础技能物编数量，默认：5
+  - `player_count` ：玩家数量，影响基础技能物编数量，默认：5
   - `recursive` ：是否递归处理输入目录，默认：True
   - `log_level` ：日志级别（DEBUG/INFO/WARNING/ERROR/CRITICAL），默认：INFO
   - `sort_by_alpha` ：生成表格是否按字母排序，默认：False
   - `font_size` ：Excel 导出字体大小，默认：14
   - `remove_empty_columns` ：生成 Excel 时删除全空列，默认：True
+  - `thread_count` ：处理 Excel 文件的线程数，0 表示自动(CPU 核心数+4)，默认：0
+  - `use_excel_cache` ：是否启用 Excel 解析缓存，提高重复处理效率，默认：True
+  - `enable_color_recognition` ：是否启用 Excel 单元格颜色识别功能，默认：False
 
 ### 命令行参数
 
@@ -201,7 +149,9 @@ code 列可以写代码，import 放在 ts 文件最前面，其他放在 Start 
 - `-o, --output`：输出目录，必须设置
 - `--ini-output`： ini 文件路径（可不设置）
 
----
+## 特别提醒
+
+1. 开启字符级颜色识别功能会导致转化过程变慢，因为是读取 excel 文件内每个字符的格式
 
 ## 功能演示
 
@@ -258,3 +208,62 @@ export class xlsx_test_Sheet1 {
   }
 }
 ```
+
+## 安装项目所需要 python 包
+
+1. Windows 用户:
+
+- 运行 setup.bat
+- 如果检测到 Anaconda 环境，会自动激活 base 环境
+- 脚本会启动 install_dependencies.py，提供交互式菜单选择创建环境或安装依赖
+
+2. 命令行:
+
+- 直接使用命令行参数:
+- python install_dependencies.py --create-env 创建新的 conda 环境
+- python install_dependencies.py --install-deps 在当前环境中安装依赖
+
+## 模式介绍 🚀
+
+- **命令行模式**
+  配置 vscode 任务：
+
+  ```json
+  {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "运行 main(命令行模式)",
+        "type": "shell",
+        "command": "python",
+        "args": [
+          "src/main.py",
+          "-i",
+          "else/Test/input", // 统一使用正斜杠避免转义问题
+          "-o",
+          "else/Test", // 含空格路径必须用双引号包裹
+          "--ini-output", //ini文件路径
+          "else/Test/initest"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      }
+    ]
+  }
+  ```
+
+- **GUI 模式**
+
+  运行程序后，会弹出 GUI 界面，选择需要的功能，点击转换按钮即可。
+
+---
+
+## 打包为可执行文件
+
+打包运行 build.py 即可，也可以新建一个 task 一键打包（执行 python build.py）

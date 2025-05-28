@@ -39,7 +39,7 @@ class ConfigDialog(QDialog):
     def init_ui(self):
         """
         初始化用户界面，自动生成控件。
-        - 创建TabWidget，分"路径设置"和"高级设置"两页。
+        - 创建TabWidget，分"路径设置"、"功能参数"和"高级设置"三页。
         - 每页自动遍历ConfigManager参数元信息，生成对应控件并添加到表单布局。
         - 支持QLineEdit、QComboBox、QSpinBox、QCheckBox等控件类型。
         - 生成的控件与参数名一一映射，便于后续同步。
@@ -60,6 +60,17 @@ class ConfigDialog(QDialog):
             self.param_widgets[key] = widget
             paths_form.addRow(meta.get("label", key), widget)
         tab_widget.addTab(paths_tab, "路径设置")
+
+        # --- 功能参数选项卡 ---
+        feature_tab = QWidget()
+        feature_form = QFormLayout()
+        feature_tab.setLayout(feature_form)
+        for key in ConfigManager.get_params_by_category("feature"):
+            meta = ConfigManager.get_param_meta(key)
+            widget = self._create_widget_for_param(key, meta)
+            self.param_widgets[key] = widget
+            feature_form.addRow(meta.get("label", key), widget)
+        tab_widget.addTab(feature_tab, "功能参数")
 
         # --- 辅助参数选项卡 ---
         assist_tab = QWidget()
@@ -106,7 +117,15 @@ class ConfigDialog(QDialog):
                     ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"])
         elif widget_type == "QSpinBox":
             widget = QSpinBox()
-            widget.setRange(8, 36)  # 字体大小范围
+            # 根据不同参数设置不同的范围
+            if key == "font_size":
+                widget.setRange(8, 36)  # 字体大小范围
+            elif key == "thread_count":
+                widget.setRange(0, 64)  # 线程数范围，0表示自动
+            elif key == "player_count":
+                widget.setRange(1, 12)  # 玩家数量范围
+            else:
+                widget.setRange(0, 100)  # 默认范围
         elif widget_type == "QCheckBox":
             widget = QCheckBox(meta.get("label", key))
         else:

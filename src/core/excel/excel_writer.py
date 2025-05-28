@@ -19,11 +19,25 @@ class ExcelWriter:
     同时提供自动格式优化功能，设置单元格边框、字体、对齐方式等。
     """
 
-    def __init__(self, template_path=r"resource\resource\物编.xlsx"):
+    def __init__(self, template_path="resource/resource/物编.xlsx"):
         # 初始化配置管理器
         self.config_manager = ConfigManager()
-        # 设置模板文件路径
-        self.template_path = template_path
+        # 设置模板文件路径，使用get_resource_path确保在开发环境和打包环境下都能找到资源
+        self.template_path = ProjectInfo.get_resource_path(template_path)
+
+        # 如果模板文件不存在，尝试其他可能的路径
+        if not os.path.exists(self.template_path):
+            # 尝试简化路径
+            simplified_path = "resource/物编.xlsx"
+            self.template_path = ProjectInfo.get_resource_path(simplified_path)
+
+            # 如果仍然不存在，尝试直接在当前目录查找
+            if not os.path.exists(self.template_path):
+                if os.path.exists("物编.xlsx"):
+                    self.template_path = "物编.xlsx"
+                elif os.path.exists("resource/物编.xlsx"):
+                    self.template_path = "resource/物编.xlsx"
+
         # 定义工作表映射关系，用于将内部类型名映射到Excel中的sheet名
         sheet_mapping = {}
         for key, value in OBJECT_TYPE_MAPPING.items():
@@ -31,7 +45,7 @@ class ExcelWriter:
         self.sheet_mapping = sheet_mapping
         # 初始化日志记录器
         self.logger = logging.getLogger(__name__)
-
+        self.logger.info(f"使用物编模板文件: {self.template_path}")
 
     def write_to_excel(self,
                        data_dict: Dict[str, Dict],

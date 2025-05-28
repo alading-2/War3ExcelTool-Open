@@ -9,7 +9,7 @@ export interface xlsx_inte_test_Sheet1 {
         "id"?: string;    // 自定义id
         "str"?: string;    // 字符串
         "icon"?: number | string;    // 路径
-        "default"?: string;    // 法抗:58117}
+        "default"?: any | string;    // 
         "num"?: number;    // 数字1
         "num1"?: number;    // 数字2
         "num2"?: number;    // 科学计数法
@@ -22,7 +22,7 @@ export interface xlsx_inte_test_Sheet1 {
 export const xlsx_data_test_Sheet1: xlsx_inte_test_Sheet1 = {
     "测试id1":{
         "id": "测试id1",
-        "str": "字|cffff0000符串|r测|cff00b050试1a|raaa|cff00b0f0bbbb|rcc|cffffc000ccd|rddd",
+        "str": "字符串测试1aaaabbbbccccdddd",
         "icon": "a\\c\\b\\s.blp",
         "default": "aaa",
         "num": 1234567.89,
@@ -36,7 +36,7 @@ export const xlsx_data_test_Sheet1: xlsx_inte_test_Sheet1 = {
         "id": "测试id2",
         "str": "字符串测试2",
         "icon": 40,
-        "default": "{防御:2785,",
+        "default": {'防御': 2785, '法抗': 58117},
         "num1": 15.897,
         "num2": 1234e3,
         "bool": false,
@@ -47,7 +47,7 @@ export const xlsx_data_test_Sheet1: xlsx_inte_test_Sheet1 = {
         "id": "测试id3",
         "str": "字符串测试3",
         "icon": 40,
-        "default": "{防御:2785,",
+        "default": {'防御': 2785, '法抗': 58117},
         "num1": -21.076,
         "num2": -1234.56e-3,
         "bool": true,
@@ -56,9 +56,9 @@ export const xlsx_data_test_Sheet1: xlsx_inte_test_Sheet1 = {
     },
     "测试id4":{
         "id": "测试id4",
-        "str": "字|cffff0000符串|r测|cff00b050试1a|raaa|cff00b0f0bbbb|rcc|cffffc000ccd|rddd",
+        "str": "字符串测试1aaaabbbbccccdddd",
         "icon": "a\\c\\b\\s.blp",
-        "default": "{防御:2785,",
+        "default": {'防御': 2785, '法抗': 58117},
         "num": 138,
         "num1": -58.049,
         "num2": 1234567.89e+6,
@@ -69,7 +69,7 @@ export const xlsx_data_test_Sheet1: xlsx_inte_test_Sheet1 = {
     "测试id5":{
         "id": "测试id5",
         "icon": "a\\c\\b\\s.blp",
-        "default": "{防御:2785,",
+        "default": {'防御': 2785, '法抗': 58117},
         "num": 139,
         "num1": -95.022,
         "num2": 1234567.89,
@@ -81,7 +81,7 @@ export const xlsx_data_test_Sheet1: xlsx_inte_test_Sheet1 = {
         "id": "测试id8",
         "str": "字符串测试8",
         "icon": "a\\c\\b\\s.blp",
-        "default": "{防御:2785,",
+        "default": {'防御': 2785, '法抗': 58117},
         "num": 140,
         "num1": -131.995,
         "num2": 1e10,
@@ -93,7 +93,7 @@ export const xlsx_data_test_Sheet1: xlsx_inte_test_Sheet1 = {
         "id": "测试id9",
         "str": "字符串测试9",
         "icon": "a\\c\\b\\s.blp",
-        "default": "{防御:2785,",
+        "default": {'防御': 2785, '法抗': 58117},
         "num": 141,
         "num1": -168.968,
         "num2": 1e11,

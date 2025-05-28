@@ -1,5 +1,8 @@
 import os  # 导入操作系统模块，用于处理文件路径
 import sys  # 导入系统模块，用于访问与Python解释器和系统相关的变量和函数
+
+project_root = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(project_root))
 import argparse
 from typing import Dict, Any
 
@@ -52,7 +55,16 @@ def main():
     # 获取当前脚本所在的目录
     main_abs_path: str = os.path.abspath(__file__)
     main_base_dir = os.path.dirname(main_abs_path)
-    config_path = os.path.join(main_base_dir, "config.cfg")
+
+    # 判断是否在打包环境中运行
+    if getattr(sys, 'frozen', False):
+        # 如果是打包后的exe，使用exe所在目录
+        exe_dir = os.path.dirname(sys.executable)
+        config_path = os.path.join(exe_dir, "config.cfg")
+    else:
+        # 开发环境
+        config_path = os.path.join(main_base_dir, "config.cfg")
+
     # 用ProjectInfo统一记录
     ProjectInfo.main_abs_path = main_abs_path
     ProjectInfo.main_base_dir = main_base_dir

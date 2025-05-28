@@ -21,28 +21,28 @@ export interface xlsx_inte_table_ability {
 export const xlsx_data_table_ability: xlsx_inte_table_ability = {
     "abil_1":{
         "name": "abil_1",
-        "icon": "|cffff0000ReplaceableTextures\\CommandButtons\\BTNBreathOfFrost.blp|r",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNBreathOfFrost.blp",
         "method": "被动",
         "range": 0,
         "area": 0
     },
     "abil_2":{
         "name": "abil_2",
-        "icon": "|cffff0000ReplaceableTextures\\CommandButtons\\BTNBreathOfFrost.blp|r",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNBreathOfFrost.blp",
         "method": "无目标",
         "range": 0,
         "area": 0
     },
     "abil_3":{
         "name": "abil_3",
-        "icon": "|cffff0000ReplaceableTextures\\CommandButtons\\BTNBreathOfFrost.blp|r",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNBreathOfFrost.blp",
         "method": "单位",
         "range": 800,
         "area": 0
     },
     "abil_4":{
         "name": "abil_4",
-        "icon": "|cffff0000ReplaceableTextures\\CommandButtons\\BTNBreathOfFrost.blp|r",
+        "icon": "ReplaceableTextures\\CommandButtons\\BTNBreathOfFrost.blp",
         "method": "点",
         "range": 800,
         "area": 500

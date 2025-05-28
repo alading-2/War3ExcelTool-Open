@@ -1,19 +1,23 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-from src.utils.project_info import ProjectInfo  # 导入项目信息
+# 不要在spec文件中直接导入项目模块，因为PyInstaller执行spec时可能找不到src模块
+# 改为直接使用字符串常量
+PROJECT_NAME = "War3ExcelTool"
 
 # Analysis块（核心配置）
 a = Analysis(
     # 主入口文件列表
-    [r"src\main.py"],
+    ["src/main.py"],
     # Python模块搜索路径（可添加自定义路径）
     pathex=[],
     # 需要包含的二进制文件（DLL、共享库等）
     binaries=[],
     # 需要包含的非代码文件（图片、配置文件等）
     datas=[
+        # 确保所有资源文件都被包含，并放在正确的位置
         ("resource/imbed/**", "resource/imbed"),
-        ("resource/resource/**", "resource/resource"),
+        ("resource/resource/**",
+         "resource"),  # 简化路径，将resource/resource内容直接放到resource下
     ],
     # 需要额外导入的模块列表。显式声明的隐藏导入（PyInstaller无法自动检测的依赖）
     hiddenimports=[],
@@ -30,14 +34,14 @@ a = Analysis(
     # 优化级别（0-2）
     optimize=0,
     # 设置构建缓存目录
-    workpath=r"package\build",  # ← 新增这行
+    workpath="package/build",  # ← 修改为正斜杠
 )
 
 # 打包Python字节码到ZIP文件
 pyz = PYZ(a.pure)  # a.pure表示所有纯Python模块
 
 splash = Splash(
-    r"resource\imbed\载入画面.png",
+    "resource/imbed/载入画面.png",
     binaries=a.binaries,
     datas=a.datas,
     text_pos=(30, 230),
@@ -54,7 +58,7 @@ exe = EXE(
     splash,
     splash.binaries,
     [],  # 空列表（旧版兼容）
-    name=ProjectInfo.name,  # 输出文件名（不带扩展名）
+    name=PROJECT_NAME,  # 输出文件名（不带扩展名）
     # workpath=r'package\build',
     # distpath=r'package\War3ExcelTool', # 设置输出目录和名称
     debug=False,  # 是否包含调试信息
@@ -69,5 +73,5 @@ exe = EXE(
     target_arch=None,  # 目标架构（x86/x64）
     codesign_identity=None,  # macOS代码签名标识
     entitlements_file=None,  # macOS权限配置文件
-    icon=r"resource\imbed\文件图标.ico",  # 可执行文件的图标路径
+    icon="resource/imbed/文件图标.ico",  # 可执行文件的图标路径
 )

@@ -179,14 +179,35 @@ class ConfigManager:
             "readonly": False,
             "desc": "生成基础技能等物编时的玩家数量，影响技能物编数量，默认为5。",
         },
+        "thread_count": {
+            "category": "assist",  # 参数分类：辅助参数
+            "default": 0,
+            "widget": "QSpinBox",
+            "label": "线程数",
+            "group": "辅助参数",
+            "readonly": False,
+            "desc": "处理Excel文件的线程数，0表示自动 (CPU核心数+4)。",
+        },
+        "enable_color_recognition": {
+            "category": "assist",  # 参数分类：辅助参数 
+            "default": False,
+            "widget": "QCheckBox",
+            "label": "启用颜色识别",
+            "group": "辅助参数",
+            "readonly": False,
+            "desc": "是否启用Excel单元格颜色识别功能（#color预处理指令）。",
+        },
     }
 
     # 默认配置字典（自动从PARAM_META生成，保证参数和元信息一致）
     DEFAULT_CONFIG = {k: v["default"] for k, v in PARAM_META.items()}
+    # 添加代码内定的参数，不对用户可见
+    DEFAULT_CONFIG["use_excel_cache"] = True
 
     # 静态配置字典，存储当前所有参数的值
     config = DEFAULT_CONFIG.copy()
-    default_config_path = r"resource\resource\config.cfg"  # 默认配置文件路径
+    # 路径变量修改为字符串而非具体路径，将在需要时通过get_resource_path转换
+    default_config_path = "resource/resource/config.cfg"  # 默认配置文件路径
     config_path = ""
 
     def __init__(self):
@@ -203,6 +224,8 @@ class ConfigManager:
         加载配置文件内容到config静态变量
         """
         ConfigManager.config = self._load_config()
+        # 确保use_excel_cache始终为True，每次程序启动时会在其他地方清除缓存
+        ConfigManager.config["use_excel_cache"] = True
 
     def _load_config(self) -> Dict[str, Any]:
         """
@@ -217,13 +240,29 @@ class ConfigManager:
             if not os.path.exists(ConfigManager.config_path):
                 self.logger.info(f"配置文件不存在: {ConfigManager.config_path}")
 
-                if os.path.exists(ConfigManager.default_config_path):
-                    self.logger.info(f"从默认位置复制配置文件: {ConfigManager.default_config_path}")
-                    shutil.copy(ConfigManager.default_config_path, ConfigManager.config_path)
+                # 使用get_resource_path获取正确的默认配置文件路径
+                default_config_abs_path = ProjectInfo.get_resource_path(
+                    ConfigManager.default_config_path)
+                if os.path.exists(default_config_abs_path):
+                    self.logger.info(f"从默认位置复制配置文件: {default_config_abs_path}")
+                    # 确保目标目录存在
+                    os.makedirs(os.path.dirname(ConfigManager.config_path),
+                                exist_ok=True)
+                    shutil.copy(default_config_abs_path,
+                                ConfigManager.config_path)
                 else:
                     # 默认配置文件也不存在，创建新文件
-                    self.logger.error("默认配置文件不存在")
-                    raise FileNotFoundError("默认配置文件不存在")
+                    self.logger.error(f"默认配置文件不存在: {default_config_abs_path}")
+                    # 使用内置默认值创建配置文件
+                    os.makedirs(os.path.dirname(ConfigManager.config_path),
+                                exist_ok=True)
+                    with open(ConfigManager.config_path, 'w',
+                              encoding='utf-8') as f:
+                        f.write("[config]\n")
+                        for key, value in self.DEFAULT_CONFIG.items():
+                            f.write(f"{key} = {value}\n")
+                    self.logger.info(
+                        f"已使用默认值创建配置文件: {ConfigManager.config_path}")
 
             # 加载配置文件内容
             self.logger.info(f"加载配置文件: {ConfigManager.config_path}")
@@ -262,14 +301,16 @@ class ConfigManager:
         try:
             # 确保配置文件目录存在
             os.makedirs(
-                os.path.dirname(ConfigManager.config_path) if os.path.dirname(ConfigManager.config_path) else ".",
+                os.path.dirname(ConfigManager.config_path)
+                if os.path.dirname(ConfigManager.config_path) else ".",
                 exist_ok=True,
             )
 
             # 读取现有文件内容（保留注释）
             existing_lines = []
             if os.path.exists(ConfigManager.config_path):
-                with open(ConfigManager.config_path, "r", encoding="utf-8") as f:
+                with open(ConfigManager.config_path, "r",
+                          encoding="utf-8") as f:
                     existing_lines = f.readlines()
 
             # 解析现有配置行，找出每个键所在行
@@ -350,7 +391,10 @@ class ConfigManager:
         Returns:
             参数名列表
         """
-        return [k for k, v in cls.PARAM_META.items() if v.get("category") == category]
+        return [
+            k for k, v in cls.PARAM_META.items()
+            if v.get("category") == category
+        ]
 
     @classmethod
     def get_param_widget_type(cls, key: str) -> str:
@@ -379,7 +423,8 @@ class ConfigManager:
         expected_type = type(meta["default"])
         try:
             if expected_type is bool:
-                return bool(value) if isinstance(value, bool) else str(value).lower() == "true"
+                return bool(value) if isinstance(
+                    value, bool) else str(value).lower() == "true"
             if expected_type is int:
                 return int(value)
             if expected_type is float:
@@ -403,7 +448,8 @@ class ConfigManager:
         expected_type = type(meta["default"])
         try:
             if expected_type is bool:
-                ConfigManager.config[key] = bool(value) if isinstance(value, bool) else str(value).lower() == "true"
+                ConfigManager.config[key] = bool(value) if isinstance(
+                    value, bool) else str(value).lower() == "true"
             elif expected_type is int:
                 ConfigManager.config[key] = int(value)
             elif expected_type is float:
