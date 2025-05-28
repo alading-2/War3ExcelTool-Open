@@ -25,10 +25,10 @@ War3ExcelTool 是批量处理表格的工具，可以用在 war3 作图，能够
 
 1. excel 表格第一行为注释行，不写入生成的文件中；第二行是 key 值，作为生成对象的键，第三行开始是数据行
 2. key 值为空的列不解析；id 为空或以//开头的行不解析，默认注释行
-   ![img](resource\README\test2.png)
+   ![1748428041761](image/README/1748428041761.png)
 3. 自动识别单元格数据类型，ts 识别成 number、string、boolean、any
 4. 支持字符级颜色识别，需注意：有颜色识别的列要加上预处理指令(#color)
-   ![img](resource\README\test4.png)
+   ![1748428056573](image/README/1748428056573.png)
 5. 不正确的 war3 路径格式自动修改 `如：a\c\\b\\\\\s.blp 修改为 a\\c\\b\\s.blp`
 6. 支持科学计数法 `1,234,567.89e+6`，可以用英文逗号','
 7. 支持对象、数组、布尔值、数字、字符串，布尔值大写小写都行(true/false)
@@ -36,7 +36,7 @@ War3ExcelTool 是批量处理表格的工具，可以用在 war3 作图，能够
 
 - (#color) 颜色识别
 - (#default bbb) 设置默认值，该列空的单元格的值设置为 bbb
-  ![img](resource\README\test5.png)
+  ![1748428082744](image/README/1748428082744.png)
   `"default": "bbb",`
 
 ---
@@ -49,7 +49,7 @@ War3ExcelTool 是批量处理表格的工具，可以用在 war3 作图，能够
 
     单位 id：`h004`开始，依次递增
     注意：`acquire=0`时，物编会写入 `weapsOn=0`，即单位不能攻击
-    ![img](resource\README\test8.png)
+    ![1748428097855](image/README/1748428097855.png)
 
   - **ability**
 
@@ -100,9 +100,9 @@ code 列可以写代码，import 放在 ts 文件最前面，其他放在 Start 
   只有被识别成物编表格的 excel 文件的 sheet 才会生成 ini 文件，识别规则：
 
   1. 白泽框架物编表格中的 unit,ability,item 表格
-     ![img](resource\README\test6.png)
+     ![1748428130157](image/README/1748428130157.png)
   2. 通用物编表格：excel 文件名无要求，sheet 名第二行 key 值包括 `id和_parent`的表格
-     ![img](resource\README\test7.png)
+     ![1748428139310](image/README/1748428139310.png)
   3. 如果物编 id 重复使用，会详细指出哪个 excel 文件，哪个 sheet，哪一行重复了
 
 - **war3ini 格式**
@@ -155,7 +155,7 @@ code 列可以写代码，import 放在 ts 文件最前面，其他放在 Start 
 
 ## 功能演示
 
-![excel测试数据](resource\README\test_excel.png)
+![1748428165997](image/README/1748428165997.png)
 
 ```ts
 export const xlsx_inte_keys_test_Sheet1 = [
