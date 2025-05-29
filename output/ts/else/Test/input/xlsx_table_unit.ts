@@ -1,10 +1,10 @@
 export const xlsx_inte_keys_table_unit = [
-"名字#color","类别","等级","基础生命值","攻击力","防御","cool1","spd","属性","acquire","rangeN1","movetp","moveHeight","file","modelScale","RGBA","弹道模型","弹道大小","弹道速度","collision","血条高度","unitSound","scale"
+"名字","类别","等级","基础生命值","攻击力","防御","cool1","spd","属性","acquire","rangeN1","movetp","moveHeight","file","modelScale","RGBA","弹道模型","弹道大小","弹道速度","collision","血条高度","unitSound","scale"
 ];
 
 export interface xlsx_inte_table_unit {
     [key: string]: {
-        "名字#color"?: string;    // 名字
+        "名字"?: string;    // 名字
         "类别"?: string;    // 类别
         "等级"?: number;    // 等级
         "基础生命值"?: number;    // 基础生命值
@@ -32,7 +32,7 @@ export interface xlsx_inte_table_unit {
 
 export const xlsx_data_table_unit: xlsx_inte_table_unit = {
     "助手":{
-        "名字#color": "助手",
+        "名字": "助手",
         "类别": "助手",
         "等级": 1,
         "基础生命值": 100,
@@ -55,7 +55,7 @@ export const xlsx_data_table_unit: xlsx_inte_table_unit = {
         "scale": 1
     },
     "单位":{
-        "名字#color": "单位",
+        "名字": "单位",
         "类别": "单位",
         "等级": 1,
         "基础生命值": 5000,
@@ -78,7 +78,7 @@ export const xlsx_data_table_unit: xlsx_inte_table_unit = {
         "scale": 1
     },
     "test":{
-        "名字#color": "test",
+        "名字": "test",
         "类别": "英雄",
         "等级": 1,
         "基础生命值": 5000,
@@ -101,7 +101,7 @@ export const xlsx_data_table_unit: xlsx_inte_table_unit = {
         "scale": 1
     },
     "剑圣":{
-        "名字#color": "剑圣",
+        "名字": "剑圣",
         "类别": "英雄",
         "等级": 1,
         "基础生命值": 5000,
@@ -124,7 +124,7 @@ export const xlsx_data_table_unit: xlsx_inte_table_unit = {
         "scale": 1
     },
     "冰雪法师":{
-        "名字#color": "冰雪法师",
+        "名字": "冰雪法师",
         "类别": "英雄",
         "等级": 1,
         "基础生命值": 5000,

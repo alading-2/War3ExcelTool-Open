@@ -49,12 +49,12 @@
         {
             "label": "测试exe（命令行模式）",
             "type": "shell",
-            "command": "E:\\Code\\Python\\War3ExcelTool\\package\\War3ExcelTool_1.0\\War3ExcelTool.exe",
+            "command": "E:\\now\\test\\War3ExcelTool_1.0\\War3ExcelTool.exe",
             "args": [
                 "-i",
-                "else/Test/excel", // 统一使用正斜杠避免转义问题
+                "E:\\now\\test\\input", // 统一使用正斜杠避免转义问题
                 "-o",
-                "else/Test", // 含空格路径必须用双引号包裹
+                "E:\\now\\test", // 含空格路径必须用双引号包裹
                 // "--ini-output",
                 // "else/Test/initest"
             ],
@@ -69,7 +69,7 @@
         {
             "label": "测试exe（GUI模式）",
             "type": "shell",
-            "command": "E:\\Code\\Python\\War3ExcelTool\\package\\War3ExcelTool_1.0\\War3ExcelTool.exe",
+            "command": "E:\\now\\test\\War3ExcelTool_1.0\\War3ExcelTool.exe",
             "options": {
                 "cwd": "${workspaceFolder}"
             },

@@ -70,9 +70,36 @@ def open_executable(exe_path):
         logger.error(f"错误: 找不到可执行文件 {exe_path}")
 
 
+def clean_package_directory():
+    """
+    清理package目录下的所有文件和文件夹
+    """
+    package_dir = "package"
+    if os.path.exists(package_dir):
+        logger.info(f"正在清理 {package_dir} 目录...")
+        for item in os.listdir(package_dir):
+            item_path = os.path.join(package_dir, item)
+            try:
+                if os.path.isfile(item_path):
+                    os.unlink(item_path)
+                    logger.info(f"已删除文件: {item_path}")
+                elif os.path.isdir(item_path):
+                    shutil.rmtree(item_path)
+                    logger.info(f"已删除目录: {item_path}")
+            except Exception as e:
+                logger.error(f"删除 {item_path} 时出错: {e}")
+        logger.info(f"{package_dir} 目录清理完成")
+    else:
+        logger.info(f"{package_dir} 目录不存在，正在创建...")
+        os.makedirs(package_dir)
+
+
 def build_executable():
     """使用PyInstaller构建可执行文件"""
     logger.info("使用PyInstaller构建可执行文件...")
+
+    # 清理package目录
+    clean_package_directory()
 
     # 添加UPX路径（如果有）
     os.environ['UPX_DIR'] = r'E:\upx-4.2.0-win64'

@@ -4,10 +4,12 @@
 
 War3ExcelTool 是批量处理表格的工具，可以用在 war3 作图，能够将 Excel 表格数据批量转换为 typescript、lua、ini 、json 文件，也能够将物编 ini 文件转换为 Excel 文件。
 
-## 仓库地址
+## 资源
 
-[gitee 下载地址]()
-[github 下载地址]()
+[gitee 下载](https://gitee.com/soviet1/war3-excel-tool_-open)
+[github 下载](https://github.com/alading-2/War3ExcelTool-Open)
+[B 站视频介绍](https://member.bilibili.com/platform/upload-manager/article)
+[交流群：909323422](https://qm.qq.com/q/Q9ysTcTLqe)
 
 ## 下载
 
@@ -36,7 +38,8 @@ War3ExcelTool 是批量处理表格的工具，可以用在 war3 作图，能够
 
 - (#color) 颜色识别
 - (#default bbb) 设置默认值，该列空的单元格的值设置为 bbb
-  ![1748428082744](image/README/1748428082744.png)
+
+- ![1748428082744](image/README/1748428082744.png)
   `"default": "bbb",`
 
 ---

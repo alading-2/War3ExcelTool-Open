@@ -439,7 +439,14 @@ def ini_process_files(
 
                         if ini_type in ini_data_dict:
                             # 合并数据
-                            ini_data_dict[ini_type].data_add(parsed_ini_data)
+                            for section, section_data in parsed_ini_data.items(
+                            ):
+                                if section in ini_data_dict[ini_type]:
+                                    logger.warning(
+                                        f"发现重复Section: {section}，已跳过")
+                                else:
+                                    ini_data_dict[ini_type][
+                                        section] = section_data
                             logger.info(f"合并 {ini_type} 类型的数据: {file}")
                         else:
                             # 添加新数据

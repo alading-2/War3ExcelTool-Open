@@ -21,8 +21,8 @@ from PyQt5.QtWidgets import (
     QMenu,
     QGridLayout,  # 添加 QGridLayout
 )
-from PyQt5.QtCore import Qt, QThread, pyqtSignal
-from PyQt5.QtGui import QTextCursor  # 添加 QTextCursor 导入
+from PyQt5.QtCore import Qt, QThread, pyqtSignal, QUrl
+from PyQt5.QtGui import QTextCursor, QDesktopServices  # 添加 QTextCursor 导入
 import functools
 
 # from src.core.excel_parser import ExcelParser # 不再在此处直接使用
@@ -307,7 +307,7 @@ class MainWindow(QMainWindow):
         """
         创建应用程序的菜单栏和菜单项。
         - 创建 "文件" 菜单，包含 "高级设置" 和 "退出" 选项。
-        - 创建 "帮助" 菜单，包含 "关于" 选项。
+        - 创建 "帮助" 菜单，包含 "关于" 和 "资源" 选项。
         - 将菜单项的 triggered 信号连接到相应的槽函数。
         """
         # 获取菜单栏
@@ -330,6 +330,31 @@ class MainWindow(QMainWindow):
 
         # --- 帮助菜单 ---
         help_menu = menu_bar.addMenu("帮助")
+
+        # 资源子菜单
+        resources_menu = QMenu("资源", self)
+        help_menu.addMenu(resources_menu)
+
+        # 添加资源链接
+        gitee_action = QAction("Gitee下载", self)
+        gitee_action.triggered.connect(lambda: self.open_url(
+            "https://gitee.com/soviet1/war3-excel-tool_-open"))
+        resources_menu.addAction(gitee_action)
+
+        github_action = QAction("GitHub下载", self)
+        github_action.triggered.connect(lambda: self.open_url(
+            "https://github.com/alading-2/War3ExcelTool-Open"))
+        resources_menu.addAction(github_action)
+
+        bilibili_action = QAction("B站视频介绍", self)
+        bilibili_action.triggered.connect(lambda: self.open_url(
+            "https://member.bilibili.com/platform/upload-manager/article"))
+        resources_menu.addAction(bilibili_action)
+
+        qq_group_action = QAction("交流群：909323422", self)
+        qq_group_action.triggered.connect(
+            lambda: self.open_url("https://qm.qq.com/q/Q9ysTcTLqe"))
+        resources_menu.addAction(qq_group_action)
 
         # 关于动作
         about_action = QAction("关于", self)
@@ -783,3 +808,12 @@ class MainWindow(QMainWindow):
                 "<p>可能是文件已被移动或删除。</p>"
                 "<p>您可以重新运行转换，生成新的冲突报告。</p>")
             error_msg.exec_()
+
+    def open_url(self, url):
+        """
+        打开指定的URL链接
+        
+        Args:
+            url: 要打开的URL
+        """
+        QDesktopServices.openUrl(QUrl(url))
